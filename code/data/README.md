@@ -21,7 +21,6 @@ task
 * complete
 * postedBy
 * completedBy
-* location
 
 taskType
 * id
