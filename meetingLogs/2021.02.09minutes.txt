@@ -1,8 +1,9 @@
 2021/02/09 Stand Up w/ TA Meeting minutes
 Milestone 1, Sprint 1 planned
 Greg is planning/working on DB
-We've been planning out architecture and brainstorming the design of the app.
+We've been working together to plan out architecture and brainstorming the design of the app.
 Architecture plan needs updating-create a more detailed diagram (i.e. hosting, what are the arrows, models to handle different functionality)
 	https://reinvently.com/wp-content/uploads/2019/08/scheme.jpg
 	https://docs.oracle.com/cd/E13174_01/alui/devdoc/docs5x/Overview_of_the_Portal_Architecture/PlumtreeDevDoc_Overview_Intro.htm
+Josh will make an improved architecture plan
 Docker will make development go more smoothely
