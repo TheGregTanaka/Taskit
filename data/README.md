@@ -15,27 +15,30 @@ task
 * id
 * title
 * typeID
+* statusID
 * description
 * offeredPrice
 * negotiable
-* complete
-* postedBy
-* completedBy
+* taskerID
+* workerID
+* datePosted
+* dateCompleted
+* rating
 
-taskType
+typeTask
 * id
 * type
+
+statusTask
+* id
+* status
 
 userProfile
 * id
 * email
 * password
-* typeID
 * name
 * profilePicture
 * phone
 * bio
 
-userType
-* id
-* type
