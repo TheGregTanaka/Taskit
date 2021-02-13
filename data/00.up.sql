@@ -1,3 +1,6 @@
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'Task123';
+FLUSH PRIVILEGES;
+
 USE `taskitDb`;
 
 CREATE TABLE typeTask
