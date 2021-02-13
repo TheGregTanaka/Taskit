@@ -12,6 +12,7 @@
 
 A React/NodeJS marketplace to facilitate short term free-lance work for small jobs and tasks.
 
+
 ## Setting up the project
 
 There is a directory `code` which contains all the source code for the project, and a directory `data` which contains scripts for the database. Both of these directories contain dockerfiles.
@@ -49,3 +50,12 @@ docker run -p 3000:3000 -v%cd%:/app --name taskitApp -d --link taskitDb taskitap
 (the build step might take a while. This is fine.) You shouldn't have to build too frequently, once you've created the image, you can simply run it with the run command. The `-v` option will mount the code directory to the app directory inside the container. This will allow you to edit files and see your changes while the container is running without needing to restart it.
 
 You should now be able to access the app through your browser at `0.0.0.0:3000`
+
+
+
+> ### Version Info
+> React v17.0.1
+>
+> node v14.15.5
+>
+> MySql v8.0.23
