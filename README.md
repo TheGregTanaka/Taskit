@@ -16,17 +16,6 @@ A React/NodeJS marketplace to facilitate short term free-lance work for small jo
 
 There is a directory `code` which contains all the source code for the project, and a directory `data` which contains scripts for the database. Both of these directories contain dockerfiles.
 
-### Code Docker
-
-```
-cd code
-docker build -t taskitapp .
-docker run -p 3000:3000 --name taskitApp -d taskitapp
-```
-(the build step might take a while. This is fine.)
-
-You should now be able to access the app through your browser at `0.0.0.0:3000`
-
 
 ### Data Docker
 
@@ -45,3 +34,18 @@ Password: Task123
 ```
 
 or on the command line: `docker exec -it taskitDb mysql -uroot -p`
+
+### Code Docker
+
+Run the data container first, so that it can be linked to this container.
+```
+cd code
+docker build -t taskitapp .
+#mac/linux
+docker run -p 3000:3000 -v`pwd`:/app --name taskitApp -d --link taskitDb taskitapp
+#windows
+docker run -p 3000:3000 -v%cd%:/app --name taskitApp -d --link taskitDb taskitapp
+```
+(the build step might take a while. This is fine.) You shouldn't have to build too frequently, once you've created the image, you can simply run it with the run command. The `-v` option will mount the code directory to the app directory inside the container. This will allow you to edit files and see your changes while the container is running without needing to restart it.
+
+You should now be able to access the app through your browser at `0.0.0.0:3000`
