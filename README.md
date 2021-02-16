@@ -46,6 +46,7 @@ docker build -t taskitapp .
 docker run -p 3000:3000 -v`pwd`:/app --name taskitApp -d --link taskitDb taskitapp
 #windows
 docker run -p 3000:3000 -v%cd%:/app --name taskitApp -d --link taskitDb taskitapp
+docker run -p 3000:3000 -v ${PWD}:/app --name taskitApp -d --link taskitDb taskitapp
 ```
 (the build step might take a while. This is fine.) You shouldn't have to build too frequently, once you've created the image, you can simply run it with the run command. The `-v` option will mount the code directory to the app directory inside the container. This will allow you to edit files and see your changes while the container is running without needing to restart it.
 
