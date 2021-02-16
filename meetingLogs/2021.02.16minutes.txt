@@ -1,0 +1,8 @@
+2021/16/09 Stand Up w/ TA Meeting minutes
+Milestone 2, Discussed progress on Sprint 1
+What's been done:
+Greg set up the DB, after the TA meeting we worked on getting it to work on all our machines.
+Josh finished the wireframes.
+What we're going to do:
+Everyone is clear on what to work on for the overall project progress & for Milestone 2.
+We need to continue working on getting docker to work on everyones computer in order to get a working code base.
