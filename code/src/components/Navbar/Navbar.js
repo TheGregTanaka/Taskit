@@ -16,8 +16,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar() {
+export default function Navbar({ loggedIn }) {
   const classes = useStyles();
+  const log = loggedIn ? "Log Out" : "Login";
 
   return (
     <AppBar position="fixed">
@@ -31,7 +32,7 @@ export default function Navbar() {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" className={classes.title}>TaskIt</Typography>
-        <Button color="inherit">Login</Button>
+        <Button color="inherit"><a href="/login">{log}</a></Button>
       </Toolbar>
     </AppBar>
   );
