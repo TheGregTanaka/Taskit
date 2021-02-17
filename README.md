@@ -79,7 +79,7 @@ Make sure you run the data container first, so that it can be linked to this con
 
 The build step will probably take a long time. This is fine. Fortunately, unless the dockerfile changes, you should not need to build again. The `-v` option will mount the code directory to the app directory inside the container. This will allow you to edit files and see your changes while the container is running without needing to restart it.
 
-The commend above runs the container in the forground. This is to mimic the typical behavior of npm recompiling and showing you errors in real time. If you wish to run the container detached (in the background), simply provide it the `-d` option.
+The commend above runs the container in the forground. This is to mimic the typical behavior of npm recompiling and showing you errors in real time. If you wish to run the container detached (in the background), simply provide it the `-d` option. Either way, you do not need to start npm manually as docker does this for you.
 
 Once the container runs, npm still needs to initialize. It may take a minute before you can access the application in the browser. If you are running in the foreground, it should be ready once you see `Compiled successfully!`
 
