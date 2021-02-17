@@ -1,14 +1,10 @@
-## Running Database
-From this directory run
+## TaskitDb
 
-`docker build -t mysql8 .`
+A dockerfile is provided to spin up a MySQL instance and run the scripts, however the scripts can be manually run to generate the database without docker. These must be run in sequence.
 
-`docker run -p 3306:3306 --name=taskitDb -d mysql8`
+`00.up.sql` contains the structure of the database, `01.up.sql` contains intial data.
 
-
-You should now have a test database with simple seed data accessible at 0.0.0.0:3306. The default password is `Task123`.
-
-
+See the README at the root of the project directory for details on running the database.
 
 ## Tables
 task
