@@ -1,0 +1,15 @@
+2021/23/09 Stand Up w/ TA Meeting minutes
+Milestone 2, Discussed progress
+
+What's been done:
+Greg worked around the db
+Josh and Manoj worked on User Stories
+Josh created epics and reorganized the user stories according to the epics.
+Jules, Josh, and Ryan questioned about the purpose of docker and whether we needed it in our project.
+
+What we're going to do:
+Greg - login page and user profile
+Ryan - landing page
+Josh - business page
+Jules - User feed
+Manoj - registration page
