@@ -1,4 +1,6 @@
 # initial data
+USE `taskitDb`;
+
 INSERT INTO typeTask 
 (`type`)
 VALUES
