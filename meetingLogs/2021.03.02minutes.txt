@@ -1,0 +1,17 @@
+03/02/2021 Stand Up w/ TA Meeting minutes
+Milestone 3, Discussed progress on back-end development and UI
+
+What's been done:
+Greg and Manoj finished setting up the back-end and began developing it.
+Jules has begun working on the UI and the edit profile page.
+Josh did architecture plan.
+Ryan did wireframing for landing page.
+Timothy finished developing wireframes, but was absent for the meeting.
+
+What we're going to do:
+Greg - Integrate login page, writting routes for registration, task creation, etc.
+Ryan - UI for landing page and integrating links to other pages
+Josh - UI for task creation, workspace, and business profile
+Jules - Build and integrate edit profile page, build navigation bar
+Manoj - Linking registration page with back-end 
+Tim - Create 'task component' and main feed
