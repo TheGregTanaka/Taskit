@@ -1,23 +1,26 @@
-ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'Task123';
+CREATE USER IF NOT EXISTS 'taskit'@'localhost' IDENTIFIED BY 'Task123';
+GRANT CREATE, DROP, DELETE, INSERT, SELECT, UPDATE ON `taskitDb`.`*` TO 'taskit'@'localhost';
+ALTER USER 'taskit' IDENTIFIED WITH mysql_native_password BY 'Task123';
 FLUSH PRIVILEGES;
 
+CREATE SCHEMA IF NOT EXISTS `taskitDb`;
 USE `taskitDb`;
 
-CREATE TABLE typeTask
+CREATE TABLE IF NOT EXISTS typeTask
 (
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     type VARCHAR(128)
 );
 CREATE UNIQUE INDEX typeTask_id_uindex ON typeTask (id);
 
-CREATE TABLE statusTask
+CREATE TABLE IF NOT EXISTS statusTask
 (
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     status VARCHAR(128)
 );
 CREATE UNIQUE INDEX statusTask_id_uindex ON statusTask (id);
 
-CREATE TABLE userProfile
+CREATE TABLE IF NOT EXISTS userProfile
 (
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     email VARCHAR(128) NOT NULL,
@@ -30,7 +33,7 @@ CREATE TABLE userProfile
 CREATE UNIQUE INDEX userProfile_id_uindex ON userProfile (id);
 CREATE UNIQUE INDEX user_email_uindex ON userProfile (email);
 
-CREATE TABLE task
+CREATE TABLE IF NOT EXISTS task
 (
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     title VARCHAR(64) NOT NULL,
