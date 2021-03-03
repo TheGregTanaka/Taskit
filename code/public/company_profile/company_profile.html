@@ -5,9 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Add icon lib -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="../company_profile/resources/css/style.css">
+  
     
     <title>Company Profile</title>
 </head>
@@ -38,30 +42,42 @@
     <div class="container">
         <div class="row">
 
-            <div class="col m5 l3 xl3 white accent-3">
+            <div class="col m5 l4 xl3 white accent-3">
               <!-- Grey navigation panel -->
               <div class="card">
-                <div class="card-image">
-                  <img class="img-profile-responsive" src="../company_profile/resources/img/img_profile.png" alt="">
-                </div>
+
+                <img class="circle img-profile-responsive" src="../company_profile/resources/img/img_profile.png" alt="">
 
                 <div class="card-content">
                   <center>
                     <span class="card-title">Firstname Lastname</span>
+                    
+                    <!-- The rating should be done in the backend specifically the stars should be created else change the class with unique id-->
+                    <span id='rating'>3.0</span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star unchecked"></span>
+                    <span class="fa fa-star unchecked"></span>
                   </center>
-                  
+                    <i class="fa fa-map-marker" style="color: black;"></i>
+                    <span id='location'>Location</span>
+
+                  <br>
+                  <br>
                   <p id='bio'>
                     "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga."
 
                   </p>
                 </div>
+
                 <div class="card-action">
                   <a href="#">Message</a>
-                </div>
+              </div>
               </div>
             </div>
       
-            <div class="col m7 l7 xl7 blue lighten-4">
+            <div class="col m7 l8 xl7 blue lighten-4">
               <!-- Teal page content  -->
               world
             </div>
