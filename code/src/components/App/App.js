@@ -4,6 +4,8 @@ import Dashboard from '../Dashboard/Dashboard';
 import Login from '../Login/Login';
 import Navbar from '../Navbar/Navbar';
 
+import CreateTask from '../CreateTask/CreateTask';
+
 import './App.css';
 
 function App() {
@@ -21,6 +23,11 @@ function App() {
             <Route path="/login" component={Login}>
               <Login setToken={setToken} loggedIn={loggedIn}/>
             </Route>
+
+            <Route path="/createTask" component={CreateTask}>
+              <CreateTask />
+            </Route>
+
             <Route path="/dashboard">
               <Dashboard />
             </Route>

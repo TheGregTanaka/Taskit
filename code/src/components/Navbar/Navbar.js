@@ -32,6 +32,11 @@ export default function Navbar({ loggedIn }) {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" className={classes.title}>TaskIt</Typography>
+
+
+        <Button color="inherit"><a href="/createTask">Create Task</a></Button>
+
+
         <Button color="inherit"><a href="/login">{log}</a></Button>
       </Toolbar>
     </AppBar>
