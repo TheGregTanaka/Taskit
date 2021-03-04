@@ -26,26 +26,37 @@ export default function Login({ setToken, loggedIn }) {
     return (<Redirect to="/dashboard" />);
   } else {
     return (
-      <div className="login-wrapper">
-        <header>Login</header>
-        <form onSubmit={handleSubmit}>
-          <label>
-            <p>Email</p>
-          <input type="text" 
-            placeholder="Email" 
-            onChange={e => setUserName(e.target.value)}/>
-          </label>
-          <label>
-            <p>Password</p>
-          <input type="password" 
-            placeholder="Password"
-            onChange={e => setPassword(e.target.value)}/>
-          </label>
-          <div>
-            <button type="submit">Submit</button>
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            <h1>Sign in with you <b>TaskIt</b> account</h1>
           </div>
-        </form>
+          <div className="col">
+            <div className="login-wrapper">
+                <header>Login</header>
+                <form onSubmit={handleSubmit}>
+                  <label>
+                    <p>Email</p>
+                  <input type="text" 
+                    placeholder="Email" 
+                    onChange={e => setUserName(e.target.value)}/>
+                  </label>
+                  <label>
+                    <p>Password</p>
+                  <input type="password" 
+                    placeholder="Password"
+                    onChange={e => setPassword(e.target.value)}/>
+                  </label>
+                  <div>
+                    <button type="submit">Submit</button>
+                  </div>
+                </form>
+              </div>
+          </div>
+        </div>
       </div>
+
+     
     );
   }
 }

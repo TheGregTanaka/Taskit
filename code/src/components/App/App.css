@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+.Task {
+  background-color: #cacaca;
+  color:#282c34;
+  height: 300;
+  width: 400;
+}

@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
 import Dashboard from '../Dashboard/Dashboard';
 import Login from '../Login/Login';
 import Navbar from '../Navbar/Navbar';
+import Feed from '../Feed/Feed';
+
 
 import CreateTask from '../CreateTask/CreateTask';
 
@@ -31,9 +34,14 @@ function App() {
             <Route path="/dashboard">
               <Dashboard />
             </Route>
+            <Route path="/feed">
+              <Feed />
+            </Route>
           </Switch>
         </BrowserRouter>
+
       </header>
+      
       <footer>
         <p>2021 Team 011_6 ERROR404</p>
         <a
