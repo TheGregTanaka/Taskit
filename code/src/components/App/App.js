@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+import CompanyProfile from '../CompanyProfile/CompanyProfile'
+import CreateTask from '../CreateTask/CreateTask';
 import Dashboard from '../Dashboard/Dashboard';
 import Login from '../Login/Login';
 import Navbar from '../Navbar/Navbar';
 import Feed from '../Feed/Feed';
 
 
-import CreateTask from '../CreateTask/CreateTask';
+
 
 import './App.css';
 
@@ -27,7 +29,11 @@ function App() {
               <Login setToken={setToken} loggedIn={loggedIn}/>
             </Route>
 
-            <Route path="/createTask" component={CreateTask}>
+            <Route path="/company_profile" component={CompanyProfile}>
+              <CompanyProfile />
+            </Route>
+
+            <Route path="/create_task" component={CreateTask}>
               <CreateTask />
             </Route>
 

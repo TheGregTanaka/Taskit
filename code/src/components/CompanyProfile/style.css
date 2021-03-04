@@ -1,0 +1,22 @@
+.img-profile-responsive {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.unchecked {
+    color: grey;   
+}
+
+p {
+    color: black;
+}
+
+span {
+    color: black;
+}
+
+.rowC {
+    display:flex; 
+    flex-direction:row;
+}
