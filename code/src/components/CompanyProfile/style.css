@@ -1,8 +1,20 @@
 .img-profile-responsive {
-    max-width: 100%;
+    max-width: 50%;
     height: auto;
     object-fit: cover;
 }
+
+.fit-in-container {
+    max-width: 80%;
+    height: auto;
+    object-fit: cover;
+}
+
+.bio {
+    color: black;
+    font-size: 50%;
+}
+
 
 .unchecked {
     color: grey;   
@@ -14,9 +26,4 @@ p {
 
 span {
     color: black;
-}
-
-.rowC {
-    display:flex; 
-    flex-direction:row;
 }
