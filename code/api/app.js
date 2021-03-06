@@ -4,17 +4,18 @@ const jwt = require('jsonwebtoken');
 
 const app = express();
 const db = require('./db.js');
-
 const port = process.env.PORT || 3200;
+
 const UserModel = require('./models/userProfile');
-const userRouter = require('./routes/userProfile')(UserModel);
 const TaskModel = require('./models/task');
+
+const userRouter = require('./routes/userProfile')(UserModel);
 const taskRouter = require('./routes/task')(TaskModel);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use('/userProfile', userRouter);
+app.use('/user', userRouter);
 app.use('/task', taskRouter);
 app.get('/', (req, res) => {
   var s = 'Welcome to the Taskit API. ' +

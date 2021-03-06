@@ -8,6 +8,7 @@ const UserProfile = function(user) {
   this.bio = user.bio;
 };
 
+
 UserProfile.create = (newUser, result) => {
   console.log(newUser);
   //TODO validate email field exists? Should be required field by form
@@ -28,6 +29,7 @@ UserProfile.create = (newUser, result) => {
           kStr += key + ",";
           vStr += `"${newUser[key]}",`;
         }
+        //remove final commas
         kStr = kStr.substring(0, kStr.length - 1) + ")";
         vStr = vStr.substring(0, vStr.length - 1) + ")";
 
@@ -44,7 +46,7 @@ UserProfile.create = (newUser, result) => {
           result(null, JSON.stringify({ id: res.rows.insertId, ...newUser }));
         });
       }
-  });
+    });
 };
 
 UserProfile.getOne = (userID, result) => {
@@ -77,32 +79,29 @@ UserProfile.getOne = (userID, result) => {
 };
 
 UserProfile.update = (id, user, result) => {
-  sql.executeQuery(
-    `UPDATE userProfile 
-     SET
-       email = ?
-       name = ?
-       profilePicture = ?
-       phone = ?
-       bio = ?
-     WHERE
-       id = ?`,
-    [user.email, user.name, user.profilePicture, user.phone, user.bio, id],
-    (err, res) => {
-      if (err) {
-        //TODO better error handling
-        console.log("ERROR! : ", err);
-        result(err, null);
-        return;
-      }
-      if (res.affectedRows == 0) {
-        result({ kind: "not_found" }, null);
-        return;
-      }
-
-      console.log("updated user: ", { id: id, ...user });
-      result(null, { id: id, ...user });
+  console.log(id);
+  var updateStr = `UPDATE userProfile SET`;
+  for (const key in user) {
+    updateStr += ` ${key} = "${user[key]}",`;
+  }
+  //remove final comma
+  updateStr = updateStr.substring(0, updateStr.length - 1);
+  updateStr += ` WHERE id = ${id};`;
+  sql.executeQuery(updateStr, (err, res) => {
+    if (err) {
+      //TODO better error handling
+      console.log("ERROR! : ", err);
+      result(err, null);
+      return;
     }
+    if (res.affectedRows == 0) {
+      result({ kind: "not_found" }, null);
+      return;
+    }
+
+    console.log("updated user: ", { id: id, ...user });
+    result(null, { id: id, ...user });
+  }
   );
 };
 
@@ -125,5 +124,12 @@ UserProfile.delete = (id, result) => {
   }
   );
 };
+
+//utilities - maybe create controllers class?
+UserProfile.calcRating = (userID) => {
+  //get tasks this user has completed
+  //calculate the average rating of those tasks
+  //k
+}
 
 module.exports = UserProfile;

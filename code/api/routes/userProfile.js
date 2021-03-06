@@ -25,7 +25,15 @@ function routes(UserProfile) {
     })
     //.put(UserProfile.update)
     .patch((req, res) => {
-      UserProfile.update(req.body, (err, res) => {})
+      UserProfile.update(req.params.userProfileID, req.body, (err, r) => {
+        if (err) {
+          console.log(err);
+          return res.send(err);
+        }
+        //todo proper response
+        return res.sendStatus(204);
+
+      })
     })
     .delete((req, res) => {
       req.userProfile.remove((err) => {

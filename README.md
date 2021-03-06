@@ -1,11 +1,11 @@
 # 3308SP21_011_6 - TaskIt
 
-* Jules Fischer-White - julesiam
-* Ryan Osler - GitOsler
-* Gregory Tanaka - TheGregTanaka
-* Joshua Truong - JTDev21
-* Timothy Waymouth - timway33
-* Manoj Yeddanapudy - maye7573
+* Jules Fischer-White - [julesiam](https://github.com/julesiam)
+* Ryan Osler - [GitOsler](https://github.com/GitOsler)
+* Gregory Tanaka - [TheGregTanaka](https://github.com/TheGregTanaka)
+* Joshua Truong - [JTDev21](https://github.com/JTDev21)
+* Timothy Waymouth - [timway33](https://github.com/timway33)
+* Manoj Yeddanapudy - [maye7573](https://github.com/maye7573)
 
 
 A React/NodeJS marketplace to facilitate short term free-lance work for small jobs and tasks.

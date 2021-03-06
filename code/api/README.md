@@ -3,10 +3,10 @@
 ## UserProfile Routes
 Route | Action | Body
 ---|---|---
-`POST /userProfile` | Creates new user | New user profile data
-`GET /userProfile/:userID` | Gets specified user by id | none
-`PATCH /userProfile/:userID` | Updates specified user | Fields and updated info
-`DELETE /userProfile/:userID` | Removes specifid user | none
+`POST /user` | Creates new user | New user profile data
+`GET /user/:userID` | Gets specified user by id | none
+`PATCH /user/:userID` | Updates specified user | Fields and updated info
+`DELETE /user/:userID` | Removes specifid user | none
 
 Data is returned as plain JSON.
 ```
