@@ -87,21 +87,21 @@ Task.get = (req, result) => {
 Task.getOne = (taskID, result) => {
   var q = queryStr + ` WHERE task.id = ${taskID}`;
   sql.executeQuery(q, (err, res) => {
-       if (err) {
-         //TODO better error handling
-         console.log("ERROR! : ", err);
-         result(err, null);
-         return;
-       }
-       if (res) {
-         console.log("found: ", JSON.stringify(res));
-         result(null, res['rows']);
-         return;
-       } else {
-         console.log("Res no length" + JSON.stringify(res));
-         return("HECC", null);
-       }
-     });
+    if (err) {
+      //TODO better error handling
+      console.log("ERROR! : ", err);
+      result(err, null);
+      return;
+    }
+    if (res) {
+      console.log("found: ", JSON.stringify(res));
+      result(null, res['rows']);
+      return;
+    } else {
+      console.log("Res no length" + JSON.stringify(res));
+      return("HECC", null);
+    }
+  });
 };
 
 Task.update = (id, user, result) => {

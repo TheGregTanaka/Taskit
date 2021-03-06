@@ -23,7 +23,7 @@ function routes(UserProfile) {
         return res.sendStatus(404);
       });
     })
-    //.put(UserProfile.update)
+  //.put(UserProfile.update)
     .patch((req, res) => {
       UserProfile.update(req.params.userProfileID, req.body, (err, r) => {
         if (err) {
