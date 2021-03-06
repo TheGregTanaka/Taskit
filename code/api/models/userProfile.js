@@ -23,7 +23,8 @@ UserProfile.create = (newUser, result) => {
         result(null, msg);
         return;
       } else {
-        let kStr = vStr = "(";
+        let kStr, vStr;
+        kStr = vStr = "(";
         for (const key in newUser) {
           console.log(`k ${key} v ${newUser[key]}\n`);
           kStr += key + ",";
@@ -94,7 +95,7 @@ UserProfile.update = (id, user, result) => {
       result(err, null);
       return;
     }
-    if (res.affectedRows == 0) {
+    if (res.affectedRows === 0) {
       result({ kind: "not_found" }, null);
       return;
     }
@@ -106,7 +107,7 @@ UserProfile.update = (id, user, result) => {
 };
 
 UserProfile.delete = (id, result) => {
-  sql.executeQuery("DELETE FROM userProfile WHERE id = ?", id, (err, res) => {
+  sql.executeQuery(`DELETE FROM userProfile WHERE id = ${id}`, (err, res) => {
     if (err) {
       //TODO better error handling
       console.log("ERROR! : ", err);
@@ -114,12 +115,12 @@ UserProfile.delete = (id, result) => {
       return;
     }
 
-    if (res.affectedRows == 0) {
+    if (res.affectedRows === 0) {
       result({ kind: "not_found" }, null);
       return;
     }
 
-    console.log("deleted user: ", { id: id, ...user });
+    console.log("deleted user: ", { id: id });
     result(null, res);
   }
   );

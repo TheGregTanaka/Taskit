@@ -32,13 +32,17 @@ Data is returned as plain JSON, with each task (if multiple returned) being its 
   {
     "id":1,
     "title":"Task1",
-    "typeID":1,
-    "statusID":1,
+    "typeID":5,
+    "type":"Tech",
+    "statusID":2,
+    "status":"Accepted",
     "description":"description",
     "offeredPrice":1.0,
     "negotiable":0,
     "taskerID":1,
-    "workerID":null,
+    "tasker":"Tasker Name",
+    "workerID":2,
+    "worker":"Worker Name",
     "datePosted":"2021-02-08T07:00:00.000Z",
     "dateCompleted":null,
     "rating":null
@@ -47,15 +51,21 @@ Data is returned as plain JSON, with each task (if multiple returned) being its 
     "id":2,
     "title":"varchar",
     "typeID":1,
+    "type":"Yard Work",
     "statusID":1,
+    "status":"Pending",
     "description":"longtext",
     "offeredPrice":0.0,
     "negotiable":0,
     "taskerID":1,
+    "tasker":"Tasker Name",
     "workerID":null,
+    "worker":null,
     "datePosted":"2021-02-08T07:00:00.000Z",
     "dateCompleted":null,
     "rating":null
   }
 ]
 ```
+
+Important notes: `taskerID` will be set at creation, and is a non-nullable field. `workerID` on the other hand will not be set until a worker has accepted the task and may then be null.

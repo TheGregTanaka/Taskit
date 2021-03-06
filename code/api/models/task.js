@@ -7,6 +7,28 @@ const Task = function(user) {
   this.phone = user.phone;
   this.bio = user.bio;
 };
+const queryStr = `SELECT 
+    task.id, 
+    task.title, 
+    task.typeID, 
+    typeTask.type,
+    task.statusID, 
+    statusTask.status,
+    task.description, 
+    task.offeredPrice, 
+    task.negotiable, 
+    task.taskerID, 
+    tasker.name as tasker,
+    task.workerID, 
+    worker.name as worker,
+    task.datePosted,
+    task.dateCompleted,
+    task.rating
+  FROM task 
+  JOIN typeTask ON task.typeID = typeTask.id
+  JOIN statusTask ON task.statusID = statusTask.id
+  JOIN userProfile as tasker ON task.taskerID = tasker.id
+  LEFT JOIN userProfile as worker ON task.workerID = worker.id`;
 
 Task.create = (newTask, result) => {
   sql.executeQuery("INSERT INTO task SET ?", newTask, (err, res) => {
@@ -32,32 +54,20 @@ Task.get = (req, result) => {
     console.log('type!');
     query.type = req.query.type;
   }
-  var queryStr = `SELECT id, 
-      title, 
-      typeID, 
-      statusID, 
-      description, 
-      offeredPrice, 
-      negotiable, 
-      taskerID, 
-      workerID, 
-      datePosted,
-      dateCompleted,
-      rating
-    FROM task`;
+  var q = queryStr;
   //TODO validate better and protect against sql injection
   if (Object.keys(query).length > 0) {
     console.log('!!');
-    queryStr += " WHERE ";
+    q += " WHERE ";
     var first = true;
     for (const key in query) {
-      queryStr += first ? "" : " AND ";
-      queryStr += `${key}ID = ${query[key]}`;
+      q += first ? "" : " AND ";
+      q += `${key}ID = ${query[key]}`;
       first = false;
     }
   }
 
-  sql.executeQuery(queryStr, (err, res) => {
+  sql.executeQuery(q, (err, res) => {
     if (err) {
       //TODO better error handling
       console.log("ERROR! : ", err);
@@ -75,12 +85,8 @@ Task.get = (req, result) => {
 }
 
 Task.getOne = (taskID, result) => {
-  //TODO better query
-  console.log(`task.getOne ${taskID}`);
-  sql.executeQuery(
-    `SELECT *
-     FROM task
-     WHERE id = ${ taskID }`, (err, res) => {
+  var q = queryStr + ` WHERE task.id = ${taskID}`;
+  sql.executeQuery(q, (err, res) => {
        if (err) {
          //TODO better error handling
          console.log("ERROR! : ", err);
