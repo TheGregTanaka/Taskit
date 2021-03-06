@@ -14,7 +14,15 @@ function routes(Task) {
         return res.sendStatus(404);
       });
     })
-    .post(Task.create);
+    .post((req, res) => {
+      Task.create(req.body, (err, msg) => {
+        if (err) {
+          console.log(err);
+          return res.sendStatus(500);
+        }
+        return res.json(msg);
+      });
+    });
 
   router.route('/:taskID')
     .get((req, res) => {

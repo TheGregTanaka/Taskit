@@ -31,7 +31,21 @@ const queryStr = `SELECT
   LEFT JOIN userProfile as worker ON task.workerID = worker.id`;
 
 Task.create = (newTask, result) => {
-  sql.executeQuery("INSERT INTO task SET ?", newTask, (err, res) => {
+  let kStr, vStr;
+  kStr = vStr = "(";
+  for (const key in newTask) {
+    console.log(`k ${key} v ${newTask[key]}\n`);
+    kStr += key + ",";
+    vStr += `"${newTask[key]}",`;
+  }
+  //remove final commas
+  kStr = kStr.substring(0, kStr.length - 1) + ")";
+  vStr = vStr.substring(0, vStr.length - 1) + ")";
+
+  const insertStr = `INSERT INTO task ${kStr} VALUES ${vStr};`;
+
+
+  sql.executeQuery(insertStr, (err, res) => {
     if (err) {
       //TODO better error handling
       console.log("ERROR! : ", err);
@@ -39,10 +53,10 @@ Task.create = (newTask, result) => {
       return;
     }
 
-    console.log("created task: ", { id: res.insertId, ...newTask });
-    result(null, { id: res.insertId, ...newTask });
+    console.log("created task: ", { id: res.rows.insertId, ...newTask });
+    result(null, { id: res.rows.insertId, ...newTask });
   });
-};
+}
 
 Task.get = (req, result) => {
   var query = {};
@@ -57,7 +71,6 @@ Task.get = (req, result) => {
   var q = queryStr;
   //TODO validate better and protect against sql injection
   if (Object.keys(query).length > 0) {
-    console.log('!!');
     q += " WHERE ";
     var first = true;
     for (const key in query) {
