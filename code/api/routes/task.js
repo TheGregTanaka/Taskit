@@ -3,20 +3,31 @@ const express = require('express');
 function routes(Task) {
   const router = express.Router();
   router.route('/')
+    .get((req, res) => {
+      Task.get(req, (err, task) => {
+        if(err) {
+          return res.send(err);
+        }
+        if (task) {
+          return res.json(task);
+        }
+        return res.sendStatus(404);
+      });
+    })
     .post(Task.create);
 
   router.route('/:taskID')
     .get((req, res) => {
-        Task.getOne(req.params.taskID, (err, task) => {
-          if(err) {
-            return res.send(err);
-          }
-          if (task) {
-            return res.json(task);
-          }
-          return res.sendStatus(404);
-        });
-      })
+      Task.getOne(req.params.taskID, (err, task) => {
+        if(err) {
+          return res.send(err);
+        }
+        if (task) {
+          return res.json(task);
+        }
+        return res.sendStatus(404);
+      });
+    })
     .put(Task.update)
     .patch((req, res) => {
       const { task } = req;

@@ -9,16 +9,41 @@ const UserProfile = function(user) {
 };
 
 UserProfile.create = (newUser, result) => {
-  sql.executeQuery("INSERT INTO userProfile SET ?", newUser, (err, res) => {
-    if (err) {
-      //TODO better error handling
-      console.log("ERROR! : ", err);
-      result(err, null);
-      return;
-    }
+  console.log(newUser);
+  //TODO validate email field exists? Should be required field by form
+  //check if existing user
+  sql.executeQuery(`SELECT email FROM userProfile WHERE email = "${newUser['email']}";`, 
+    (err, res) => {
+      if (err) {console.log(err);}
+      if (res['rows'].length > 0) {
+        //TODO send redirect to login page
+        const msg = "User already exists! Doing nothing.";
+        console.log(msg);
+        result(null, msg);
+        return;
+      } else {
+        let kStr = vStr = "(";
+        for (const key in newUser) {
+          console.log(`k ${key} v ${newUser[key]}\n`);
+          kStr += key + ",";
+          vStr += `"${newUser[key]}",`;
+        }
+        kStr = kStr.substring(0, kStr.length - 1) + ")";
+        vStr = vStr.substring(0, vStr.length - 1) + ")";
 
-    console.log("created user: ", { id: res.insertId, ...newUser });
-    result(null, { id: res.insertId, ...newUser });
+        const insertStr = `INSERT INTO userProfile ${kStr} VALUES ${vStr};`;
+        sql.executeQuery(insertStr, (err, res) => {
+          if (err) {
+            //TODO better error handling
+            console.log("ERROR! : ", err);
+            result(err, null);
+            return;
+          }
+
+          //console.log("created user: ", { id: res.rows.insertId, ...newUser });
+          result(null, JSON.stringify({ id: res.rows.insertId, ...newUser }));
+        });
+      }
   });
 };
 
@@ -45,8 +70,8 @@ UserProfile.getOne = (userID, result) => {
          result(null, res['rows']);
          return;
        } else {
-        console.log("Res no length" + JSON.stringify(res));
-        return("HECC", null);
+         console.log("Res no length" + JSON.stringify(res));
+         return("HECC", null);
        }
      });
 };

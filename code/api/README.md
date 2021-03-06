@@ -20,11 +20,11 @@ Data is returned as plain JSON.
 ```
 
 ## Task Routes
-Route | Action | Body
----|---|---
-`POST /task` | Creates new task | New task data
-`GET /task` | Gets a listing of all tasks | none
-`GET /task/:taskID` | Gets task by id | none
+Route | Action | Body | Query String Parameters
+---|---|---|---
+`POST /task` | Creates new task | New task data |
+`GET /task` | Gets a listing of all tasks | none | `status`, `type`
+`GET /task/:taskID` | Gets task by id | none |
 
 Data is returned as plain JSON, with each task (if multiple returned) being its own row.
 ```

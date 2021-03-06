@@ -22,6 +22,58 @@ Task.create = (newTask, result) => {
   });
 };
 
+Task.get = (req, result) => {
+  var query = {};
+  if (req.query.status) {
+    console.log('stat!');
+    query.status = req.query.status;
+  }
+  if (req.query.type) {
+    console.log('type!');
+    query.type = req.query.type;
+  }
+  var queryStr = `SELECT id, 
+      title, 
+      typeID, 
+      statusID, 
+      description, 
+      offeredPrice, 
+      negotiable, 
+      taskerID, 
+      workerID, 
+      datePosted,
+      dateCompleted,
+      rating
+    FROM task`;
+  //TODO validate better and protect against sql injection
+  if (Object.keys(query).length > 0) {
+    console.log('!!');
+    queryStr += " WHERE ";
+    var first = true;
+    for (const key in query) {
+      queryStr += first ? "" : " AND ";
+      queryStr += `${key}ID = ${query[key]}`;
+      first = false;
+    }
+  }
+
+  sql.executeQuery(queryStr, (err, res) => {
+    if (err) {
+      //TODO better error handling
+      console.log("ERROR! : ", err);
+      result(err, null);
+      return;
+    }
+    if (res) {
+      result(null, res['rows']);
+      return;
+    } else {
+      console.log("ERROR" + JSON.stringify(res));
+      return("HECC", null);
+    }
+  });
+}
+
 Task.getOne = (taskID, result) => {
   //TODO better query
   console.log(`task.getOne ${taskID}`);
@@ -36,13 +88,12 @@ Task.getOne = (taskID, result) => {
          return;
        }
        if (res) {
-         //console.log("found: ", res['row']);
          console.log("found: ", JSON.stringify(res));
          result(null, res['rows']);
          return;
        } else {
-        console.log("Res no length" + JSON.stringify(res));
-        return("HECC", null);
+         console.log("Res no length" + JSON.stringify(res));
+         return("HECC", null);
        }
      });
 };
@@ -52,7 +103,7 @@ Task.update = (id, user, result) => {
 };
 
 Task.delete = (id, result) => {
-//TODO
+  //TODO
 };
 
 module.exports = Task;
