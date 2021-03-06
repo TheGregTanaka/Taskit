@@ -8,8 +8,7 @@ import Login from '../Login/Login';
 import Navbar from '../Navbar/Navbar';
 import Feed from '../Feed/Feed';
 
-
-
+import Review from '../Review/Review';
 
 import './App.css';
 
@@ -37,12 +36,17 @@ function App() {
               <CreateTask />
             </Route>
 
+            <Route path="/review">
+              <Review />
+            </Route>
+
             <Route path="/dashboard">
               <Dashboard />
             </Route>
             <Route path="/feed">
               <Feed />
             </Route>
+
           </Switch>
         </BrowserRouter>
 

@@ -1,23 +1,31 @@
+.tasker_img_div {
+    padding: 0;
+    margin: 5% 3% 5% 10%;
+}
+
 .img-profile-responsive {
-    max-width: 25%;
+    max-width: 50px;
     height: auto;
     object-fit: cover;
 }
 
+.name {
+    font-size: small;
+    white-space: nowrap;
+}
+
 .review_box {
     border-bottom: 0.25vw solid #D3D3D3;
+    margin: 1% 1% 1% 1%;
+    padding: 0;
 }
 
 .review_desc {
     color: black;
-    font-size: 50%;
-    margin: 1% 5% 2% 1%;
-}
-
-.unchecked {
-    color: grey;
-}
-
-.name {
     font-size: small;
+    margin-top: 1%;
+}
+
+Rating {
+    font-size: 75%;
 }
