@@ -3,6 +3,7 @@
 ## UserProfile Routes
 Route | Action | Body
 ---|---|---
+`POST /login` | Authenticate user | Body should contain the email and hashed password
 `POST /user` | Creates new user | New user profile data
 `GET /user/:userID` | Gets specified user by id | none
 `PATCH /user/:userID` | Updates specified user | Fields and updated info
