@@ -2,7 +2,7 @@
 
 A dockerfile is provided to spin up a MySQL instance and run the scripts, however the scripts can be manually run to generate the database without docker. These must be run in sequence.
 
-`00.up.sql` contains the structure of the database, `01.up.sql` contains intial data.
+`00.up.sql` contains the structure of the database, `01.up.sql` contains intial data. Subsequent files will be for alterations and migrations made durring the development process.
 
 See the README at the root of the project directory for details on running the database.
 
@@ -41,6 +41,9 @@ See the README at the root of the project directory for details on running the d
 * profilePicture - _(varchar128)_
 * phone - _(varchar20)_
 * bio - _(longtext)_
+* token - _(varchar128) *_
+
+##### \* jwt refresh token for use with login 
 
 ### Key
 _PK_ = Primary Key (these auto increment used to index the table)
