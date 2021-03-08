@@ -47,18 +47,20 @@ export default function Navbar({ loggedIn }) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleClose}><a href="/edit_profile">Profile</a></MenuItem>
         <MenuItem onClick={handleClose}>My account</MenuItem>
         <MenuItem onClick={handleClose}>Logout</MenuItem>
        
       </Menu>
         <Typography variant="h6" className={classes.title}>TaskIt</Typography>
+        
+        <Button color="inherit"><a href="/dashboard">Dashboard</a></Button>
         <Button color="inherit"><a href="/company_profile">Company Profile</a></Button>
         <Button color="inherit"><a href="/create_task">Create Task</a></Button>
-        <Button color="inherit"><a href="/feed">Feed</a></Button>
 
 
         <Button color="inherit"><a href="/login">{log}</a></Button>
+        <Button color="inherit"><a href="/registeration">Sign Up</a></Button>
       </Toolbar>
     </AppBar>
   );

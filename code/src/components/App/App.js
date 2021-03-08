@@ -6,9 +6,11 @@ import CreateTask from '../CreateTask/CreateTask';
 import Dashboard from '../Dashboard/Dashboard';
 import Login from '../Login/Login';
 import Navbar from '../Navbar/Navbar';
+import Registration from '../Registration/Registration'
 import Feed from '../Feed/Feed';
+import Workspace from '../Workspace/Workspace'
 
-import AddressForm from '../CreateTask/AddressForm'
+
 
 import './App.css';
 
@@ -25,23 +27,33 @@ function App() {
       <header className="App-header">
         <BrowserRouter>
           <Switch>
-            <Route path="/login" component={Login}>
-              <Login setToken={setToken} loggedIn={loggedIn}/>
-            </Route>
-
+            
             <Route path="/company_profile" component={CompanyProfile}>
               <CompanyProfile />
             </Route>
 
             <Route path="/create_task">
-              <AddressForm />
+              <CreateTask />
             </Route>
 
             <Route path="/dashboard">
               <Dashboard />
             </Route>
+
+            <Route path="/login" component={Login}>
+              <Login setToken={setToken} loggedIn={loggedIn}/>
+            </Route>
+
+            <Route path="/registeration">
+              <Registration />
+            </Route>
+
             <Route path="/feed">
               <Feed />
+            </Route>
+
+            <Route path="/workspace">
+              <Workspace />
             </Route>
 
           </Switch>

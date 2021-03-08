@@ -9,7 +9,7 @@ const Review = ({username, description, ratingVal, img}) => {
                 <div className='col s5 m3'>
                     <div className='row'>
                         <div className='col tasker_img_div'>
-                            <img className="circle img-profile-responsive" src={img} alt="Profile Image"/>
+                            <img className="circle reviewer-profile-img" src={img} alt="Profile Image"/>
                         </div>
                         <div className='col'>
                             <span className="name"><b>{username}</b></span>
