@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -39,11 +39,12 @@ export default function Registration() {
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" style={{backgroundColor: "white", marginCenter:'3%'}} >
       <CssBaseline />
       <div className={classes.paper}>
+      <Typography variant="h5" color="textPrimary"> Join the Commuinty for Free</Typography>
       {/*<Avatar alt="TaskIT" src="/Users/ManojYeddanapudy/sign_up/Taskit.jpg" className={classes.large} />*/}
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
