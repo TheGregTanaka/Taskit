@@ -117,19 +117,6 @@ const CompanyProfile = () => {
                         {previousTasks.map((previousTask) => (<div className="col"><Tasks img={previousTask.img} name={previousTask.name} price={previousTask.price} 
                                                                 description={previousTask.description} location={previousTask.location} 
                                                                 deadline={previousTask.deadline}/></div> ))}
-                        
-                        {/* <div className="col">
-                            <Feed />
-                        </div>
-                        <div className="col">
-                            <Feed />
-                        </div>
-                        <div className="col">
-                            <Feed />
-                        </div>
-                        <div className="col">
-                            <Feed />
-                        </div> */}
                     </div>
 
                     <hr/>

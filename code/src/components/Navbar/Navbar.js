@@ -55,8 +55,7 @@ export default function Navbar({ loggedIn }) {
         <Typography variant="h6" className={classes.title}>TaskIt</Typography>
         
         <Button color="inherit"><a href="/dashboard">Dashboard</a></Button>
-        <Button color="inherit"><a href="/company_profile">Company Profile</a></Button>
-        <Button color="inherit"><a href="/create_task">Create Task</a></Button>
+        <Button color="inherit"><a href="/workspace">Workspace</a></Button>
 
 
         <Button color="inherit"><a href="/login">{log}</a></Button>

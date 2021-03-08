@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import CompanyProfile from '../CompanyProfile/CompanyProfile'
+
 import CreateTask from '../CreateTask/CreateTask';
 import Dashboard from '../Dashboard/Dashboard';
 import Login from '../Login/Login';
@@ -28,10 +28,6 @@ function App() {
       <header className="App-header">
         <BrowserRouter>
           <Switch>
-            
-            <Route path="/company_profile" component={CompanyProfile}>
-              <CompanyProfile />
-            </Route>
 
             <Route path="/create_task">
               <CreateTask />
