@@ -1,4 +1,6 @@
+require('dotenv').config();
 const sql = require("../db.js");
+const jwt = require('jsonwebtoken');
 
 const UserProfile = function(user) {
   this.email = user.email;
@@ -8,18 +10,46 @@ const UserProfile = function(user) {
   this.bio = user.bio;
 };
 
-UserProfile.create = (newUser, result) => {
-  sql.executeQuery("INSERT INTO userProfile SET ?", newUser, (err, res) => {
-    if (err) {
-      //TODO better error handling
-      console.log("ERROR! : ", err);
-      result(err, null);
-      return;
-    }
 
-    console.log("created user: ", { id: res.insertId, ...newUser });
-    result(null, { id: res.insertId, ...newUser });
-  });
+UserProfile.create = (newUser, result) => {
+  console.log(newUser);
+  //TODO validate email field exists? Should be required field by form
+  //check if existing user
+  sql.executeQuery(`SELECT email FROM userProfile WHERE email = "${newUser['email']}";`, 
+    (err, res) => {
+      if (err) {console.log(err);}
+      if (res['rows'].length > 0) {
+        //TODO send redirect to login page
+        const msg = "User already exists! Doing nothing.";
+        console.log(msg);
+        result(null, msg);
+        return;
+      } else {
+        let kStr, vStr;
+        kStr = vStr = "(";
+        for (const key in newUser) {
+          console.log(`k ${key} v ${newUser[key]}\n`);
+          kStr += key + ",";
+          vStr += `"${newUser[key]}",`;
+        }
+        //remove final commas
+        kStr = kStr.substring(0, kStr.length - 1) + ")";
+        vStr = vStr.substring(0, vStr.length - 1) + ")";
+
+        const insertStr = `INSERT INTO userProfile ${kStr} VALUES ${vStr};`;
+        sql.executeQuery(insertStr, (err, res) => {
+          if (err) {
+            //TODO better error handling
+            console.log("ERROR! : ", err);
+            result(err, null);
+            return;
+          }
+
+          //console.log("created user: ", { id: res.rows.insertId, ...newUser });
+          result(null, JSON.stringify({ id: res.rows.insertId, ...newUser }));
+        });
+      }
+    });
 };
 
 UserProfile.getOne = (userID, result) => {
@@ -45,44 +75,41 @@ UserProfile.getOne = (userID, result) => {
          result(null, res['rows']);
          return;
        } else {
-        console.log("Res no length" + JSON.stringify(res));
-        return("HECC", null);
+         console.log("Res no length" + JSON.stringify(res));
+         return("HECC", null);
        }
      });
 };
 
 UserProfile.update = (id, user, result) => {
-  sql.executeQuery(
-    `UPDATE userProfile 
-     SET
-       email = ?
-       name = ?
-       profilePicture = ?
-       phone = ?
-       bio = ?
-     WHERE
-       id = ?`,
-    [user.email, user.name, user.profilePicture, user.phone, user.bio, id],
-    (err, res) => {
-      if (err) {
-        //TODO better error handling
-        console.log("ERROR! : ", err);
-        result(err, null);
-        return;
-      }
-      if (res.affectedRows == 0) {
-        result({ kind: "not_found" }, null);
-        return;
-      }
-
-      console.log("updated user: ", { id: id, ...user });
-      result(null, { id: id, ...user });
+  console.log(id);
+  var updateStr = `UPDATE userProfile SET`;
+  for (const key in user) {
+    updateStr += ` ${key} = "${user[key]}",`;
+  }
+  //remove final comma
+  updateStr = updateStr.substring(0, updateStr.length - 1);
+  updateStr += ` WHERE id = ${id};`;
+  sql.executeQuery(updateStr, (err, res) => {
+    if (err) {
+      //TODO better error handling
+      console.log("ERROR! : ", err);
+      result(err, null);
+      return;
     }
+    if (res.affectedRows === 0) {
+      result({ kind: "not_found" }, null);
+      return;
+    }
+
+    console.log("updated user: ", { id: id, ...user });
+    result(null, { id: id, ...user });
+  }
   );
 };
 
 UserProfile.delete = (id, result) => {
-  sql.executeQuery("DELETE FROM userProfile WHERE id = ?", id, (err, res) => {
+  sql.executeQuery(`DELETE FROM userProfile WHERE id = ${id}`, (err, res) => {
     if (err) {
       //TODO better error handling
       console.log("ERROR! : ", err);
@@ -90,15 +117,83 @@ UserProfile.delete = (id, result) => {
       return;
     }
 
-    if (res.affectedRows == 0) {
+    if (res.affectedRows === 0) {
       result({ kind: "not_found" }, null);
       return;
     }
 
-    console.log("deleted user: ", { id: id, ...user });
+    console.log("deleted user: ", { id: id });
     result(null, res);
   }
   );
 };
+
+UserProfile.login = (req, result) => {
+  //verify email and pass match stored creds
+  const email = req.email;
+  const password = req.password;
+  var id;
+  var dbPw;
+  var accessToken, refresToken;
+  sql.executeQuery(`SELECT id, password FROM userProfile WHERE email = "${email}";`, 
+    (err, res) => {
+      if (err) {
+        //buble up TODO better message
+        result(err, null);
+        return;
+      }
+      if (res.rows.length > 1) {
+        result("Data error, two matches for this email", null);
+        return;
+      }
+      if (res.rows.length === 0) {
+        result(null, "No user found with that email.");
+        return;
+      }
+      id = res['rows'][0].id;
+      dbPw = res['rows'][0].password;
+      //no email/prompt register
+      //TODO figure out if this is right
+      if (!password || password !== dbPw) {
+        console.log(`${password} !== ${dbPw}`);
+        result("Bad password!", null);
+        return;
+      }
+
+      const payload = {email: email}
+      accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+        algorithm: "HS256",
+        expiresIn: process.env.ACCESS_TOKEN_LIFE
+      });
+      refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
+        algorithm: "HS256",
+        expiresIn: process.env.REFRESH_TOKEN_LIFE
+      });
+
+      //store refresh token in DB
+      sql.executeQuery(`UPDATE userProfile SET token = "${refreshToken}" WHERE id = ${id};`,
+        (e, r) => {
+          if (e) {
+            result(e, null);
+            return;
+          }
+          console.log("token saved");
+        }
+      );
+      
+
+      //send access token to client inside cookie
+      result(null, accessToken);
+      return;
+    }
+  );
+}
+
+//utilities - maybe create controllers class?
+UserProfile.calcRating = (userID) => {
+  //get tasks this user has completed
+  //calculate the average rating of those tasks
+  //k
+}
 
 module.exports = UserProfile;

@@ -1,17 +1,14 @@
 var pool = require('./config/datapool');
 
-exports.executeQuery = function(query,callback) {
-  pool.getConnection(function(err,connection) {
-    console.log("Connection got");
+exports.executeQuery = function(query, callback) {
+  pool.getConnection(function(err, connection) {
     if (err) {
-      console.log("Connection err");
       callback(err);
       return;
     }   
-    connection.query(query,function(err,results){
-      console.log("Connection query" + query);
-      console.log("Connection res" + results);
-      console.log("Connection err" + err);
+    connection.query(query, function(err, results){
+      console.log("Query: " + query);
+
       connection.release();
       if(!err) {
         callback(false, {rows: results});
@@ -19,7 +16,7 @@ exports.executeQuery = function(query,callback) {
     });
     connection.on('error', function(err) {      
       callback(err);
-      return;     
+      return;
     });
   });
 }
