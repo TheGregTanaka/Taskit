@@ -54,7 +54,7 @@ export default function Navbar({ loggedIn }) {
       </Menu>
         <Typography variant="h6" className={classes.title}>TaskIt</Typography>
         <Button color="inherit"><a href="/company_profile">Company Profile</a></Button>
-        <Button color="inherit"><a href="/createTask">Create Task</a></Button>
+        <Button color="inherit"><a href="/create_task">Create Task</a></Button>
         <Button color="inherit"><a href="/feed">Feed</a></Button>
 
 

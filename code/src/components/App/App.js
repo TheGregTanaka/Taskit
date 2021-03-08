@@ -8,9 +8,10 @@ import Login from '../Login/Login';
 import Navbar from '../Navbar/Navbar';
 import Feed from '../Feed/Feed';
 
-import Review from '../Review/Review';
+import AddressForm from '../CreateTask/AddressForm'
 
 import './App.css';
+
 
 function App() {
   const [token, setToken] = useState();
@@ -32,12 +33,8 @@ function App() {
               <CompanyProfile />
             </Route>
 
-            <Route path="/create_task" component={CreateTask}>
-              <CreateTask />
-            </Route>
-
-            <Route path="/review">
-              <Review />
+            <Route path="/create_task">
+              <AddressForm />
             </Route>
 
             <Route path="/dashboard">
