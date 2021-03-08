@@ -7,6 +7,7 @@ import Dashboard from '../Dashboard/Dashboard';
 import Login from '../Login/Login';
 import Navbar from '../Navbar/Navbar';
 import Registration from '../Registration/Registration'
+import RateWorker from '../RateWorker/RateWorker'
 import Feed from '../Feed/Feed';
 import Workspace from '../Workspace/Workspace'
 
@@ -46,6 +47,10 @@ function App() {
 
             <Route path="/registeration">
               <Registration />
+            </Route>
+
+            <Route path="/rate_worker">
+              <RateWorker />
             </Route>
 
             <Route path="/feed">

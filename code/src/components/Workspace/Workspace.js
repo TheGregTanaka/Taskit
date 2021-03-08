@@ -6,11 +6,21 @@ const Workspace = () => {
     return (
         <div>
             <div className="row">
-                {/* <div className="col">
-                    <button></button>
-                </div> */}
-                <button>Add</button>
+                <div className="col" style={{float:"left"}}>
+                    <button>View Company Profile</button>
+                </div>
+                <div className="col" style={{float:"right"}}>
+                    <button>Create Tasks</button>
+                </div>
+                
             </div>
+
+            <div className="row">
+                <div className="col" style={{float:"left"}}>
+                    <h6>Priority/Accepted Tasks</h6>
+                </div>
+            </div>
+
             <div className="row">
                 <div className="col">
                     <DetailedFeed />
@@ -25,6 +35,9 @@ const Workspace = () => {
                     <DetailedFeed />
                 </div>
             </div>
+
+            <hr/>
+
         </div>
     )
 }
