@@ -1,0 +1,18 @@
+03/09/2021 Stand Up w/ TA Meeting minutes
+Discussed progress on UI and start of back-end integration
+
+What's been done:
+Greg: Built back-end routes and set up API routes for create/update users, tasks and login.
+Tim: Reusable task components and linking them with the feed.
+Jules: Profile and edit profile page (haven't finished).
+Manoj: Drop-down menu, started on job posting board for workers.
+Josh: Built Taskit's business profile.
+Ryan: Working on landing page.
+
+What we're going to do:
+Greg: Work on integrating back-end with front end and helping team members do the same.
+Tim: Improve feed UI and integrate it with the back-end.
+Jules: Continue working on profile and edit profile pages.
+Manoj: Connect login page with back-end.
+Josh: Finish messaging system.
+Ryan: Finish landing page.
