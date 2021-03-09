@@ -24,7 +24,9 @@ function App() {
   }
   return (
     <div className="App">
+
       <Navbar loggedIn={loggedIn}/>
+
       <header className="App-header">
         <BrowserRouter>
           <Switch>

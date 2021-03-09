@@ -86,7 +86,7 @@ const previousTasks = [
 
 const CompanyProfile = () => {
     return (
-        <div style={{margin: "5% 1% 5% 5%"}}>
+        <div style={{margin: "2% 1% 5% 5%"}}>
             <div className="row">
                 <div className="col l2 white accent-3">
                     <div className="card bio">
