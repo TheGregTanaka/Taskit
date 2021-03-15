@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import CompanyProfile from '../CompanyProfile/CompanyProfile'
+
 import CreateTask from '../CreateTask/CreateTask';
 import Dashboard from '../Dashboard/Dashboard';
 import Login from '../Login/Login';
 import Navbar from '../Navbar/Navbar';
+import Registration from '../Registration/Registration'
+import RateWorker from '../RateWorker/RateWorker'
 import Feed from '../Feed/Feed';
+import Workspace from '../Workspace/Workspace'
 
-import Review from '../Review/Review';
+
 
 import './App.css';
+
 
 function App() {
   const [token, setToken] = useState();
@@ -20,31 +24,39 @@ function App() {
   }
   return (
     <div className="App">
+
       <Navbar loggedIn={loggedIn}/>
+
       <header className="App-header">
         <BrowserRouter>
           <Switch>
-            <Route path="/login" component={Login}>
-              <Login setToken={setToken} loggedIn={loggedIn}/>
-            </Route>
 
-            <Route path="/company_profile" component={CompanyProfile}>
-              <CompanyProfile />
-            </Route>
-
-            <Route path="/create_task" component={CreateTask}>
+            <Route path="/create_task">
               <CreateTask />
-            </Route>
-
-            <Route path="/review">
-              <Review />
             </Route>
 
             <Route path="/dashboard">
               <Dashboard />
             </Route>
+
+            <Route path="/login" component={Login}>
+              <Login setToken={setToken} loggedIn={loggedIn}/>
+            </Route>
+
+            <Route path="/registeration">
+              <Registration />
+            </Route>
+
+            <Route path="/rate_worker">
+              <RateWorker />
+            </Route>
+
             <Route path="/feed">
               <Feed />
+            </Route>
+
+            <Route path="/workspace">
+              <Workspace />
             </Route>
 
           </Switch>

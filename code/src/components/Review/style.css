@@ -3,7 +3,7 @@
     margin: 5% 3% 5% 10%;
 }
 
-.img-profile-responsive {
+.reviewer-profile-img {
     max-width: 50px;
     height: auto;
     object-fit: cover;
@@ -24,8 +24,5 @@
     color: black;
     font-size: small;
     margin-top: 1%;
-}
-
-Rating {
-    font-size: 75%;
+    text-align: left;
 }

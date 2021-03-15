@@ -1,43 +1,42 @@
-import PropTypes from 'prop-types'
-
-function CreateTask() {
-    return (
-        <div className="container">
-            <h1>Create a Task</h1>
-            <form > {/*onSubmit={}*/}
-
-            </form>
-
-
-
-
-            
-{/*             
-            <div class="row">
-                <div class="col s12 m7">
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="https://image.freepik.com/free-vector/glitch-error-404-page_23-2148105404.jpg"></img>
-                            <span class="card-title">Card Title</span>
-                        </div>
-                        <div class="card-content">
-                            <p style={{color: "black"}}>I am a very simple card. I am good at containing small bits of information.
-                                I am convenient because I require little markup to use effectively.
-                            </p>
-                        </div>
-                        <div class="card-action">
-                            <a href="#">This is a link</a>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
-
-
-
-
-        </div>
-
-   )
+function CreateTask (){
+    return(
+        <>
+            <center>
+                <h5>Create a Task</h5>
+            </center>
+            <div>
+                <form>
+                    <label>
+                        Task name: 
+                        <input type="text" name="task_name"/>
+                    </label>
+                    <label>
+                        Price:
+                        <input type="number" name="task_price" placeholder="USD"/>
+                    </label>
+                    <label>
+                        Description: 
+                        {/* <input type="text" name="task_desc" maxLength="1200" placeholder="I will"/> */}
+                        <br/>
+                        <textarea id="task_desc" maxLength="1200" style={{width:"100%", height:"150px"}} placeholder={"I will"}/>
+                    </label>
+                    <label>
+                        Location: 
+                        <input type="text" name="task_loc"/>
+                    </label>
+                    <label>
+                        Deadline: 
+                        <input type="date" name="task_deadline"/>
+                    </label>
+                    <label>
+                        Image:
+                        <br/>
+                        <input type="file" id="img" name="task_img" accept="image/*"></input>
+                    </label>
+                    
+                </form>
+            </div>
+        </>
+    )
 }
-
-export default CreateTask
+export default CreateTask;
