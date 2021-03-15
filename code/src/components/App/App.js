@@ -10,6 +10,7 @@ import Registration from '../Registration/Registration'
 import RateWorker from '../RateWorker/RateWorker'
 import Feed from '../Feed/Feed';
 import Workspace from '../Workspace/Workspace'
+import EditProfile from '../EditProfile/EditProfile'
 
 
 
@@ -57,6 +58,10 @@ function App() {
 
             <Route path="/workspace">
               <Workspace />
+            </Route>
+            
+            <Route path="/editprofile">
+              <EditProfile />
             </Route>
 
           </Switch>
