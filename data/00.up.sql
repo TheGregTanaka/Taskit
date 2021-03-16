@@ -1,6 +1,10 @@
+
 CREATE USER IF NOT EXISTS 'taskit'@'localhost' IDENTIFIED BY 'Task123';
 GRANT CREATE, DROP, DELETE, INSERT, SELECT, UPDATE ON `taskitDb`.`*` TO 'taskit'@'localhost';
-ALTER USER 'taskit' IDENTIFIED WITH mysql_native_password BY 'Task123';
+ALTER USER 'taskit'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Task123';
+CREATE USER IF NOT EXISTS 'taskit'@'%' IDENTIFIED BY 'Task123';
+GRANT CREATE, DROP, DELETE, INSERT, SELECT, UPDATE ON `taskitDb`.`*` TO 'taskit'@'%';
+ALTER USER 'taskit'@'%' IDENTIFIED WITH mysql_native_password BY 'Task123';
 FLUSH PRIVILEGES;
 
 CREATE SCHEMA IF NOT EXISTS `taskitDb`;
