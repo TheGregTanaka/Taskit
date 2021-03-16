@@ -1,0 +1,17 @@
+The UI is largely done, so we mostly need to integrate the backend. We decided to use axios to make api calls from react.
+
+Jules: Working with node, plugging back end routes into front end components
+Manoj: Registration page, also working on integrating backend with front end
+Ryan: Landing Page updates, working with react and building modular components
+Greg: Login JWT, working on DB connection issues
+Josh: Connected front end to back end with fetch, refactoring to axios, working on DB connection issues.
+Tim: Building out task and feed components. Possible issues with pagination of tasks, although hopefully api resolves this.
+
+Possible blockers: Since api is used to access database, connection issues make testing routes/integrating with the front end difficult.
+
+Notes from team meeting immediately following stand up
+We will be trying to meet with professor Ashraf to discuss database to ensure the team has a better understanding of this. 
+We will likely need to make some updates to the structure of the db to accomodate features (such as location)
+Some issues have been encountered in places with code modularity, we agreed we want to prioritize working functionality, and we can refactor 
+and reorganize later as needed.
+Josh suggested we look into lazy-loading, and Tim who is working on the feed is looking into this.
