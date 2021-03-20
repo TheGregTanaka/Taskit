@@ -8,6 +8,8 @@ exports.executeQuery = function(query, callback) {
     }   
     connection.query(query, function(err, results){
       console.log("Query: " + query);
+      console.log("\n" + err);
+      console.log("\n" + results);
 
       connection.release();
       if(!err) {

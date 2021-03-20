@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-
+import axios from 'axios';
 
 import CreateTask from '../CreateTask/CreateTask';
 import Dashboard from '../Dashboard/Dashboard';
@@ -16,9 +16,30 @@ import EditProfile from '../EditProfile/EditProfile'
 
 import './App.css';
 
+const api = 'http://localhost:3200';
+
+axios.interceptors.request.use(
+  config => {
+    const { origin } = new URL(config.url);
+    const allowedOrigins = [api];
+    const token = localStorage.getItem('token');
+
+    if (allowedOrigins.includes(origin)) {
+      config.headers.authorizations = `Bearer ${token}`;
+    }
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  }
+);
 
 function App() {
-  const [token, setToken] = useState();
+  const jwt = localStorage.getItem('token');
+  const [token, setToken] = useState(jwt || null);
+  const getJwt = async() => {
+    const {data } = await axios.get(`${api}/jwt`);
+  }
   let loggedIn = true;
   if (!token) {
     loggedIn = false;
