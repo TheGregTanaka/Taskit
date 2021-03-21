@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 //const jwt = require('jsonwebtoken');
 
+const cors = require('cors');
 const app = express();
 const db = require('./db.js');
 const port = process.env.PORT || 3200;
@@ -14,13 +15,18 @@ const TaskModel = require('./models/task');
 const userRouter = require('./routes/userProfile')(UserModel);
 const login = require('./routes/login')(UserModel);
 const taskRouter = require('./routes/task')(TaskModel);
+const reviewRouter = require('./routes/review');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
+
 
 app.use('/user', userRouter);
 app.use('/login', login);
 app.use('/task', taskRouter);
+app.use(reviewRouter);
+
 app.get('/', (req, res) => {
   var s = 'Welcome to the Taskit API. ' +
     '<a href="https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/blob/main/code/api/README.md">' +
