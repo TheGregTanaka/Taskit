@@ -6,11 +6,7 @@ exports.executeQuery = function(query, callback) {
       callback(err);
       return;
     }   
-    connection.query(query, function(err, results){
-      console.log("Query: " + query);
-      console.log("\n" + err);
-      console.log("\n" + results);
-
+    connection.query(query, function(err, results) {
       connection.release();
       if(!err) {
         callback(false, {rows: results});

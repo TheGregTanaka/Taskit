@@ -57,3 +57,15 @@ CREATE TABLE IF NOT EXISTS task
     CONSTRAINT task_worker_fk FOREIGN KEY (workerID) REFERENCES userProfile (id)
 );
 CREATE UNIQUE INDEX task_id_uindex ON task (id);
+
+
+CREATE TABLE IF NOT EXISTS review
+(
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    rating float NOT NULL,
+    description LONGTEXT,
+    
+    taskID INT,
+    CONSTRAINT review_task_id_fk FOREIGN KEY (taskID) REFERENCES task (id)
+);
+CREATE UNIQUE INDEX review_id_uindex ON review (id);

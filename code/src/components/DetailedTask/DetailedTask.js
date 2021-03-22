@@ -25,6 +25,8 @@ class DetailedTask extends Component {
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2" align="left">
               {name} - <b>${price}</b>
+
+                <Button size="small" color="primary" class="fa fa-check" style={{color:"green", float:"right", border:"0", backgroundColor:"white"}}/>
             </Typography>
 
             <Typography
@@ -90,7 +92,7 @@ class DetailedTask extends Component {
           </Button>
           <Button size="small" color="primary" variant="outlined">
             Message
-          </Button>
+          </Button>          
         </CardActions>
       </Card>
     );

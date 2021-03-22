@@ -8,6 +8,9 @@ import Tasks from '../Atoms/Tasks'
 import StarRating from '../StarRating/StarRating'
 import Review from '../Review/Review'
 
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
 const company = [
     {
         name: 'Taskit',
@@ -16,37 +19,6 @@ const company = [
         bio: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.',
     }
 ]
-const reviewers = [
-    {
-        key: '893c5fc6-57d2-45eb-8634-40520d551cb1',
-        username: "John Doe",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-        rating: 3.5,
-        img: img_profile,
-    },
-    {
-        key: '49012a3b-4e34-429c-b6f9-e4867c2b3fe2',
-        username: "JT",
-        description: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        rating: 3,
-        img: img_profile,
-    },
-    {
-        key: 'ab6ab93b-7d16-44f0-a66e-a64099478484',
-        username: "Scarlet",
-        description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        rating: 1,
-        img: img_profile,
-    },
-    {
-        key: '3375565d-9dd5-4311-a738-e6d50d485db5',
-        username: "tester",
-        description: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        rating: 3.5,
-        img: img_profile,
-    }
-]
-
 
 const previousTasks = [
     {
@@ -83,8 +55,30 @@ const previousTasks = [
     }
 ]
 
+const CompanyProfile = () => {  
+    const [reviews, setReviews] = useState([]);
+    const [tasks, setTasks] = useState([]);
+    const [err, setErr] = useState(false);
 
-const CompanyProfile = () => {
+    useEffect(() => {
+        axios.all([
+            axios.get("http://localhost:3200/review"),
+            axios.get("http://localhost:3200/task")
+        ])
+        .then(axios.spread((reviewRes, taskRes) => {
+            setReviews(reviewRes.data);
+            setTasks(taskRes.data);
+            setErr(false);
+
+            console.log("Reviews Res: ", reviews);
+            console.log("Tasks ResL ", tasks);
+        }))
+        .catch(err => {
+            setErr(true);
+            console.log(err);
+        });
+    }, []);
+
     return (
         <div style={{margin: "2% 1% 5% 5%"}}>
             <div className="row">
@@ -114,18 +108,15 @@ const CompanyProfile = () => {
                 </div>
                 <div className="col l10 fit-in-container" style={{backgroundColor: 'white'}}>
                     <div className="row" style={{marginTop:'1%'}}>
-                        {previousTasks.map((previousTask) => (<div className="col"><Tasks img={previousTask.img} name={previousTask.name} price={previousTask.price} 
-                                                                description={previousTask.description} location={previousTask.location} 
-                                                                deadline={previousTask.deadline}/></div> ))}
+                        {!err && tasks.map((task) => (<div className="col"><Tasks img="!#" name={task.title} price={task.offeredPrice} 
+                                                                description={task.description} location="" 
+                                                                deadline={task.datePosted}/></div> ))}
                     </div>
-
                     <hr/>
-
                     <div className="row">
-                        {reviewers.map((reviewer) => (<Review key={reviewer.key} username={reviewer.username} description={reviewer.description} ratingVal={reviewer.rating} img={reviewer.img}/>))}
+                        {!err & reviews.map((reviewer) => (<Review key={reviewer.key} username={reviewer.username} description={reviewer.description} ratingVal={reviewer.rating} img={reviewer.img}/>))}
                     </div>
                 </div>
-
             </div>
         </div>
     )

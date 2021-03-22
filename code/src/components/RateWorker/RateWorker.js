@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Modal from 'react-modal';
 import Rating from '@material-ui/lab/Rating';
 import Box from "@material-ui/core/Box";
+import axios from 'axios';
 
 const customStyles = {
     content : {
@@ -16,15 +17,12 @@ const customStyles = {
 };
 
 function RateWorker (){
-
     const [modalIsOpen,setModalIsOpen] = useState(false);
-
     const setModalIsOpenToTrue =()=>{
         setModalIsOpen(true)
     }
-
     const setModalIsOpenToFalse =()=>{
-        setModalIsOpen(false)
+        setModalIsOpen(false);
     }
 
     return(
