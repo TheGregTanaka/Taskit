@@ -7,7 +7,7 @@ exports.executeQuery = function(query, callback) {
       return;
     }   
     connection.query(query, function(err, results){
-      console.log("Query: " + query);
+      // console.log("Query: " + query);
 
       connection.release();
       if(!err) {

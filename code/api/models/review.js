@@ -32,7 +32,7 @@ Review.get = (req, result) => {
     var queryLen = Object.keys(queryParams).length;
     if (queryLen == 0) {
         // If there's no query params return all reviews
-        console.log(queryLen, "param passed");
+        console.log("[/models/Review.js]", queryLen, "param passed");
         sql.executeQuery('SELECT * from review', (err, res) => {
             if (err) { result(err, null); }
             if (res) { result(null, res['rows']); }
@@ -40,7 +40,7 @@ Review.get = (req, result) => {
         });
     } else {
         // If query params exists process information
-        console.log(queryLen, "param passed");
+        console.log("[/models/Review.js]", queryLen, "param passed");
 
         var validParam = ['id', 'taskID'];
         var queryStr = 'SELECT * from review WHERE';
