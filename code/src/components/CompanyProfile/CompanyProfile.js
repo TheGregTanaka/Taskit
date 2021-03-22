@@ -8,6 +8,9 @@ import Tasks from '../Atoms/Tasks'
 import StarRating from '../StarRating/StarRating'
 import Review from '../Review/Review'
 
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
 const company = [
     {
         name: 'Taskit',
@@ -47,7 +50,6 @@ const reviewers = [
     }
 ]
 
-
 const previousTasks = [
     {
         img: imag,
@@ -83,8 +85,18 @@ const previousTasks = [
     }
 ]
 
+const CompanyProfile = () => {  
+    const [reviews, setReviews] = useState([]);
 
-const CompanyProfile = () => {
+    useEffect(() => {
+        axios
+            .get("http://localhost:3200/review")
+            .then(response => setReviews(response.data));
+        
+    }, []);
+
+    console.log(reviews);
+    
     return (
         <div style={{margin: "2% 1% 5% 5%"}}>
             <div className="row">
@@ -118,14 +130,11 @@ const CompanyProfile = () => {
                                                                 description={previousTask.description} location={previousTask.location} 
                                                                 deadline={previousTask.deadline}/></div> ))}
                     </div>
-
                     <hr/>
-
                     <div className="row">
-                        {reviewers.map((reviewer) => (<Review key={reviewer.key} username={reviewer.username} description={reviewer.description} ratingVal={reviewer.rating} img={reviewer.img}/>))}
+                        {reviews.map((reviewer) => (<Review key={reviewer.key} username={reviewer.username} description={reviewer.description} ratingVal={reviewer.rating} img={reviewer.img}/>))}
                     </div>
                 </div>
-
             </div>
         </div>
     )

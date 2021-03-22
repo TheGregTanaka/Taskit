@@ -10,7 +10,7 @@ const Review = function(user) {
 /*
     Review.get will return all reviews if no query params is passed
         If the URL contains valid query params (i.e. id and/or taskID), the db
-        will either return id or taskID or if both are present return the review
+        will either return id or taskID or if both are present and return the review
         that has both values
 
         Possible outcomes:
