@@ -1,20 +1,26 @@
 const express = require('express');
-const sql = require("../db.js");
-const router = express.Router();
 
+function routes(Review) {
+  const router = express.Router();
 
-router.get('/review/create_review', (req, res) => {
-  var queryParams = req.query;
-  console.log(queryParams);
+  router.route('/')
+    .get((req, res) => {
+      Review.get(req, (err, review) => {
+        if (err) { return res.send(err); }
+        if (review) { return res.json(review); }
+        return res.sendStatus(404);
+      });
+    })
+    .post((req, res) => {
+        // Review.create(req, (err, msg) => {
+        //   if (err) {
+        //     console.log(err);
+        //     return res.send(err);
+        //   }
+        //   return res.json(msg);
+        // });
+    });
+  return router;
+}
 
-  sql.executeQuery(`SELECT * from review WHERE ${queryParams.id} = id`,
-  (err, query_res) => {
-    if(err) { console.log('err', err); }
-    else {
-        res.json(query_res.rows);
-    }
-  });
-})
-
-
-module.exports = router;
+module.exports = routes;

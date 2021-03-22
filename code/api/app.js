@@ -11,11 +11,13 @@ const port = process.env.PORT || 3200;
 
 const UserModel = require('./models/userProfile');
 const TaskModel = require('./models/task');
+const ReviewModel = require('./models/review');
 
 const userRouter = require('./routes/userProfile')(UserModel);
 const login = require('./routes/login')(UserModel);
 const taskRouter = require('./routes/task')(TaskModel);
-const reviewRouter = require('./routes/review');
+const reviewRouter = require('./routes/review')(ReviewModel);
+// const reviewRouter = require('./routes/review');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -25,7 +27,8 @@ app.use(cors());
 app.use('/user', userRouter);
 app.use('/login', login);
 app.use('/task', taskRouter);
-app.use(reviewRouter);
+app.use('/review', reviewRouter);
+// app.use(reviewRouter);
 
 app.get('/', (req, res) => {
   var s = 'Welcome to the Taskit API. ' +
