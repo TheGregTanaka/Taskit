@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import StarRating from '../StarRating/StarRating'
 import img_profile from '../../image/img_profile.png'
 import './style.css'
@@ -26,9 +24,6 @@ const Review = ({username, description, ratingVal, img}) => {
                 </div>
             </div>
         </div>
-
-        
-        
     )
 }
 

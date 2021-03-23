@@ -87,7 +87,7 @@ Review.create = (newReview, result) => {
         taskID = 1;
     }
     var query_insert_review = "INSERT INTO review(`rating`, `description`, `taskID`)" +
-                            ` VALUES(${rating}, '${description}', ${taskID});`;
+                            ` VALUES(${rating}, "${description}", ${taskID});`;
 
     sql.executeQuery(query_insert_review, (err, res) => {
         if (err) { console.log(err); result(err, null); }

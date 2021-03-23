@@ -19,7 +19,7 @@ const company = [
     }
 ]
 
-const CompanyProfile = () => {  
+const CompanyProfile = () => {
     const [reviews, setReviews] = useState([]);
     const [tasks, setTasks] = useState([]);
     const [err, setErr] = useState(false);
@@ -34,8 +34,8 @@ const CompanyProfile = () => {
             setTasks(taskRes.data);
             setErr(false);
 
-            console.log("Reviews Res: ", reviews);
-            console.log("Tasks ResL ", tasks);
+            console.log("Reviews Res: ", reviewRes.data);
+            console.log("Tasks Res: ", taskRes.data);
         }))
         .catch(err => {
             setErr(true);
@@ -60,8 +60,7 @@ const CompanyProfile = () => {
                             <i className="fa fa-map-marker" style={{color: "black", marginRight:'3%'}}></i>
                             <span id='location'>{company[0].location}</span>
 
-                            <br/>
-                            <br/>
+                            <br/><br/>
                             <p id='bio'>{company[0].bio}</p>
                         </div>
 
@@ -72,13 +71,13 @@ const CompanyProfile = () => {
                 </div>
                 <div className="col l10 fit-in-container" style={{backgroundColor: 'white'}}>
                     <div className="row" style={{marginTop:'1%'}}>
-                        {!err && tasks.map((task) => (<div className="col"><Tasks img="!#" name={task.title} price={task.offeredPrice} 
-                                                                description={task.description} location="" 
+                        {!err && tasks.map((task) => (<div className="col"><Tasks img={task.img} name={task.title} price={task.offeredPrice} 
+                                                                description={task.description} location={task.location}
                                                                 deadline={task.datePosted}/></div> ))}
                     </div>
                     <hr/>
                     <div className="row">
-                        {!err & reviews.map((reviewer) => (<Review key={reviewer.key} username={reviewer.username} description={reviewer.description} ratingVal={reviewer.rating} img={reviewer.img}/>))}
+                        {!err && reviews.map((review) => (<Review key={review.key} username={review.username} description={review.description} ratingVal={review.rating} img={review.img}/>))}
                     </div>
                 </div>
             </div>
