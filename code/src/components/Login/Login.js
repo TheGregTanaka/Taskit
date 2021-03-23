@@ -39,10 +39,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 async function loginUser(credentials) {
+  console.log(credentials);
   //TODO put api in env var
-  const api = "localhost:3200";
-  console.log('ayy');
+  const api = "http://localhost:3200";
   axios.post(api + '/login', {
     email: credentials.email,
     password: credentials.password
@@ -53,7 +54,7 @@ async function loginUser(credentials) {
   .catch(function (err) {
     console.log(err);
   });
-  
+      
   let json = {
     "token": "aoeuhjkl"
   };
@@ -61,12 +62,12 @@ async function loginUser(credentials) {
 }
 
 export default function Login({ setToken, loggedIn }) {
-  const [username, setUserName] = useState();
+  const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const classes = useStyles();
   const handleSubmit = async e => {
     e.preventDefault();
-    const token = await loginUser({ username, password });
+    const token = await loginUser({email, password});
     setToken(token);
   }
   if (loggedIn) {
@@ -88,6 +89,8 @@ export default function Login({ setToken, loggedIn }) {
           label="Email Address"
           name="email"
           autoComplete="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
         />
       </Grid>
       <Grid item xs={12}>
@@ -100,6 +103,8 @@ export default function Login({ setToken, loggedIn }) {
           type="password"
           id="password"
           autoComplete="current-password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
         />
       </Grid>
       <Grid item xs={12}>

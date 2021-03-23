@@ -15,6 +15,7 @@ import EditProfile from '../EditProfile/EditProfile'
 
 import './App.css';
 
+//TODO move to env var
 const api = 'http://localhost:3200';
 
 axios.interceptors.request.use(
