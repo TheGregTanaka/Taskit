@@ -1,6 +1,8 @@
 require('dotenv').config();
 const sql = require("../db.js");
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const UserProfile = function(user) {
   this.email = user.email;
@@ -131,10 +133,9 @@ UserProfile.delete = (id, result) => {
 UserProfile.login = (req, result) => {
   //verify email and pass match stored creds
   const email = req.email;
-  const password = req.password;
   var id;
   var dbPw;
-  var accessToken, refresToken;
+  var accessToken, refreshToken;
   sql.executeQuery(`SELECT id, password FROM userProfile WHERE email = "${email}";`, 
     (err, res) => {
       if (err) {
@@ -147,39 +148,44 @@ UserProfile.login = (req, result) => {
         return;
       }
       if (res.rows.length === 0) {
-        result(null, "No user found with that email.");
+        result("No user found with that email.", null);
         return;
       }
       id = res['rows'][0].id;
       dbPw = res['rows'][0].password;
-      //no email/prompt register
-      //TODO figure out if this is right
-      if (!password || password !== dbPw) {
-        console.log(`${password} !== ${dbPw}`);
-        result("Bad password!", null);
-        return;
-      }
-
-      const payload = {email: email}
-      accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-        algorithm: "HS256",
-        expiresIn: process.env.ACCESS_TOKEN_LIFE
-      });
-      refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
-        algorithm: "HS256",
-        expiresIn: process.env.REFRESH_TOKEN_LIFE
-      });
-
-      //store refresh token in DB
-      sql.executeQuery(`UPDATE userProfile SET token = "${refreshToken}" WHERE id = ${id};`,
-        (e, r) => {
-          if (e) {
-            result(e, null);
-            return;
-          }
-          console.log("token saved");
+      //short curcuit return if error or mismatch.
+      bcrypt.compare(req.password, dbPw, (error, match) => {
+        if (error) {
+          result(error, null);
+          return;
         }
-      );
+        if (!match) {
+          result("Bad password!", null);
+          return;
+        } else {
+          const payload = {email: email}
+          accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+            algorithm: "HS256",
+            expiresIn: process.env.ACCESS_TOKEN_LIFE
+          });
+          refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
+            algorithm: "HS256",
+            expiresIn: process.env.REFRESH_TOKEN_LIFE
+          });
+
+          //store refresh token in DB
+          sql.executeQuery(`UPDATE userProfile SET token = "${refreshToken}" WHERE id = ${id};`,
+            (e, r) => {
+              if (e) {
+                result(e, null);
+                return;
+              }
+              console.log("token saved");
+            }
+          );
+        }
+      });
+
       
 
       //send access token to client inside cookie

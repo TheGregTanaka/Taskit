@@ -7,7 +7,7 @@ function routes(UserProfile) {
       UserProfile.login(req.body, (err, token) => {
         if (err) {
           console.log(err);
-          return res.sendStatus(401);
+          return res.send();
         }
         //TODO https?
         res.cookie("jwt", token, {secure: false, httpOnly: false});
