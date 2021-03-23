@@ -12,13 +12,13 @@ function routes(Review) {
       });
     })
     .post((req, res) => {
-        // Review.create(req, (err, msg) => {
-        //   if (err) {
-        //     console.log(err);
-        //     return res.send(err);
-        //   }
-        //   return res.json(msg);
-        // });
+        Review.create(req, (err, msg) => {
+          if (err) {
+            console.log('[ERROR]', err);
+            return res.send(err);
+          }
+          return res.json(msg);
+        });
     });
   return router;
 }
