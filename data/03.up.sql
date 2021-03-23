@@ -1,3 +1,4 @@
+USE `taskitDb`;
 ALTER TABLE `taskitDb`.`task` ADD img VARCHAR(128);
 ALTER TABLE `taskitDb`.`task` ADD address VARCHAR(80);
 ALTER TABLE `taskitDb`.`task` ADD lat FLOAT(10,6);
