@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-modal';
 import Rating from '@material-ui/lab/Rating';
 import Box from "@material-ui/core/Box";
@@ -25,6 +25,20 @@ function RateWorker (){
         setModalIsOpen(false);
     }
 
+    // Make Post request - create review
+    const [review, setReview] = useState({rating: 0, description: '', taskID: null});
+    const handleSubmit = e => { 
+        e.preventDefault();
+        setModalIsOpenToFalse();
+        
+        axios.post('http://localhost:3200/review', { review })
+            .then((response) => { 
+                // console.log(response.data);
+            }, (error) => {
+                console.log(error);
+            });
+    }
+
     return(
         <>
             <button onClick={setModalIsOpenToTrue}>Open rate worker modal</button>
@@ -34,21 +48,25 @@ function RateWorker (){
                     <h5>Rate your Worker</h5>
                 </center>
                 <div>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <label>
                             Rating:
                             <br/>
                             <Box component="fieldset" mb={1} borderColor="transparent">
-                                <Rating name="half-rating-large" defaultValue={0} precision={0.5} size="large"/>
+                                <Rating defaultValue={0} precision={0.5} 
+                                name="rating" value={review.rating}
+                                onChange={e => setReview({ ...review, rating: parseInt(e.target.value) })}/>
                             </Box>
                         </label>
                         <label>
                             Description:
                             <br/>
-                            <textarea id="task_desc" maxLength="1200" style={{width:"600px", height:"150px"}}/>
+                            <textarea maxLength="1200" style={{width:"600px", height:"150px"}}
+                            name="description" value={review.description}
+                            onChange={e => setReview({ ...review, description: e.target.value })}/>
                         </label>
                         <br/>
-                        <input type="submit" value="Submit" onClick={setModalIsOpenToFalse} style={{float:"right", margin:"1% 1% 1% 1%"}}/>
+                        <input type="submit" style={{float:"right", margin:"1% 1% 1% 1%"}}/>
                     </form>
                 </div>
             </Modal>

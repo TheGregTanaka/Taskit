@@ -1,6 +1,5 @@
 import './style.css'
 import img_profile from '../../image/img_profile.png'
-import imag from '../../image/car_wash.jpeg'
 
 // import Feed from '../Feed/Feed'  // Dummy feed
 import Tasks from '../Atoms/Tasks'
@@ -17,41 +16,6 @@ const company = [
         rating: 3.5,
         location: 'Boulder, CO',
         bio: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.',
-    }
-]
-
-const previousTasks = [
-    {
-        img: imag,
-        name: 'Task 1',
-        price: 100,
-        description: 'Task 1 description',
-        location: 'location 1',
-        deadline: 'deadline 1',
-    },
-    {
-        img: imag,
-        name: 'Task 2',
-        price: 200,
-        description: 'Task 2 description',
-        location: 'location 2',
-        deadline: 'deadline 2',
-    },
-    {
-        img: imag,
-        name: 'Task 3',
-        price: 300,
-        description: 'Task 3 description',
-        location: 'location 3',
-        deadline: 'deadline 3',
-    },
-    {
-        img: imag,
-        name: 'Task 4',
-        price: 400,
-        description: 'Task 4 description',
-        location: 'location 4',
-        deadline: 'deadline 4',
     }
 ]
 

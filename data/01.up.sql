@@ -36,10 +36,10 @@ VALUES
 
 
 INSERT INTO review
-	(`rating`, `description`)
+	(`rating`, `description`, `taskID`)
 VALUES
-	(5.0, "description 1"),
-	(4.0, "description 2"),
-	(3.5, "description 3"),
-	(4.5, "description 4'"),
-	(1.0, "description 5");
+	(5.0, "description 1", 1),
+	(4.0, "description 2", 2),
+	(3.5, "description 3", 1),
+	(4.5, "description 4'", 2),
+	(1.0, "description 5", 1);
