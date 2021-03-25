@@ -85,8 +85,8 @@ function App() {
               <Workspace />
             </Route>
             
-            <Route path="/editprofile">
-              <EditProfile />
+            <Route path="/viewprofile">
+              <ViewProfile />
             </Route>
 
           </Switch>
