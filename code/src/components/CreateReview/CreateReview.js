@@ -16,7 +16,7 @@ const customStyles = {
     }
 };
 
-function RateWorker (){
+function CreateReview (){
     const [modalIsOpen,setModalIsOpen] = useState(false);
     const setModalIsOpenToTrue =()=>{
         setModalIsOpen(true)
@@ -41,11 +41,11 @@ function RateWorker (){
 
     return(
         <>
-            <button onClick={setModalIsOpenToTrue}>Open rate worker modal</button>
+            <button onClick={setModalIsOpenToTrue}>Open review modal</button>
             
             <Modal isOpen={modalIsOpen} style={customStyles} onRequestClose={()=> setModalIsOpen(false)}>
                 <center>
-                    <h5>Rate your Worker</h5>
+                    <h5>Create a Review</h5>
                 </center>
                 <div>
                     <form onSubmit={handleSubmit}>
@@ -73,4 +73,4 @@ function RateWorker (){
         </>
     )
 }
-export default RateWorker;
+export default CreateReview;

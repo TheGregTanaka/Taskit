@@ -6,7 +6,7 @@ import CreateTask from '../CreateTask/CreateTask';
 import Dashboard from '../Dashboard/Dashboard';
 import Login from '../Login/Login';
 import Navbar from '../Navbar/Navbar';
-import RateWorker from '../RateWorker/RateWorker'
+import CreateReview from '../CreateReview/CreateReview'
 import Registration from '../Registration/Registration'
 import Transaction from '../Transaction/Transaction'
 import Feed from '../Feed/Feed';
@@ -65,8 +65,8 @@ function App() {
               <Login setToken={setToken} loggedIn={loggedIn}/>
             </Route>
 
-            <Route path="/rate_worker">
-              <RateWorker />
+            <Route path="/create_review">
+              <CreateReview />
             </Route>
 
             <Route path="/registeration">
