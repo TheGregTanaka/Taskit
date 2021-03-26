@@ -11,7 +11,7 @@ import Registration from '../Registration/Registration'
 import Transaction from '../Transaction/Transaction'
 import Feed from '../Feed/Feed';
 import Workspace from '../Workspace/Workspace'
-import EditProfile from '../EditProfile/EditProfile'
+import ViewProfile from '../ViewProfile/ViewProfile'
 
 import './App.css';
 

@@ -1,30 +1,32 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import './EditProfile.css';
-import login from '../Login/Login';
+import './ViewProfile.css';
+
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 
 
-export default function Viewprofile(loggedIn) {
-    if (loggedIn){
-        const [profile, setProfile] = useState([]);
-        const [err, setErr] = useState(false);
 
-        useEffect(() => {
-            axios.get("http://localhost:3200/task") //url from node js server (get & post request)
-                .then((response) => {
-                    setTasks(response.data); //response.data is data from request
-                    setErr(false);
-                    console.log("Tasks Res: ", response.data);
-                })
-                .catch(err => {
-                    setErr(true);
-                    console.log(err);
-                });
-        }, []);
-        return (
+
+const ViewProfile = ({login}) => {
+    const [profile, setProfile] = useState([]);
+    const [err, setErr] = useState(false);
+
+    useEffect(() => {
+        axios.get("http://localhost:3200/task") //url from node js server (get & post request)
+            .then((response) => {
+                setProfile(response.data); //response.data is data from request
+                setErr(false);
+                console.log("Tasks Res: ", response.data);
+            })
+            .catch(err => {
+                setErr(true);
+                console.log(err);
+            });
+    }, []);
+    return (
+        <div>
             <div class="container">
                 <div class="row">
                     <div class="col-4">
@@ -56,11 +58,8 @@ export default function Viewprofile(loggedIn) {
                     </div>
                 </div>
             </div>
-        );
-    }
-    else {
-        return (
-            axios.redirect('http://localhost:3200/login')
-        );
-    }
+        </div>
+    )
 }
+
+export default ViewProfile
