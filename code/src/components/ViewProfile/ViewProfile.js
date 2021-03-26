@@ -1,11 +1,10 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import './ViewProfile.css';
+import profile_imag from '../../image/img_profile.png';
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
-
 
 
 
@@ -31,7 +30,7 @@ const ViewProfile = ({login}) => {
                 <div class="row">
                     <div class="col-4">
                         <div class="card">
-                            <img class="card-img-top" src= 'img_profile.png' width="300"></img>
+                            <img class="card-img-top" src={profile_imag} width="300"></img>
                         </div>
                     </div>
                 </div>
