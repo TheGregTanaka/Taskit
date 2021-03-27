@@ -49,6 +49,7 @@ const DetailedTask = ({name, price, description, location, deadline, email, phon
       alert("Task is finished. TODO send post request to change task status and get verified status to client customer and add a confirmation dialogue");
       setTaskStatus(false);
   }
+  
   return (
     <>
       {/* Display task on modal as bigger version */}

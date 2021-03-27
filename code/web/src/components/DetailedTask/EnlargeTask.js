@@ -1,3 +1,4 @@
+import Map from '../Map/Map.js';
 const EnlargeTask = ({name, price, description, location, deadline, email, phone}) => {
     return (
         <div>
@@ -21,6 +22,12 @@ const EnlargeTask = ({name, price, description, location, deadline, email, phone
                     <b>Contact Info</b> <br/>
                     <b>Email: </b>{email} <br/>
                     <b>Phone: </b>{phone}
+                </div>
+                <hr/>
+                <div>
+                    <Map 
+                      location={location}
+                    />
                 </div>
             </div>
         </div>
