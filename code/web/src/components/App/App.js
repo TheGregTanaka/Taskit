@@ -62,10 +62,6 @@ function App() {
               <CreateTask />
             </Route>
 
-            <Route path="/dashboard">
-              <Dashboard />
-            </Route>
-
             <Route path="/login" component={Login}>
               <Login setToken={setToken} loggedIn={loggedIn}/>
             </Route>
@@ -92,6 +88,10 @@ function App() {
             
             <Route path="/viewprofile">
               <ViewProfile />
+            </Route>
+
+            <Route path="/">
+              <Dashboard />
             </Route>
 
           </Switch>

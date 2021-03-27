@@ -6,6 +6,7 @@ import MenuItem from "@material-ui/core/MenuItem"
 import { Menu } from '@material-ui/core';
 import { useState } from 'react';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import logo from '../../image/Taskit.png';
 
 //AppBar sample code from https://material-ui.com/components/app-bar/
 const useStyles = makeStyles((theme) => ({
@@ -53,7 +54,9 @@ export default function Navbar({ loggedIn }) {
         <MenuItem onClick={handleClose}>Logout</MenuItem>
        
       </Menu>
-        <Typography variant="h6" className={classes.title}>TaskIt</Typography>
+        <Typography variant="h6" className={classes.title}>
+          <img src={logo} class="taskitLogoSmall" alt="Taskit"></img>
+        </Typography>
         
         <Button color="inherit"><a href="/dashboard">Dashboard</a></Button>
         <Button color="inherit"><a href="/workspace">Workspace</a></Button>

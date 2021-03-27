@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../logo.svg';
+import logo from '../../image/taskitthumbnail.png';
 import '../App/App.css';
 
 export default function Dashboard() {
