@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
+import Chat from '../Chat/Chat'
 import CreateTask from '../CreateTask/CreateTask';
 import Dashboard from '../Dashboard/Dashboard';
 import Login from '../Login/Login';
@@ -52,6 +53,10 @@ function App() {
       <header className="App-header">
         <BrowserRouter>
           <Switch>
+
+            <Route path="/chat">
+              <Chat />
+            </Route>
 
             <Route path="/create_task">
               <CreateTask />

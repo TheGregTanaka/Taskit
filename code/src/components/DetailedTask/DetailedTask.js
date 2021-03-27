@@ -6,10 +6,22 @@ import { Card, CardActionArea } from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
+
 import Modal from 'react-modal';
 
+import EnlargeTask from './EnlargeTask'
+import MinimizedTask from "./MinimizedTask";
+import Chat from '../Chat/Chat'
+
 const customStyles = {
+  overlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(56, 56, 56, 0.95)'
+  },
   content : {
     top: '50%',
     left: '50%',
@@ -42,27 +54,7 @@ const DetailedTask = ({name, price, description, location, deadline, email, phon
       {/* Display task on modal as bigger version */}
       <Modal isOpen={modalIsOpen} style={customStyles} onRequestClose={()=> setModalIsOpen(false)}>
         <Button size="large" color="primary" class="fa fa-times" style={{float:"right", border:"0", backgroundColor:"white", fontSize:"20px"}} onClick={setModalIsOpenToFalse}/>
-          <center><h5>{name.toUpperCase()}</h5></center>
-          <div>
-            <div>
-              <b>Price: </b> ${price}
-            </div>
-            <div>
-              <b>Deadline: </b> {deadline}
-            </div>
-            <div>
-              <b>Address: </b> {location}
-            </div>
-            <div>
-              <b>Description: </b>{description}
-            </div>
-            <div>
-              <hr/>
-              <b>Contact Info</b> <br/>
-              <b>Email: </b>{email} <br/>
-              <b>Phone: </b>{phone}
-            </div>
-          </div>
+        <EnlargeTask name={name} price={price} description={description} location={location} deadline={deadline} email={email} phone={phone} />
       </Modal>
 
 
@@ -73,83 +65,11 @@ const DetailedTask = ({name, price, description, location, deadline, email, phon
           <Button size="small" color="primary" class="fa fa-check" style={{color:"green", float:"right", border:"0", backgroundColor:"white"}} onClick={setTaskStatusToFalse}/>
           <CardActionArea>
             <CardContent onClick={setModalIsOpenToTrue}>
-              <Typography gutterBottom variant="h5" component="h2" align="left" noWrap>
-                {name.toUpperCase()}
-              </Typography>
-              <Typography
-                variant="body2"
-                color="textSecondary"
-                component="p"
-                align="left"
-              >
-                <b>Price: </b> ${price}
-              </Typography>
-
-              <Typography
-                variant="body2"
-                color="textSecondary"
-                component="p"
-                align="left"
-              >
-                <b>Deadline: </b> {deadline}
-              </Typography>
-
-              <Typography
-                variant="body2"
-                color="textSecondary"
-                component="p"
-                align="left"
-              >
-                <b>Address: </b> {location}
-              </Typography>
-
-              <Typography
-                variant="body2"
-                color="textSecondary"
-                component="p"
-                align="left"
-                noWrap
-              >
-                <b>Description: </b>{description}
-              </Typography>
-
-              <hr/>
-
-              <Typography
-                variant="body2"
-                color="textSecondary"
-                component="p"
-                align="left"
-              >
-                <b>Contact Info</b>
-              </Typography>
-
-              <Typography
-                variant="body2"
-                color="textSecondary"
-                component="p"
-                align="left"
-              >
-                <b>Email: </b>{email}
-              </Typography>
-
-              <Typography
-                variant="body2"
-                color="textSecondary"
-                component="p"
-                align="left"
-              >
-                <b>Phone: </b>{phone}
-              </Typography>
+              <MinimizedTask name={name} price={price} description={description} location={location} deadline={deadline} email={email} phone={phone} />
             </CardContent>
           </CardActionArea>
           <CardActions>
-            <Button size="small" color="primary" variant="outlined" onClick={setModalIsOpenToTrue}>
-              Learn More
-            </Button>
-            <Button size="small" color="primary" variant="outlined">
-              Message
-            </Button>
+            <Chat />
           </CardActions>
         </Card>
       </div>}

@@ -6,6 +6,7 @@ import Tasks from '../Atoms/Tasks'
 
 import StarRating from '../StarRating/StarRating'
 import Review from '../Review/Review'
+import Chat from '../Chat/Chat';
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -65,7 +66,7 @@ const CompanyProfile = () => {
                         </div>
 
                         <div className="card-action">
-                            <a href="#">Message</a>
+                            <Chat />
                         </div>
                     </div>
                 </div>
