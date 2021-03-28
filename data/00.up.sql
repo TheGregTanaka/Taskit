@@ -1,9 +1,13 @@
+CREATE SCHEMA IF NOT EXISTS `taskitDb`;
+
 CREATE USER IF NOT EXISTS 'taskit'@'localhost' IDENTIFIED BY 'Task123';
-GRANT CREATE, DROP, DELETE, INSERT, SELECT, UPDATE ON `taskitDb`.`*` TO 'taskit'@'localhost';
-ALTER USER 'taskit' IDENTIFIED WITH mysql_native_password BY 'Task123';
+GRANT CREATE, DROP, DELETE, INSERT, SELECT, UPDATE ON `taskitDb`.* TO 'taskit'@'localhost';
+ALTER USER 'taskit'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Task123';
+CREATE USER IF NOT EXISTS 'taskit'@'%' IDENTIFIED BY 'Task123';
+GRANT CREATE, DROP, DELETE, INSERT, SELECT, UPDATE ON `taskitDb`.* TO 'taskit'@'%';
+ALTER USER 'taskit'@'%' IDENTIFIED WITH mysql_native_password BY 'Task123';
 FLUSH PRIVILEGES;
 
-CREATE SCHEMA IF NOT EXISTS `taskitDb`;
 USE `taskitDb`;
 
 CREATE TABLE IF NOT EXISTS typeTask
@@ -53,3 +57,15 @@ CREATE TABLE IF NOT EXISTS task
     CONSTRAINT task_worker_fk FOREIGN KEY (workerID) REFERENCES userProfile (id)
 );
 CREATE UNIQUE INDEX task_id_uindex ON task (id);
+
+
+CREATE TABLE IF NOT EXISTS review
+(
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    rating float NOT NULL,
+    description LONGTEXT,
+    
+    taskID INT,
+    CONSTRAINT review_task_id_fk FOREIGN KEY (taskID) REFERENCES task (id)
+);
+CREATE UNIQUE INDEX review_id_uindex ON review (id);

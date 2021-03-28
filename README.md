@@ -44,7 +44,6 @@ The front end of the application is React, and located directly in the code dire
 ```
 cd code
 npm install
-npm install react-scripts@4.0.2 -g --silent
 npm start
 ```
 

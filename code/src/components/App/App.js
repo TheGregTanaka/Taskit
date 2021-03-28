@@ -1,23 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import axios from 'axios';
 
-
+import Chat from '../Chat/Chat'
 import CreateTask from '../CreateTask/CreateTask';
 import Dashboard from '../Dashboard/Dashboard';
 import Login from '../Login/Login';
 import Navbar from '../Navbar/Navbar';
+import CreateReview from '../CreateReview/CreateReview'
 import Registration from '../Registration/Registration'
-import RateWorker from '../RateWorker/RateWorker'
+import Transaction from '../Transaction/Transaction'
 import Feed from '../Feed/Feed';
 import Workspace from '../Workspace/Workspace'
-
-
+import ViewProfile from '../ViewProfile/ViewProfile'
 
 import './App.css';
 
+//TODO move to env var
+const api = 'http://localhost:3200';
+
+axios.interceptors.request.use(
+  config => {
+    const { origin } = new URL(config.url);
+    const allowedOrigins = [api];
+    const token = localStorage.getItem('token');
+
+    if (allowedOrigins.includes(origin)) {
+      config.headers.authorizations = `Bearer ${token}`;
+    }
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  }
+);
 
 function App() {
-  const [token, setToken] = useState();
+  const jwt = localStorage.getItem('token');
+  const [token, setToken] = useState(jwt || null);
+  const getJwt = async() => {
+    const {data } = await axios.get(`${api}/jwt`);
+  }
   let loggedIn = true;
   if (!token) {
     loggedIn = false;
@@ -31,6 +54,10 @@ function App() {
         <BrowserRouter>
           <Switch>
 
+            <Route path="/chat">
+              <Chat />
+            </Route>
+
             <Route path="/create_task">
               <CreateTask />
             </Route>
@@ -43,12 +70,16 @@ function App() {
               <Login setToken={setToken} loggedIn={loggedIn}/>
             </Route>
 
+            <Route path="/create_review">
+              <CreateReview />
+            </Route>
+
             <Route path="/registeration">
               <Registration />
             </Route>
 
-            <Route path="/rate_worker">
-              <RateWorker />
+            <Route path='/transaction'>
+                <Transaction />
             </Route>
 
             <Route path="/feed">
@@ -57,6 +88,10 @@ function App() {
 
             <Route path="/workspace">
               <Workspace />
+            </Route>
+            
+            <Route path="/viewprofile">
+              <ViewProfile />
             </Route>
 
           </Switch>

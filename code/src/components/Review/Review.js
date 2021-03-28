@@ -24,9 +24,6 @@ const Review = ({username, description, ratingVal, img}) => {
                 </div>
             </div>
         </div>
-
-        
-        
     )
 }
 

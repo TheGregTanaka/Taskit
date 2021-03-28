@@ -9,6 +9,8 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
+import imag from '../../image/car_wash.jpeg';
+
 class Task extends Component {
   constructor() {
     super();
@@ -31,7 +33,10 @@ class Task extends Component {
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2" align="left">
-              {name} - <b>{price}</b>
+              {name} - <b>${price}</b>
+            </Typography>
+            <Typography gutterBottom variant="h6" component="h2" align="left">
+              {location}
             </Typography>
             <Typography
               variant="body2"
@@ -51,5 +56,14 @@ class Task extends Component {
       </Card>
     );
   }
+}
+
+Task.defaultProps = {
+  img: imag,
+  name: 'default title',
+  price: 'default price', 
+  description: 'default description',
+  location: 'default location',
+  deadline: 'deadline'
 }
 export default Task;
