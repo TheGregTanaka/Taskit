@@ -15,8 +15,6 @@ const queryStr = `SELECT
     task.statusID, 
     statusTask.status,
     task.description, 
-    task.offeredPrice, 
-    task.negotiable, 
     task.taskerID, 
     tasker.name as tasker,
     task.workerID, 
