@@ -7,6 +7,7 @@ import CreateTask from '../CreateTask/CreateTask';
 import Dashboard from '../Dashboard/Dashboard';
 import Login from '../Login/Login';
 import Navbar from '../Navbar/Navbar';
+import NavbarV2 from '../Landing Page/NavbarV2';
 import CreateReview from '../CreateReview/CreateReview'
 import Registration from '../Registration/Registration'
 import Transaction from '../Transaction/Transaction'
@@ -48,7 +49,8 @@ function App() {
   return (
     <div className="App">
 
-      <Navbar loggedIn={loggedIn}/>
+      {/* <Navbar loggedIn={loggedIn}/> */}
+      <NavbarV2 loggedIn={loggedIn} />
 
       <header className="App-header">
         <BrowserRouter>
