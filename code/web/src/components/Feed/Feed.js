@@ -5,6 +5,8 @@ import DetailedTask from "../DetailedTask/DetailedTask.js";
 import imag from "./car_wash.jpeg";
 
 export class Feed extends Component {
+
+
     render() {
         return (
             <div>

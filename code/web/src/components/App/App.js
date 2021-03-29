@@ -48,9 +48,11 @@ function App() {
   return (
     <div className="App">
 
-      <Navbar loggedIn={loggedIn}/>
-
       <header className="App-header">
+        <Navbar loggedIn={loggedIn}/>
+      </header>
+      <div className="App-body">
+      
         <BrowserRouter>
           <Switch>
 
@@ -96,8 +98,8 @@ function App() {
 
           </Switch>
         </BrowserRouter>
+    </div>
 
-      </header>
       
       <footer>
         <p>2021 Team 011_6 ERROR404</p>

@@ -58,7 +58,7 @@ export default function Navbar({ loggedIn }) {
           <img src={logo} class="taskitLogoSmall" alt="Taskit"></img>
         </Typography>
         
-        <Button color="inherit"><a href="/dashboard">Dashboard</a></Button>
+        <Button color="inherit"><a href="/">Dashboard</a></Button>
         <Button color="inherit"><a href="/workspace">Workspace</a></Button>
 
 
