@@ -47,22 +47,14 @@ async function loginUser(credentials) {
     password: credentials.password
   })
   .then(function (res) {
-    console.log('res');
-    console.log(res);
     return res;
   })
   .catch(function (err) {
     console.log(err);
+    return {data:null};
   });
       
-  console.log('response: ');
-  console.log(response);
   return response.data;
-}
-
-//TODO
-async function logout() {
-  sessionStorage.removeItem('user');
 }
 
 export default function Login({ setUser, loggedIn }) {
