@@ -129,10 +129,11 @@
         width: 100%;
         position: absolute;
         top: -1000px;
-        opacity: 1;
+        opacity: 10;
         transition: all 0.5s ease;
         height: 50vh;
         z-index: -1;
+        /* background: #131313;*/
     }
 
     .navbar__menu.active {
@@ -195,15 +196,15 @@
         cursor: pointer;
     }
 
-    #mobile-menu.its-active .bar:nth-child(2) {
+    #mobile-menu.is-active .bar:nth-child(2) {
         opacity: 0;
     }
 
-    #mobile-menu.its-active .bar:nth-child(1) {
+    #mobile-menu.is-active .bar:nth-child(1) {
         transform: translateY(8px) rotate(45deg);
     }
 
-    #mobile-menu.its-active .bar:nth-child(3) {
+    #mobile-menu.is-active .bar:nth-child(3) {
         transform: translateY(-8px) rotate(-45deg);
     }
 
