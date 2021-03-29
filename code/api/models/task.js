@@ -15,8 +15,6 @@ const queryStr = `SELECT
     task.statusID, 
     statusTask.status,
     task.description, 
-    task.offeredPrice, 
-    task.negotiable, 
     task.taskerID, 
     tasker.name as tasker,
     task.workerID, 
@@ -33,6 +31,7 @@ const queryStr = `SELECT
 Task.create = (newTask, result) => {
   let kStr, vStr;
   kStr = vStr = "(";
+  newTask = newTask.task;
   for (const key in newTask) {
     console.log(`k ${key} v ${newTask[key]}\n`);
     kStr += key + ",";
@@ -43,6 +42,7 @@ Task.create = (newTask, result) => {
   vStr = vStr.substring(0, vStr.length - 1) + ")";
 
   const insertStr = `INSERT INTO task ${kStr} VALUES ${vStr};`;
+  console.log(insertStr);
 
 
   sql.executeQuery(insertStr, (err, res) => {

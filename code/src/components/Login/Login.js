@@ -15,6 +15,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';*/
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import axios from 'axios';
 
 import './Login.css';
 
@@ -38,9 +39,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 async function loginUser(credentials) {
-  //TODO make call to node API
-  
+  console.log(credentials);
+  //TODO put api in env var
+  const api = "http://localhost:3200";
+  axios.post(api + '/login', {
+    email: credentials.email,
+    password: credentials.password
+  })
+  .then(function (res) {
+    console.log(res);
+  })
+  .catch(function (err) {
+    console.log(err);
+  });
+      
   let json = {
     "token": "aoeuhjkl"
   };
@@ -48,54 +62,23 @@ async function loginUser(credentials) {
 }
 
 export default function Login({ setToken, loggedIn }) {
-  const [username, setUserName] = useState();
+  const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const classes = useStyles();
   const handleSubmit = async e => {
     e.preventDefault();
-    const token = await loginUser({ username, password });
+    const token = await loginUser({email, password});
     setToken(token);
   }
   if (loggedIn) {
     return (<Redirect to="/dashboard" />);
   } else {
     return (
-     /* <div className="container">
-        <div className="row">
-          <div className="col">
-            <h1>Sign in with you <b>TaskIt</b> account</h1>
-          </div>
-          <div className="col">
-            <div className="login-wrapper">
-                <header>Login</header>
-                <form onSubmit={handleSubmit}>
-                  <label>
-                    <p>Email</p>
-                  <input type="text" 
-                    placeholder="Email" 
-                    onChange={e => setUserName(e.target.value)}/>
-                  </label>
-                  <label>
-                    <p>Password</p>
-                  <input type="password" 
-                    placeholder="Password"
-                    onChange={e => setPassword(e.target.value)}/>
-                  </label>
-                  <div>
-                    <button type="submit">Submit</button>
-                  </div>
-                </form>
-              </div>
-          </div>
-        </div>
-      </div>
-*/
 <Container component="main" maxWidth="xs" style={{backgroundColor: "white", marginCenter:'3%'}} >
 <CssBaseline />
 <div className={classes.paper}>
 <Typography variant="h5" color="textPrimary"> Sign In with your TaskIT Credentials</Typography>
-{/*<Avatar alt="TaskIT" src="/Users/ManojYeddanapudy/sign_up/Taskit.jpg" className={classes.large} />*/}
-  <form className={classes.form} noValidate >
+  <form className={classes.form} noValidate onSubmit={handleSubmit}>
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <TextField
@@ -106,6 +89,8 @@ export default function Login({ setToken, loggedIn }) {
           label="Email Address"
           name="email"
           autoComplete="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
         />
       </Grid>
       <Grid item xs={12}>
@@ -118,6 +103,8 @@ export default function Login({ setToken, loggedIn }) {
           type="password"
           id="password"
           autoComplete="current-password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
         />
       </Grid>
       <Grid item xs={12}>

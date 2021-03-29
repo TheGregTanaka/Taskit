@@ -1,4 +1,5 @@
 const sql = require('../db.js');
+const Task = require('./task.js');
 
 const Review = function(user) {
     this.id = user.id;
@@ -10,7 +11,7 @@ const Review = function(user) {
 /*
     Review.get will return all reviews if no query params is passed
         If the URL contains valid query params (i.e. id and/or taskID), the db
-        will either return id or taskID or if both are present return the review
+        will either return id or taskID or if both are present and return the review
         that has both values
 
         Possible outcomes:
@@ -27,12 +28,13 @@ const Review = function(user) {
                 SELECT * from review WHERE id = ${queryParams['id']} AND taskID = ${queryParams['taskID']};
 */
 Review.get = (req, result) => {
+    console.log("[Review.js] - Get Request");
     var queryParams = req.query; // Store params as json
 
     var queryLen = Object.keys(queryParams).length;
     if (queryLen == 0) {
         // If there's no query params return all reviews
-        console.log(queryLen, "param passed");
+        console.log("[/models/Review.js]", queryLen, "param passed");
         sql.executeQuery('SELECT * from review', (err, res) => {
             if (err) { result(err, null); }
             if (res) { result(null, res['rows']); }
@@ -40,7 +42,7 @@ Review.get = (req, result) => {
         });
     } else {
         // If query params exists process information
-        console.log(queryLen, "param passed");
+        console.log("[/models/Review.js]", queryLen, "param passed");
 
         var validParam = ['id', 'taskID'];
         var queryStr = 'SELECT * from review WHERE';
@@ -63,24 +65,40 @@ Review.get = (req, result) => {
     }
 };
 
-// Review.create = (newReview, result) => {
-//     console.log(newReview);
+/*
+    Expected JSON format for newReview.body:
+    {
+        review: {
+            rating: ...,
+            description: ...,
+            taskID: taskID must be present otherwise abort
+        }
+    }
+*/
+Review.create = (newReview, result) => {
+    console.log("[Review.js] - Post Request");
+    console.log(newReview.body);
+    var rating = newReview.body.review.rating;
+    var description = newReview.body.review.description;
+    var taskID = newReview.body.review.taskID;
 
-//     var review_exist = `SELECT id, taskID 
-//                         FROM review 
-//                         WHERE id = ${newReview['id']} 
-//                         AND taskID = ${newReview['taskID']};`;
-//     sql.executeQuery(review_exist, 
-//         (err, res) => {
-//             if(err) { console.log(err); }
-//             if(res['rows'].length > 0) {
-//                 const msg = "You have already made a review!";
-//                 console.log(msg);
-//                 result(null, msg);
-//                 return;
-//             } else {
-//                 // TODO
-//             }
-//         });
-// }
+    if (taskID == null) { 
+        // result('[ABORT REVIEW] taskID is NULL', null); // UNCOMMENT ONCE TASKID IS IMPLEMENTED
+        taskID = 1;
+    }
+    var query_insert_review = "INSERT INTO review(`rating`, `description`, `taskID`)" +
+                            ` VALUES(${rating}, "${description}", ${taskID});`;
+
+    sql.executeQuery(query_insert_review, (err, res) => {
+        if (err) { console.log(err); result(err, null); }
+        return;
+    });
+    
+    var insertReview = { rating: rating, description: description, taskID: taskID };
+    console.log('Review has successfully been create', insertReview);
+
+    result(null, insertReview);
+    return;
+};
+
 module.exports = Review;

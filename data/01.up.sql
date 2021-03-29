@@ -33,3 +33,13 @@ INSERT INTO task
 VALUES
 	("Rake my leaves", 1, 1, "I need someone to rake the leaves in my yard", 20, 1, NULL, '2021-02-08'),
 	("Hook up my speakers", 5, 2, "I need help setting up my new audio system.", 20, 1, 4, '2021-02-09');
+
+
+INSERT INTO review
+	(`rating`, `description`, `taskID`)
+VALUES
+	(5.0, "description 1", 1),
+	(4.0, "description 2", 2),
+	(3.5, "description 3", 1),
+	(4.5, "description 4'", 2),
+	(1.0, "description 5", 1);

@@ -1,0 +1,17 @@
+Meeting 2021/03/23
+
+Minoj and Ryan were unable to attend, but emailed Vish to let him know.
+
+Greg: Login functionality is working. Started looking into location services
+
+Jules: User Profile/edit profile get and post requests connecting front end to back end
+
+Josh: Plugged back end into front end. Tasks and reeviews are now being loaded from DB, reviews can be created from UI.
+
+[I had Minoj and Ryan send updates so their updates could be included in the logs]
+Minoj: working/testing my connection from our registration page (frontend)  to the backend nodeJS. I have made so good headway and believe I should be down with this by end of the week.
+
+Ryan: landing page and working on filter button for user favorite tasks
+
+Vish said progress looks pretty good, advised that we be careful of git conflicts. 
+Everyone feels pretty good about where we are, no major blockers currently.
