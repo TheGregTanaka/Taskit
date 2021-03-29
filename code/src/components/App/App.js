@@ -37,14 +37,17 @@ axios.interceptors.request.use(
 );
 
 function App() {
-  const jwt = localStorage.getItem('token');
-  const [token, setToken] = useState(jwt || null);
-  const getJwt = async() => {
-    const {data } = await axios.get(`${api}/jwt`);
-  }
-  let loggedIn = true;
-  if (!token) {
-    loggedIn = false;
+  //const jwt = sessionStorage.getItem('token');
+  const userData = JSON.parse(sessionStorage.getItem('user'));
+ // const [token, setToken] = useState(jwt || null);
+  const [user, setUser] = useState(userData || null);
+  //sessionStorage.setItem('token', token);
+  sessionStorage.setItem('user', JSON.stringify(user));
+
+  //let loggedIn = true;
+  let loggedIn = false;
+  if (user) {
+    loggedIn = true;
   }
   return (
     <div className="App">
@@ -69,7 +72,7 @@ function App() {
             </Route>
 
             <Route path="/login" component={Login}>
-              <Login setToken={setToken} loggedIn={loggedIn}/>
+              <Login setUser={setUser} loggedIn={loggedIn}/>
             </Route>
 
             <Route path="/create_review">
