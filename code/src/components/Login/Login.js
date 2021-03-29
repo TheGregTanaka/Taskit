@@ -75,12 +75,9 @@ export default function Login({ setUser, loggedIn }) {
     sessionStorage.setItem('user', JSON.stringify(user));
     setUser(user);
   }
-  /*
   if (loggedIn) {
     return (<Redirect to="/dashboard" />);
   } else {
-  */
-  if (true) {
     return (
 <Container component="main" maxWidth="xs" style={{backgroundColor: "white", marginCenter:'3%'}} >
 <CssBaseline />

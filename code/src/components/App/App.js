@@ -6,6 +6,7 @@ import Chat from '../Chat/Chat'
 import CreateTask from '../CreateTask/CreateTask';
 import Dashboard from '../Dashboard/Dashboard';
 import Login from '../Login/Login';
+import Logout from '../Login/Logout';
 import Navbar from '../Navbar/Navbar';
 import NavbarV2 from '../Landing Page/NavbarV2';
 import CreateReview from '../CreateReview/CreateReview'
@@ -42,7 +43,6 @@ function App() {
  // const [token, setToken] = useState(jwt || null);
   const [user, setUser] = useState(userData || null);
   //sessionStorage.setItem('token', token);
-  sessionStorage.setItem('user', JSON.stringify(user));
 
   //let loggedIn = true;
   let loggedIn = false;
@@ -73,6 +73,9 @@ function App() {
 
             <Route path="/login" component={Login}>
               <Login setUser={setUser} loggedIn={loggedIn}/>
+            </Route>
+            <Route path="/logout" component={Logout}>
+              <Logout />
             </Route>
 
             <Route path="/create_review">
