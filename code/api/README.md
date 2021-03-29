@@ -1,17 +1,17 @@
 # Taskit Rest API Routes
-
+The below table is a table of contents, click on Methods or Routes to jump to those sections.
 Method | Route | Action | Body | Query String Parameters
 ---|---|---|---|---
-`POST` | `/login` | Authenticate user | Body should contain the email and hashed password |
-`POST` | `/task` | Creates new task | New task data |
-`POST` | `/user` | Creates new user | New user profile data |
-`GET` | `/task` | Gets a listing of all tasks | none | `status`, `type`
-`GET` | `/task/:taskID` | Gets task by id | none |
-`GET` | `/task/tasker/:taskerID` | Gets all tasks created by a givin tasker | none |
-`GET` | `/task/worker/:workerID` | Gets all tasks accepted by a givin worker | none |
-`GET` | `/user/:userID` | Gets specified user by id | none  |
-`PATCH` | `/user/:userID` | Updates specified user | Fields and updated info |
-`DELETE` | `/user/:userID` | Removes specifid user | none |
+[`POST`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#post) | [`/login`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#login) | Authenticate user | Body should contain the email and hashed password |
+[`POST`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#post) | [`/task`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#task) | Creates new task | New task data |
+[`POST`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#post) | [`/user`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#user) | Creates new user | New user profile data |
+[`GET`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#get) | [`/task`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#task-1) | Gets a listing of all tasks | none | `status`, `type`
+[`GET`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#get) | [`/task/:taskID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#tasktaskid) | Gets task by id | none |
+[`GET`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#get) | [`/task/tasker/:taskerID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#tasktaskertaskerid) | Gets all tasks created by a givin tasker | none |
+[`GET`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#get) | [`/task/worker/:workerID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#taskworkerworkerid) | Gets all tasks accepted by a givin worker | none |
+[`GET`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#get) | [`/user/:userID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#useruserid) | Gets specified user by id | none  |
+[`PATCH`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#patch) | [`/user/:userID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#useruserid-1) | Updates specified user | Fields and updated info |
+[`DELETE`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#delete) | `/user/:userID` | Removes specifid user | none |
 
 
 Below is detailed info on using each route. Keys are case sensitive.
@@ -43,7 +43,7 @@ Body may optionally include:
 - redirect
 - remotePossible
 
-* if not provided, statusID defaults to 1, "Pending".
+\* if not provided, statusID defaults to 1, "Pending".
 
 On success, returns the newly inserted task. The response body will include all the keys which were provided in the request, with an additional key `id` with the new primary key of the task.
 
@@ -99,6 +99,7 @@ Returns a list of all tasks.
   }
 ]
 ```
+Query parameters may optionally be provided to specify a status and or type id to filter by.
 
 ### `/task/:taskID`
 Returns the task specified by `:taskID`
@@ -227,6 +228,7 @@ Currently returns empty body and 204, this should be updated.
 ## DELETE
 NOT YET IMPLIMENTED
 
+---
 Important notes: 
 - `taskerID` will be set at creation, and is a non-nullable field. `workerID` on the other hand will not be set until a worker has accepted the task and may then be null.
 - When creating/updating a task, you must only include fields which are being edited. Do not include tasker/worker names or human readable status/types, only use the IDs. Do not send null fields, simply omit these from the json body. 
