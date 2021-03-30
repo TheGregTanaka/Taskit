@@ -1,5 +1,4 @@
 import React, { useState} from 'react';
-import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -41,34 +40,32 @@ const useStyles = makeStyles((theme) => ({
 
 
 async function loginUser(credentials) {
-  console.log(credentials);
   //TODO put api in env var
   const api = "http://localhost:3200";
-  axios.post(api + '/login', {
+  const response = await axios.post(api + '/login', {
     email: credentials.email,
     password: credentials.password
   })
   .then(function (res) {
-    console.log(res);
+    return res;
   })
   .catch(function (err) {
     console.log(err);
+    return {data:null};
   });
       
-  let json = {
-    "token": "aoeuhjkl"
-  };
-  return json;
+  return response.data;
 }
 
-export default function Login({ setToken, loggedIn }) {
+export default function Login({ setUser, loggedIn }) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const classes = useStyles();
   const handleSubmit = async e => {
     e.preventDefault();
-    const token = await loginUser({email, password});
-    setToken(token);
+    const user = await loginUser({email, password});
+    sessionStorage.setItem('user', JSON.stringify(user));
+    setUser(user);
   }
   if (loggedIn) {
     return (<Redirect to="/dashboard" />);
@@ -132,7 +129,3 @@ export default function Login({ setToken, loggedIn }) {
   }
 }
 
-
-Login.propTypes = {
-  setToken: PropTypes.func.isRequired
-}

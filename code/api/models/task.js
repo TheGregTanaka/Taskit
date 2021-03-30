@@ -112,14 +112,20 @@ Task.getOne = (taskID, result) => {
       return;
     } else {
       console.log("Res no length" + JSON.stringify(res));
-      return "HECC", null;
+
+      result("No Data returned", null);
+      return;
+
     }
   });
 };
 
+
 Task.getFeed = (req, result) => {
   const pending = "Pending";
   var q = queryStr + ` WHERE task.statusID = 1`;
+
+
   sql.executeQuery(q, (err, res) => {
     if (err) {
       //TODO better error handling

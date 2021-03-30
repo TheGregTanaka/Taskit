@@ -78,6 +78,36 @@ function routes(Task) {
         return res.sendStatus(204);
       });
     });
+
+  const userType = {
+    TASKER: 0,
+    WORKER: 1
+  }
+  router.route('/tasker/:id')
+    .get((req, res) => {
+      Task.byUser(userType.TASKER, req.params.id, (err, tasks) => {
+        if (err) {
+          return res.send(err);
+        }
+        if (tasks) {
+          return res.json(tasks);
+        }
+        return res.sendStatus(404);
+      });
+    });
+  router.route('/worker/:id')
+    .get((req, res) => {
+      Task.byUser(userType.WORKER, req.params.id, (err, tasks) => {
+        if (err) {
+          return res.send(err);
+        }
+        if (tasks) {
+          return res.json(tasks);
+        }
+        return res.sendStatus(404);
+      });
+    });
+
   return router;
 }
 

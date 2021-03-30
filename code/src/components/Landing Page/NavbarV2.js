@@ -7,6 +7,14 @@ const NavbarV2 = ({loggedIn}) => {
     const toggle_menu = () => {
         if(toggle) { setToggle(false); } else { setToggle(true); }
     }
+
+    let log = "Login";
+    let action = "/login";
+    if (loggedIn) {
+      log = "Logout";
+      action = "/logout";
+    }
+
     return (
         <div>
             <nav class="navbar">
@@ -30,8 +38,8 @@ const NavbarV2 = ({loggedIn}) => {
                             </a>
                         </li>
                         <li class="navbar__btn">
-                            <a href="/login" class="button">
-                            Login
+                            <a href={action} class="button">
+                            {log}
                             </a>
                         </li>
                         <li class="navbar__btn">
