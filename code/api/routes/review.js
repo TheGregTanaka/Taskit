@@ -6,9 +6,8 @@ function routes(Review) {
   router.route('/')
     .get((req, res) => {
       Review.get(req, (err, review) => {
-        if (err) { return res.send(err); }
-        if (review) { return res.json(review); }
-        return res.sendStatus(404);
+        if (err) { return res.send(err).status(404); }
+        if (review) { return res.json(review).status(200); }
       });
     })
     .post((req, res) => {

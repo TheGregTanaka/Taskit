@@ -11,11 +11,12 @@ const Workspace = () => {
     
     return (
         <div className=''>
-            <div className="row" style={{marginTop:"5%"}}>
+            <div className="row" style={{marginTop:"0"}}>
                 <div style={{marginLeft:'7%', marginRight:'7%'}}>
                     <div className="col" style={{float:"left"}}>
                         {page === "displayAcceptedTasks" && <Button variant="contained" color="inherit" onClick={() => setPage("companyprofile")}>View Company Profile</Button>}
                     </div>
+                    <div style={{width:"60vw"}}></div>
                     
                     <div className="col" style={{float:"right"}}>
                         {page === "companyprofile" && <Button variant="contained" color="inherit" onClick={() => setPage("displayAcceptedTasks")} >Close View</Button>}

@@ -1,5 +1,4 @@
 const sql = require('../db.js');
-const Task = require('./task.js');
 
 const Review = function(user) {
     this.id = user.id;

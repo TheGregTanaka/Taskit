@@ -17,6 +17,9 @@ import SendIcon from '@material-ui/icons/Send';
 
 import './style.css';
 
+import socketIOClient from 'socket.io-client';
+
+
 const customStyles = {
     overlay: {
         position: 'fixed',
@@ -93,7 +96,7 @@ const friends = [
         img: "https://material-ui.com/static/images/avatar/7.jpg"
     },
 ];
-
+const ENDPOINT = "http://localhost:3200/chat";
 const Chat = () => {
     const [modalIsOpen,setModalIsOpen] = useState(false);
     const setModalIsOpenToTrue =()=>{
@@ -102,6 +105,17 @@ const Chat = () => {
     const setModalIsOpenToFalse =()=>{
         setModalIsOpen(false);
     }
+
+    const [response, setResponse] = useState("");
+    useEffect(() => {
+        const socket = socketIOClient(ENDPOINT);
+        socket.on("FromAPI", data => {
+            setResponse(data);
+        });
+
+        return () => socket.disconnect();
+    }, []);
+    console.log("Response:",response);
     return (
         <>
             <Button size="small" color="primary" onClick={setModalIsOpenToTrue}>

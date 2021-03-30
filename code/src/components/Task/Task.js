@@ -8,15 +8,14 @@ import CardContent from "@material-ui/core/CardContent";
 
 import Modal from 'react-modal';
 
-import EnlargeTask from './EnlargeTask'
-import MinimizedTask from "./MinimizedTask";
 import Chat from '../Chat/Chat'
-
 
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { Card, CardActionArea, CardMedia } from "@material-ui/core";
 import default_img from "../../image/car_wash.jpeg";
+
+import EnlargeTask from "../Task/EnlargeTask"
 
 const customStyles = {
   overlay: {
@@ -39,7 +38,7 @@ const customStyles = {
 };
 
 
-const DetailedTask = ({img, name, price, description, location, deadline, email, phone}) => {
+const Task = ({img, name, price, description, location, deadline, email, phone}) => {
   const [modalIsOpen,setModalIsOpen] = useState(false);
   const [taskStatus, setTaskStatus] = useState(true);
 
@@ -67,7 +66,6 @@ const DetailedTask = ({img, name, price, description, location, deadline, email,
       {taskStatus &&
       <div className="col" style={{ marginBottom:'1%' }}>
         <Card style={{ width: 300 }}>
-          <Button size="small" color="primary" class="fa fa-check" style={{color:"green", float:"right", border:"0", backgroundColor:"white"}} onClick={setTaskStatusToFalse}/>
           <CardActionArea onClick={setModalIsOpenToTrue}>
             <CardMedia
                       component="img"
@@ -76,7 +74,7 @@ const DetailedTask = ({img, name, price, description, location, deadline, email,
                       title="Contemplative Reptile"
                     />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="h2" align="left" noWrap>
+              <Typography gutterBottom variant="h6" component="h2" align="left" noWrap>
                 {name.toUpperCase()}
                 <br/>
                 ${price}
@@ -104,8 +102,8 @@ const DetailedTask = ({img, name, price, description, location, deadline, email,
   )
 }
 
-DetailedTask.defaultProps = {
+Task.defaultProps = {
   img: default_img,
 }
 
-export default DetailedTask
+export default Task

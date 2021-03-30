@@ -9,15 +9,17 @@ const app = express();
 const db = require('./db.js');
 const port = process.env.PORT || 3200;
 
-const UserModel = require('./models/userProfile');
-const TaskModel = require('./models/task');
-const ReviewModel = require('./models/review');
 
-const userRouter = require('./routes/userProfile')(UserModel);
+const ReviewModel = require('./models/review');
+const TaskModel = require('./models/task');
+const UserModel = require('./models/userProfile');
+
+const chatRouter = require('./routes/chat');
 const login = require('./routes/login')(UserModel);
-const taskRouter = require('./routes/task')(TaskModel);
 const reviewRouter = require('./routes/review')(ReviewModel);
-// const reviewRouter = require('./routes/review');
+const taskRouter = require('./routes/task')(TaskModel);
+const userRouter = require('./routes/userProfile')(UserModel);
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -28,12 +30,16 @@ app.use((req, res, next) => {
 });
 app.use(cors());
 
-
-app.use('/user', userRouter);
+app.use('/chat', chatRouter);
 app.use('/login', login);
-app.use('/task', taskRouter);
 app.use('/review', reviewRouter);
-// app.use(reviewRouter);
+app.use('/task', taskRouter);
+app.use('/user', userRouter);
+
+
+
+
+
 
 app.get('/', (req, res) => {
   var s = 'Welcome to the Taskit API. ' +
