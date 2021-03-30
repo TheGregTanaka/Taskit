@@ -17,33 +17,33 @@ const NavbarV2 = ({loggedIn}) => {
 
     return (
         <div>
-            <nav class="navbar">
-                <div class="navbar__container">
+            <nav className="navbar">
+                <div className="navbar__container">
                     <a href="/" id="navbar__logo">TASKIT</a>
-                    <div class={toggle ? "navbar__toggle is-active" : "navbar__toggle"} id="mobile-menu" onClick={toggle_menu}>
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                        <span class="bar"></span>
+                    <div className={toggle ? "navbar__toggle is-active" : "navbar__toggle"} id="mobile-menu" onClick={toggle_menu}>
+                        <span className="bar"></span>
+                        <span className="bar"></span>
+                        <span className="bar"></span>
+                        <span className="bar"></span>
                     </div>
-                    <ul class={toggle ? "navbar__menu active" : "navbar__menu"}>
-                        <li class="navbar__item">
-                            <a href="/dashboard" class="navbar__links">
+                    <ul className={toggle ? "navbar__menu active" : "navbar__menu"}>
+                        <li className="navbar__item">
+                            <a href="/dashboard" className="navbar__links">
                             Dashboard
                             </a>
                         </li>
-                        <li class="navbar__item">
-                            <a href="/workspace" class="navbar__links">
+                        <li className="navbar__item">
+                            <a href="/workspace" className="navbar__links">
                             Workspace
                             </a>
                         </li>
-                        <li class="navbar__btn">
-                            <a href={action} class="button">
+                        <li className="navbar__btn">
+                            <a href={action} className="button">
                             {log}
                             </a>
                         </li>
-                        <li class="navbar__btn">
-                            <a href="/registeration" class="button">
+                        <li className="navbar__btn">
+                            <a href="/registeration" className="button">
                             Sign_Up
                             </a>
                         </li>

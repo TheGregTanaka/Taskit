@@ -5,6 +5,7 @@ import axios from 'axios';
 import Chat from '../Chat/Chat'
 import CreateTask from '../CreateTask/CreateTask';
 import Dashboard from '../Dashboard/Dashboard';
+import Landing from '../Landing/Landing'
 import Login from '../Login/Login';
 import Logout from '../Login/Logout';
 import Navbar from '../Navbar/Navbar';
@@ -55,6 +56,10 @@ function App() {
       <header className="App-header">
         <BrowserRouter>
           <Switch>
+
+          <Route path="/landing">
+              <Landing />
+            </Route>
 
             <Route path="/chat">
               <Chat />
