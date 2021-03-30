@@ -1,23 +1,54 @@
-import React,{Component} from 'react';
-import '../App/App.css';
+import { useEffect, useState } from "react";
+import "../App/App.css";
 import Task from "../Atoms/Tasks.js";
 import imag from "./car_wash.jpeg";
+import axios from "axios";
+import Typography from "@material-ui/core/Typography";
 
-export class Feed extends Component {
-    render() {
-        return (
-            <div>
-                <Task 
-                img={imag}
-                name={"Car Wash"}
-                price={"25"}
-                description={"I need my fucking car wash today. dont scratch it or ill kill yuo"}
-                location={"420 ave"}
-                deadline = {"today bitch"}
-                />
-            </div>
-        )
-    }
-}
+const Feed = () => {
+  const [tasks, setTasks] = useState([]);
+  const [err, setErr] = useState(false);
 
-export default Feed
+  useEffect(() => {
+    axios
+      .get("http://localhost:3200/task/getFeed")
+      .then((response) => {
+        setTasks(response.data);
+        setErr(false);
+        console.log("Tasks Res: ", response.data);
+      })
+      .catch((err) => {
+        setErr(true);
+        console.log(err);
+      });
+  }, []);
+
+  return (
+    <div className="container">
+      <div className="" style={{ marginLeft: "20%", marginRight: "20%" }}>
+        <Typography gutterBottom variant="h2" component="h1" align="left">
+          Feed:
+        </Typography>
+
+        <div className="row ">
+          {tasks.map((task) => (
+            <Task
+              name={task.title}
+              price={task.offeredPrice}
+              description={task.description}
+              location={""}
+              deadline={task.datePosted}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Feed;
+
+axios
+  .get("http://localhost:3200/task")
+  .then((response) => this.setState({ tasks: response.data }))
+  .catch((err) => console.log(err));

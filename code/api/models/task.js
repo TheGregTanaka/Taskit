@@ -1,6 +1,6 @@
 const sql = require("../db.js");
 
-const Task = function(user) {
+const Task = function (user) {
   this.email = user.email;
   this.name = user.name;
   this.profilePicture = user.profilePicture;
@@ -21,7 +21,8 @@ const queryStr = `SELECT
     worker.name as worker,
     task.datePosted,
     task.dateCompleted,
-    task.rating
+    task.rating,
+    task.offeredPrice
   FROM task 
   JOIN typeTask ON task.typeID = typeTask.id
   JOIN statusTask ON task.statusID = statusTask.id
@@ -43,7 +44,6 @@ Task.create = (newTask, result) => {
   const insertStr = `INSERT INTO task ${kStr} VALUES ${vStr};`;
   console.log(insertStr);
 
-
   sql.executeQuery(insertStr, (err, res) => {
     if (err) {
       //TODO better error handling
@@ -55,29 +55,29 @@ Task.create = (newTask, result) => {
     console.log("created task: ", { id: res.rows.insertId, ...newTask });
     result(null, { id: res.rows.insertId, ...newTask });
   });
-}
+};
 
 Task.get = (req, result) => {
   var query = {};
   if (req.query.status) {
-    console.log('stat!');
+    console.log("stat!");
     query.status = req.query.status;
   }
   if (req.query.type) {
-    console.log('type!');
+    console.log("type!");
     query.type = req.query.type;
   }
   var q = queryStr;
   //TODO validate better and protect against sql injection
-  if (Object.keys(query).length > 0) {
-    q += " WHERE ";
-    var first = true;
-    for (const key in query) {
-      q += first ? "" : " AND ";
-      q += `${key}ID = ${query[key]}`;
-      first = false;
-    }
-  }
+  // if (Object.keys(query).length > 0) {
+  //   q += " WHERE ";
+  //   var first = true;
+  //   for (const key in query) {
+  //     q += first ? "" : " AND ";
+  //     q += `${key}ID = ${query[key]}`;
+  //     first = false;
+  //   }
+  // }
 
   sql.executeQuery(q, (err, res) => {
     if (err) {
@@ -87,14 +87,14 @@ Task.get = (req, result) => {
       return;
     }
     if (res) {
-      result(null, res['rows']);
+      result(null, res["rows"]);
       return;
     } else {
       console.log("ERROR" + JSON.stringify(res));
-      return("HECC", null);
+      return "HECC", null;
     }
   });
-}
+};
 
 Task.getOne = (taskID, result) => {
   var q = queryStr + ` WHERE task.id = ${taskID}`;
@@ -107,28 +107,24 @@ Task.getOne = (taskID, result) => {
     }
     if (res) {
       console.log("found: ", JSON.stringify(res));
-      result(null, res['rows']);
+      result(null, res["rows"]);
       return;
     } else {
       console.log("Res no length" + JSON.stringify(res));
+
       result("No Data returned", null);
       return;
+
     }
   });
 };
 
-Task.byUser = (type, id, result) => {
-  var q = queryStr + ' WHERE '
-  if (type == 0) {
-    q += 'taskerID = ';
-  } else if (type == 1) {
-    q += 'workerID = ';
-  } else {
-    console.log("Error, invalid type");
-    result("Invalid user type", null);
-    return;
-  }
-  q += id;
+
+Task.getFeed = (req, result) => {
+  const pending = "Pending";
+  var q = queryStr + ` WHERE task.statusID = 1`;
+
+
   sql.executeQuery(q, (err, res) => {
     if (err) {
       //TODO better error handling
@@ -137,13 +133,11 @@ Task.byUser = (type, id, result) => {
       return;
     }
     if (res) {
-      console.log("found: ", JSON.stringify(res));
-      result(null, res['rows']);
+      result(null, res["rows"]);
       return;
     } else {
-      console.log("Res no length" + JSON.stringify(res));
-      result("No Data returned", null);
-      return;
+      console.log("ERROR" + JSON.stringify(res));
+      return "HECC", null;
     }
   });
 };
