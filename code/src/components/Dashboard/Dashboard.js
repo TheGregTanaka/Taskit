@@ -4,7 +4,7 @@ import '../App/App.css';
 
 export default function Dashboard() {
   //TODO delete testing
-  const user = JSON.parse(sessionStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('user'));
   const id = user ? user.id : 'null';
   const em  = user ? user.email : 'null';
   return (

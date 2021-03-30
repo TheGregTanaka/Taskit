@@ -31,7 +31,6 @@ const queryStr = `SELECT
 Task.create = (newTask, result) => {
   let kStr, vStr;
   kStr = vStr = "(";
-  newTask = newTask.task;
   for (const key in newTask) {
     console.log(`k ${key} v ${newTask[key]}\n`);
     kStr += key + ",";

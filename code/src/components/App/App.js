@@ -38,11 +38,8 @@ axios.interceptors.request.use(
 );
 
 function App() {
-  //const jwt = sessionStorage.getItem('token');
-  const userData = JSON.parse(sessionStorage.getItem('user'));
- // const [token, setToken] = useState(jwt || null);
+  const userData = JSON.parse(localStorage.getItem('user'));
   const [user, setUser] = useState(userData || null);
-  //sessionStorage.setItem('token', token);
 
   //let loggedIn = true;
   let loggedIn = false;

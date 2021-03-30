@@ -64,7 +64,7 @@ export default function Login({ setUser, loggedIn }) {
   const handleSubmit = async e => {
     e.preventDefault();
     const user = await loginUser({email, password});
-    sessionStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('user', JSON.stringify(user));
     setUser(user);
   }
   if (loggedIn) {

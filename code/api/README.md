@@ -30,6 +30,7 @@ Body must include:
 - title
 - typeID
 - taskerID
+
 Body may optionally include:
 - statusID *
 - description
@@ -52,6 +53,7 @@ Body must include:
 - email
 - password
 - name
+
 Body may optinoally unclude
 - profilePicture
 - phone
