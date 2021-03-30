@@ -7,6 +7,7 @@ import { Menu } from '@material-ui/core';
 import { useState } from 'react';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import logo from '../../image/Taskit.png';
+import Avatar from '@material-ui/core/Avatar';
 
 //AppBar sample code from https://material-ui.com/components/app-bar/
 const useStyles = makeStyles((theme) => ({
@@ -65,7 +66,7 @@ export default function Navbar({ loggedIn }) {
         <Button color="inherit"><a href="/login">{log}</a></Button>
         <Button color="inherit"><a href="/registeration">Sign Up</a></Button>
 
-        <Button href="/viewprofile"><AccountCircleIcon style={{color:"white"}} /></Button>
+        <Button href="/viewprofile"><Avatar src="/broken-image.jpg" button /></Button>
       </Toolbar>
     </AppBar>
   );

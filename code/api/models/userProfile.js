@@ -140,15 +140,15 @@ UserProfile.login = (req, result) => {
     (err, res) => {
       if (err) {
         //buble up TODO better message
-        result(err, null);
+        result(err, null, null);
         return;
       }
       if (res.rows.length > 1) {
-        result("Data error, two matches for this email", null);
+        result("Data error, two matches for this email", null, null);
         return;
       }
       if (res.rows.length === 0) {
-        result("No user found with that email.", null);
+        result("No user found with that email.", null, null);
         return;
       }
       id = res['rows'][0].id;
@@ -156,11 +156,11 @@ UserProfile.login = (req, result) => {
       //short curcuit return if error or mismatch.
       bcrypt.compare(req.password, dbPw, (error, match) => {
         if (error) {
-          result(error, null);
+          result(error, null, null);
           return;
         }
         if (!match) {
-          result("Bad password!", null);
+          result("Bad password!", null, null);
           return;
         } else {
           const payload = {email: email}
@@ -177,7 +177,7 @@ UserProfile.login = (req, result) => {
           sql.executeQuery(`UPDATE userProfile SET token = "${refreshToken}" WHERE id = ${id};`,
             (e, r) => {
               if (e) {
-                result(e, null);
+                result(e, null, null);
                 return;
               }
               console.log("token saved");
@@ -185,11 +185,8 @@ UserProfile.login = (req, result) => {
           );
         }
       });
-
-      
-
       //send access token to client inside cookie
-      result(null, accessToken);
+      result(null, accessToken, {'id':id, 'email':email});
       return;
     }
   );

@@ -6,7 +6,9 @@ import Chat from '../Chat/Chat'
 import CreateTask from '../CreateTask/CreateTask';
 import Dashboard from '../Dashboard/Dashboard';
 import Login from '../Login/Login';
+import Logout from '../Login/Logout';
 import Navbar from '../Navbar/Navbar';
+import NavbarV2 from '../Landing Page/NavbarV2';
 import CreateReview from '../CreateReview/CreateReview'
 import Registration from '../Registration/Registration'
 import Transaction from '../Transaction/Transaction'
@@ -36,17 +38,19 @@ axios.interceptors.request.use(
 );
 
 function App() {
-  const jwt = localStorage.getItem('token');
-  const [token, setToken] = useState(jwt || null);
-  const getJwt = async() => {
-    const {data } = await axios.get(`${api}/jwt`);
-  }
-  let loggedIn = true;
-  if (!token) {
-    loggedIn = false;
+  const userData = JSON.parse(localStorage.getItem('user'));
+  const [user, setUser] = useState(userData || null);
+
+  //let loggedIn = true;
+  let loggedIn = false;
+  if (user) {
+    loggedIn = true;
   }
   return (
     <div className="App">
+
+      {/* <Navbar loggedIn={loggedIn}/> */}
+      <NavbarV2 loggedIn={loggedIn} />
 
       <header className="App-header">
         <Navbar loggedIn={loggedIn}/>
@@ -65,7 +69,10 @@ function App() {
             </Route>
 
             <Route path="/login" component={Login}>
-              <Login setToken={setToken} loggedIn={loggedIn}/>
+              <Login setUser={setUser} loggedIn={loggedIn}/>
+            </Route>
+            <Route path="/logout" component={Logout}>
+              <Logout />
             </Route>
 
             <Route path="/create_review">

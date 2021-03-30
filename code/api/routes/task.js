@@ -1,11 +1,12 @@
-const express = require('express');
+const express = require("express");
 
 function routes(Task) {
   const router = express.Router();
-  router.route('/')
+  router
+    .route("/")
     .get((req, res) => {
       Task.get(req, (err, task) => {
-        if(err) {
+        if (err) {
           return res.send(err);
         }
         if (task) {
@@ -24,10 +25,23 @@ function routes(Task) {
       });
     });
 
-  router.route('/:taskID')
+  router.route("/getFeed").get((req, res) => {
+    Task.getFeed(req, (err, task) => {
+      if (err) {
+        return res.send(err);
+      }
+      if (task) {
+        return res.json(task);
+      }
+      return res.sendStatus(404);
+    });
+  });
+
+  router
+    .route("/:taskID")
     .get((req, res) => {
       Task.getOne(req.params.taskID, (err, task) => {
-        if(err) {
+        if (err) {
           return res.send(err);
         }
         if (task) {
@@ -64,6 +78,36 @@ function routes(Task) {
         return res.sendStatus(204);
       });
     });
+
+  const userType = {
+    TASKER: 0,
+    WORKER: 1
+  }
+  router.route('/tasker/:id')
+    .get((req, res) => {
+      Task.byUser(userType.TASKER, req.params.id, (err, tasks) => {
+        if (err) {
+          return res.send(err);
+        }
+        if (tasks) {
+          return res.json(tasks);
+        }
+        return res.sendStatus(404);
+      });
+    });
+  router.route('/worker/:id')
+    .get((req, res) => {
+      Task.byUser(userType.WORKER, req.params.id, (err, tasks) => {
+        if (err) {
+          return res.send(err);
+        }
+        if (tasks) {
+          return res.json(tasks);
+        }
+        return res.sendStatus(404);
+      });
+    });
+
   return router;
 }
 

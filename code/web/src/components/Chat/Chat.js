@@ -108,9 +108,9 @@ const Chat = () => {
                 <Typography style={{color:"#ffab40"}}>Message</Typography>
             </Button>
             <Modal isOpen={modalIsOpen} style={customStyles} onRequestClose={()=> setModalIsOpen(false)}>
-                <div style={{ width:"75vw", height:"100%"}}>
+                <div style={{ width:"85vw", height:"100%"}}>
                     <Grid container>
-                        <Grid item xs={3} component={Paper}>
+                        <Grid item xs={2} component={Paper}>
                             <List>
                                 <ListItem>
                                     <ListItemIcon>
@@ -141,7 +141,7 @@ const Chat = () => {
                                 
                             </List>
                         </Grid>
-                        <Grid item xs={9} component={Paper}>
+                        <Grid item xs={10} component={Paper}>
                             <List>
                                 <ListItem>
                                     <ListItemIcon>
@@ -158,8 +158,13 @@ const Chat = () => {
                                     <ListItem key="1">
                                         <div style={{marginLeft:"auto"}}> 
                                             <Grid item>
-                                                <ListItemText align="right" style={{'overflowWrap': 'break-word', padding:"10px", backgroundColor:"#00B2FF", borderRadius:"20px", maxWidth:"50vw"}} 
-                                                    primary={<Typography type="body2" style={{ color: 'white' }}>Main User</Typography>}></ListItemText>
+                                                <List>
+                                                    <ListItem>
+                                                        <ListItemText align="right" style={{'overflowWrap': 'break-word', padding:"10px", backgroundColor:"#00B2FF", borderRadius:"20px", maxWidth:"50vw"}} 
+                                                            primary={<Typography type="body2" style={{ color: 'white' }}>Main Users</Typography>}>
+                                                        </ListItemText>
+                                                    </ListItem>
+                                                </List>
                                             </Grid>
                                             <Grid item xs={12}>
                                                 <ListItemText align="right" secondary="09:30"></ListItemText>
@@ -170,7 +175,11 @@ const Chat = () => {
                                     <ListItem key="2">
                                         <Grid container>
                                             <Grid item>
-                                                <ListItemText align="left" style={{'overflowWrap': 'break-word', padding:"10px", backgroundColor:"#E8E8E8", borderRadius:"20px", maxWidth:"50vw"}} primary="Other User Response"></ListItemText>
+                                                <List>
+                                                    <ListItem>
+                                                        <ListItemText align="left" style={{'overflowWrap': 'break-word', padding:"10px", backgroundColor:"#E8E8E8", borderRadius:"20px", maxWidth:"50vw"}} primary="Other User Response"></ListItemText>
+                                                    </ListItem>
+                                                </List>
                                             </Grid>
                                             <Grid item xs={12}>
                                                 <ListItemText align="left" secondary="09:31"></ListItemText>
@@ -180,8 +189,7 @@ const Chat = () => {
                                 </List>
                             </Box>
 
-                            <Divider />
-                            <Box component={Paper}>
+                            <Box>
                                 <div className="row "style={{padding:"1px"}}>
                                     <div className="col s12 valign-wrapper" style={{display:"flex", flexDirection:"right"}}>
                                         <TextField label="Send Message" variant="outlined" type="" fullWidth/>

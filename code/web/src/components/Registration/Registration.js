@@ -14,6 +14,8 @@ import Typography from '@material-ui/core/Typography';*/
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+import axios from 'axios';
+import { Redirect } from "react-router-dom"; 
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,10 +37,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Registration() {
-  const classes = useStyles();
+async function registerUser(field) {
+  const api = "localhost:3200";
+  axios.post(api + '/registration', {
+    name: field.name,
+    email: field.email,
+    password: field.password
+  })
+  .then(function (res) {
+    console.log(res);
+  })
+  .catch(function (err) {
+    console.log(err);
+  });
+}
 
-  return (
+
+export default function Registration({ setToken, registered }) {
+  const classes = useStyles();
+  const name = useStyles();
+  const email = useStyles();
+  const password = useStyles();
+  const data = async e => {
+    e.preventDefault();
+    const token = await registerUser({ name, email, password });
+    setToken(token);
+  }
+
+  if (registered) {
+    return (<Redirect to="/login" />);
+  } 
+  else {
+    return (
     <Container component="main" maxWidth="xs" style={{backgroundColor: "white", marginCenter:'3%'}} >
       <CssBaseline />
       <div className={classes.paper}>
@@ -129,4 +159,5 @@ export default function Registration() {
       </Box>
     </Container>
   );
+  }
 }
