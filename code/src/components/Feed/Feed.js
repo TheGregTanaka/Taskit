@@ -25,7 +25,10 @@ const Feed = () => {
 
   return (
     <div className="container">
-      <div className="" style={{ marginLeft: "20%", marginRight: "20%" }}>
+      <div
+        className=""
+        style={{ marginLeft: "5%", marginRight: "5%", alignContent: "center" }}
+      >
         <Typography gutterBottom variant="h2" component="h1" align="left">
           Feed:
         </Typography>
@@ -38,6 +41,8 @@ const Feed = () => {
               description={task.description}
               location={""}
               deadline={task.datePosted}
+              email={"XXX@gmail.com"}
+              phone={"XXX-XXX-XXXX"}
             />
           ))}
         </div>
@@ -47,8 +52,3 @@ const Feed = () => {
 };
 
 export default Feed;
-
-axios
-  .get("http://localhost:3200/task")
-  .then((response) => this.setState({ tasks: response.data }))
-  .catch((err) => console.log(err));
