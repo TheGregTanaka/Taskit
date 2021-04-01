@@ -137,11 +137,43 @@ Task.getFeed = (req, result) => {
       return;
     } else {
       console.log("ERROR" + JSON.stringify(res));
-      return "HECC", null;
+      result("No Data returned", null);
+      return;
     }
   });
 };
 
+Task.byUser = (type, id, result) => {
+  var q = queryStr + ' WHERE '
+  if (type == 0) {
+    q += 'taskerID = ';
+  } else if (type == 1) {
+    q += 'workerID = ';
+  } else {
+    console.log("Error, invalid type");
+    result("Invalid user type", null);
+    return;
+  }
+  q += id;
+  sql.executeQuery(q, (err, res) => {
+    if (err) {
+      //TODO better error handling
+      console.log("ERROR! : ", err);
+      result(err, null);
+      return;
+    }
+    if (res) {
+      console.log("found: ", JSON.stringify(res));
+      result(null, res['rows']);
+      return;
+    } else {
+      console.log("Res no length" + JSON.stringify(res));
+      result("No Data returned", null);
+      return;
+    }
+  });
+};
+	
 Task.update = (id, user, result) => {
   //TODO
 };
