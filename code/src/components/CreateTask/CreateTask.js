@@ -28,19 +28,21 @@ function CreateTask (){
     var today = new Date();
     var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
+    // Get user information
+    const user = JSON.parse(localStorage.getItem('user'));
+    const userID = user ? user.id : 'null';
+    const em  = user ? user.email : 'null';
+
+
     const [task, setTask] = useState({
         typeID: 1, // temp
-        taskerID: 1, // temp
-        workerID: 1, // temp
+        taskerID: userID, // temp
         dateCompleted: "", // temp
         rating: 0, // temp
 
         title: "",
         offeredPrice: 0,
         description: "",
-        statusID: 1,
-        
-        negotiable: 0,
         
         img: "",
         remotePossible: 0,
@@ -64,7 +66,7 @@ function CreateTask (){
             });
     }
 
-   
+   const [isRemote, setIsRemote] = useState(false);
 
     return(
         <>
@@ -77,25 +79,30 @@ function CreateTask (){
                     <form onSubmit={handleSubmit}>
                         <label>
                             Task name: 
-                            <input type="text" name="task_name" value={task.title} onChange={e => setTask({ ...task, title: e.target.value })}/>
+                            <input type="text" name="task_name" value={task.title} onChange={e => setTask({ ...task, title: e.target.value })} required/>
                         </label>
                         <label>
                             Price:
-                            <input type="number" name="task_price" placeholder="USD" value={task.offeredPrice} onChange={e => setTask({ ...task, offeredPrice: e.target.value })}/>
+                            <input type="number" name="task_price" placeholder="USD" value={task.offeredPrice} onChange={e => setTask({ ...task, offeredPrice: e.target.value })} required/>
                         </label>
                         <label>
                             Description: 
                             <br/>
                             <textarea id="task_desc" maxLength="1200" style={{width:"100%", height:"150px"}} placeholder={"I will"}
-                                value={task.description} onChange={e => setTask({ ...task, description: e.target.value })}/>
+                                value={task.description} onChange={e => setTask({ ...task, description: e.target.value })} required/>
+                        </label>
+                        <label>
+                            Remote:
+                            <input type="radio" name="remote" value={task.isRemote} style={{position: "relative", opacity:"100%"}} required/>
+                            <br/>
                         </label>
                         <label>
                             Location: 
-                            <input type="text" name="task_loc"/>
+                            <input type="text" name="task_loc" required/>
                         </label>
                         <label>
                             Deadline: 
-                            <input type="date" name="task_deadline" value={task.dateCompleted} onChange={e => setTask({ ...task, dateCompleted: e.target.value })}/>
+                            <input type="date" name="task_deadline" value={task.dateCompleted} onChange={e => setTask({ ...task, dateCompleted: e.target.value })} required/>
                         </label>
                         <label>
                             Image:

@@ -20,6 +20,7 @@ import './style.css';
 import socketIOClient from 'socket.io-client';
 
 
+
 const customStyles = {
     overlay: {
         position: 'fixed',
@@ -106,11 +107,23 @@ const Chat = () => {
         setModalIsOpen(false);
     }
 
+    // const [response, setResponse] = useState("");
+
+    //     useEffect(() => {
+    //         const socket = socketIOClient("http://127.0.0.1:4001");
+    //         socket.on("FromAPI", data => {
+    //         setResponse(data);
+    //         });
+    //         return () => socket.disconnect();
+    //     }, []);
+
     return (
         <>
             <Button size="small" color="primary" onClick={setModalIsOpenToTrue}>
                 <Typography style={{color:"#ffab40"}}>Message</Typography>
             </Button>
+
+
             <Modal isOpen={modalIsOpen} style={customStyles} ariaHideApp={false} onRequestClose={()=> setModalIsOpen(false)}>
                 <div style={{ width:"85vw", height:"100%"}}>
                     <Grid container>

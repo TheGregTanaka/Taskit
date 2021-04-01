@@ -7,8 +7,11 @@ const AcceptedTasks = () => {
     const [tasks, setTasks] = useState([]);
     const [err, setErr] = useState(false);
 
+    const user = JSON.parse(localStorage.getItem('user'));
+    const id = user ? user.id : 'null';
+
     useEffect(() => {
-        axios.get("http://localhost:3200/task")
+        axios.get(`http://localhost:3200/task/tasker/${id}`)
             .then((response) => {
                 setTasks(response.data);
                 setErr(false);
