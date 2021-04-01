@@ -14,7 +14,6 @@ const ReviewModel = require('./models/review');
 const TaskModel = require('./models/task');
 const UserModel = require('./models/userProfile');
 
-const chatRouter = require('./routes/chat');
 const login = require('./routes/login')(UserModel);
 const reviewRouter = require('./routes/review')(ReviewModel);
 const taskRouter = require('./routes/task')(TaskModel);
@@ -30,14 +29,11 @@ app.use((req, res, next) => {
 });
 app.use(cors());
 
-app.use('/chat', chatRouter);
+
 app.use('/login', login);
 app.use('/review', reviewRouter);
 app.use('/task', taskRouter);
 app.use('/user', userRouter);
-
-
-
 
 
 
