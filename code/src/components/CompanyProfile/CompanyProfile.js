@@ -76,13 +76,13 @@ const CompanyProfile = () => {
                 </div>
                 <div className="col l10 fit-in-container" style={{backgroundColor: 'white'}}>
                     <div className="row" style={{marginTop:'1%'}}>
-                        {!err && tasks.map((task) => (<div className="col"><Task img={task.img} name={task.title} price={task.offeredPrice} 
+                        {!err && tasks.map((task) => (<Task className="col" key={task.id} img={task.img} name={task.title} price={task.offeredPrice} 
                                                                 description={task.description} location={task.location}
-                                                                deadline={task.datePosted}/></div> ))}
+                                                                deadline={task.datePosted}/>))}
                     </div>
                     <hr/>
                     <div className="row">
-                        {!err && reviews.map((review) => (<Review key={review.key} username={review.username} description={review.description} ratingVal={review.rating} img={review.img}/>))}
+                        {!err && reviews.map((review) => (<Review key={review.id} username={review.username} description={review.description} ratingVal={review.rating} img={review.img}/>))}
                     </div>
                 </div>
             </div>

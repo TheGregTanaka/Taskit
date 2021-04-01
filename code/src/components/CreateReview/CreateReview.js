@@ -51,7 +51,7 @@ function CreateReview (){
         <>
             <button onClick={setModalIsOpenToTrue}>Open review modal</button>
             
-            <Modal isOpen={modalIsOpen} style={customStyles} onRequestClose={()=> setModalIsOpen(false)}>
+            <Modal isOpen={modalIsOpen} style={customStyles} ariaHideApp={false} onRequestClose={()=> setModalIsOpen(false)}>
                 <center>
                     <h5>Create a Review</h5>
                 </center>

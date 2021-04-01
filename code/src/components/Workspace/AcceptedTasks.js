@@ -32,7 +32,7 @@ const AcceptedTasks = () => {
                     </div>
 
                     <div className="row">
-                        {!err && tasks.map((task) => (<DetailedTask 
+                        {!err && tasks.map((task) => (<DetailedTask key={task.id}
                                                                 name={task.title}
                                                                 price={task.offeredPrice}
                                                                 description={task.description}

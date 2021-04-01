@@ -6,7 +6,7 @@ const Landing = () => {
         <div>
             <div className="main">
                 <div className="main__container">
-                    <div class="main__content">
+                    <div className="main__content">
                         <h1>THE FUTURE OF HOME</h1>
                         <h2>IMPROVEMENT</h2>
                         <p>Get your home tasks done.</p>
