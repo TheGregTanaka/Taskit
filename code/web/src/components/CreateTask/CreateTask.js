@@ -69,7 +69,7 @@ function CreateTask (){
     return(
         <>
             <Button variant="contained" color="inherit" onClick={setModalIsOpenToTrue}>Create Task</Button>
-            <Modal isOpen={modalIsOpen} style={customStyles} onRequestClose={()=> setModalIsOpenToFalse} scrollable={true}>
+            <Modal isOpen={modalIsOpen} style={customStyles} ariaHideApp={false} onRequestClose={()=> setModalIsOpenToFalse} scrollable={true}>
                 <center>
                     <h5>Create a Task</h5>
                 </center>

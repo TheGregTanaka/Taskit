@@ -1,8 +1,8 @@
 import './style.css'
 import img_profile from '../../image/img_profile.png'
 
-// import Feed from '../Feed/Feed'  // Dummy feed
-import Tasks from '../Atoms/Tasks'
+
+import Task from '../Task/Task'
 
 import StarRating from '../StarRating/StarRating'
 import Review from '../Review/Review'
@@ -10,6 +10,10 @@ import Chat from '../Chat/Chat';
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+
+const review_ENDPOINT = "http://localhost:3200/review";
+const task_ENDPOINT = "http://localhost:3200/task";
+
 
 const company = [
     {
@@ -27,8 +31,8 @@ const CompanyProfile = () => {
 
     useEffect(() => {
         axios.all([
-            axios.get("http://localhost:3200/review"),
-            axios.get("http://localhost:3200/task")
+            axios.get(review_ENDPOINT),
+            axios.get(task_ENDPOINT)
         ])
         .then(axios.spread((reviewRes, taskRes) => {
             setReviews(reviewRes.data);
@@ -72,13 +76,13 @@ const CompanyProfile = () => {
                 </div>
                 <div className="col l10 fit-in-container" style={{backgroundColor: 'white'}}>
                     <div className="row" style={{marginTop:'1%'}}>
-                        {!err && tasks.map((task) => (<div className="col"><Tasks img={task.img} name={task.title} price={task.offeredPrice} 
+                        {!err && tasks.map((task) => (<Task className="col" key={task.id} img={task.img} name={task.title} price={task.offeredPrice} 
                                                                 description={task.description} location={task.location}
-                                                                deadline={task.datePosted}/></div> ))}
+                                                                deadline={task.datePosted}/>))}
                     </div>
                     <hr/>
                     <div className="row">
-                        {!err && reviews.map((review) => (<Review key={review.key} username={review.username} description={review.description} ratingVal={review.rating} img={review.img}/>))}
+                        {!err && reviews.map((review) => (<Review key={review.id} username={review.username} description={review.description} ratingVal={review.rating} img={review.img}/>))}
                     </div>
                 </div>
             </div>

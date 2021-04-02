@@ -17,6 +17,9 @@ import SendIcon from '@material-ui/icons/Send';
 
 import './style.css';
 
+import socketIOClient from 'socket.io-client';
+
+
 const customStyles = {
     overlay: {
         position: 'fixed',
@@ -102,19 +105,20 @@ const Chat = () => {
     const setModalIsOpenToFalse =()=>{
         setModalIsOpen(false);
     }
+
     return (
         <>
             <Button size="small" color="primary" onClick={setModalIsOpenToTrue}>
                 <Typography style={{color:"#ffab40"}}>Message</Typography>
             </Button>
-            <Modal isOpen={modalIsOpen} style={customStyles} onRequestClose={()=> setModalIsOpen(false)}>
+            <Modal isOpen={modalIsOpen} style={customStyles} ariaHideApp={false} onRequestClose={()=> setModalIsOpen(false)}>
                 <div style={{ width:"85vw", height:"100%"}}>
                     <Grid container>
                         <Grid item xs={2} component={Paper}>
                             <List>
                                 <ListItem>
                                     <ListItemIcon>
-                                        <Avatar alt="user_pic" src="https://material-ui.com/static/images/avatar/8.jpg" />
+                                        <Avatar alt="user_pic" src="https://material-ui.com/static/images/avatar/1.jpg" />
                                     </ListItemIcon>
                                     <ListItemText id="drop-labels" primary={<Typography variant="h5">Chats</Typography>}></ListItemText>
                                 </ListItem>
@@ -148,7 +152,7 @@ const Chat = () => {
                                         <Avatar alt="user_pic" src="https://material-ui.com/static/images/avatar/1.jpg" />
                                     </ListItemIcon>
                                     <ListItemText primary="1. Firstname Lastname"></ListItemText>
-                                    <Button size="large" color="primary" class="fa fa-times" style={{float:"right", border:"0", backgroundColor:"white", fontSize:"20px"}} onClick={setModalIsOpenToFalse}/>
+                                    <Button size="large" color="primary" className="fa fa-times" style={{float:"right", border:"0", backgroundColor:"white", fontSize:"20px"}} onClick={setModalIsOpenToFalse}/>
                                 </ListItem>
                             </List>
 

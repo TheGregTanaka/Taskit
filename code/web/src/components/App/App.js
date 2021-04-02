@@ -5,6 +5,7 @@ import axios from 'axios';
 import Chat from '../Chat/Chat'
 import CreateTask from '../CreateTask/CreateTask';
 import Dashboard from '../Dashboard/Dashboard';
+import Landing from '../Landing/Landing'
 import Login from '../Login/Login';
 import Logout from '../Login/Logout';
 import Navbar from '../Navbar/Navbar';
@@ -60,48 +61,21 @@ function App() {
         <BrowserRouter>
           <Switch>
 
-            <Route path="/chat">
-              <Chat />
-            </Route>
-
-            <Route path="/create_task">
-              <CreateTask />
-            </Route>
-
-            <Route path="/login" component={Login}>
-              <Login setUser={setUser} loggedIn={loggedIn}/>
-            </Route>
-            <Route path="/logout" component={Logout}>
-              <Logout />
-            </Route>
-
-            <Route path="/create_review">
-              <CreateReview />
-            </Route>
-
-            <Route path="/registeration">
-              <Registration />
-            </Route>
-
-            <Route path='/transaction'>
-                <Transaction />
-            </Route>
-
-            <Route path="/feed">
-              <Feed />
-            </Route>
-
-            <Route path="/workspace">
-              <Workspace />
-            </Route>
-            
-            <Route path="/viewprofile">
-              <ViewProfile />
-            </Route>
-
-            <Route path="/">
-              <Dashboard />
-            </Route>
+          <Route path="/landing" component={Landing}/>
+          <Route path="/chat" component={Chat}/>
+          <Route path="/create_task" component={CreateTask}/>
+          <Route path="/dashboard" component={Dashboard}/>
+          <Route path="/login" component={Login}>
+            <Login setUser={setUser} loggedIn={loggedIn}/>
+          </Route>
+          <Route path="/logout" component={Logout}/>
+          <Route path="/create_review" component={CreateReview}/>
+          <Route path="/registeration" component={Registration}/>
+          <Route path="/transaction" component={Transaction}/>
+          <Route path="/feed" component={Feed}/>
+          <Route path="/workspace" component={Workspace}/>
+          <Route path="/viewprofile" component={ViewProfile}/>
+          <Route path="/" component={ViewProfile}>
 
           </Switch>
         </BrowserRouter>

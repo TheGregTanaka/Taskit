@@ -1,17 +1,24 @@
 import { useState } from "react";
 import "../App/App.css";
 
-import { Card, CardActionArea } from "@material-ui/core";
+// import { Card, CardActionArea } from "@material-ui/core";
 
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
 
 import Modal from 'react-modal';
 
 import EnlargeTask from './EnlargeTask'
-import MinimizedTask from "./MinimizedTask";
 import Chat from '../Chat/Chat'
+
+
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import { Card, CardActionArea, CardMedia } from "@material-ui/core";
+import default_img from "../../image/car_wash.jpeg";
+
+import DoneIcon from '@material-ui/icons/Done';
+import CloseIcon from '@material-ui/icons/Close';
 
 const customStyles = {
   overlay: {
@@ -34,7 +41,7 @@ const customStyles = {
 };
 
 
-const DetailedTask = ({name, price, description, location, deadline, email, phone}) => {
+const DetailedTask = ({img, name, price, description, location, deadline, email, phone}) => {
   const [modalIsOpen,setModalIsOpen] = useState(false);
   const [taskStatus, setTaskStatus] = useState(true);
 
@@ -53,8 +60,8 @@ const DetailedTask = ({name, price, description, location, deadline, email, phon
   return (
     <>
       {/* Display task on modal as bigger version */}
-      <Modal isOpen={modalIsOpen} style={customStyles} onRequestClose={()=> setModalIsOpen(false)}>
-        <Button size="large" color="primary" class="fa fa-times" style={{float:"right", border:"0", backgroundColor:"white", fontSize:"20px"}} onClick={setModalIsOpenToFalse}/>
+      <Modal isOpen={modalIsOpen} style={customStyles} ariaHideApp={false} onRequestClose={()=> setModalIsOpen(false)}>
+        <Button size="large" color="primary" style={{float:"right", border:"0", backgroundColor:"white", fontSize:"20px"}} onClick={setModalIsOpenToFalse}><CloseIcon/></Button>
         <EnlargeTask name={name} price={price} description={description} location={location} deadline={deadline} email={email} phone={phone} />
       </Modal>
 
@@ -63,10 +70,32 @@ const DetailedTask = ({name, price, description, location, deadline, email, phon
       {taskStatus &&
       <div className="col" style={{ marginBottom:'1%' }}>
         <Card style={{ width: 300 }}>
-          <Button size="small" color="primary" class="fa fa-check" style={{color:"green", float:"right", border:"0", backgroundColor:"white"}} onClick={setTaskStatusToFalse}/>
-          <CardActionArea>
-            <CardContent onClick={setModalIsOpenToTrue}>
-              <MinimizedTask name={name} price={price} description={description} location={location} deadline={deadline} email={email} phone={phone} />
+          <Button size="small" color="primary" style={{color:"green", float:"right", border:"0", backgroundColor:"white"}} onClick={setTaskStatusToFalse}><DoneIcon/></Button>
+          <CardActionArea onClick={setModalIsOpenToTrue}>
+            <CardMedia
+                      component="img"
+                      height="140"
+                      image={img}
+                      title="Contemplative Reptile"
+                    />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2" align="left" noWrap>
+                {name.toUpperCase()}
+                <br/>
+                ${price}
+              </Typography>
+              <Typography gutterBottom variant="h6" component="h2" align="left">
+                {location}
+              </Typography>
+              <Typography
+                variant="body2"
+                color="textSecondary"
+                component="p"
+                align="left"
+                noWrap
+              >
+                {description}
+              </Typography>
             </CardContent>
           </CardActionArea>
           <CardActions>
@@ -76,6 +105,10 @@ const DetailedTask = ({name, price, description, location, deadline, email, phon
       </div>}
     </>
   )
+}
+
+DetailedTask.defaultProps = {
+  img: default_img,
 }
 
 export default DetailedTask
