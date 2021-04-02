@@ -51,9 +51,15 @@ function App() {
     <div className="App">
 
       {/* <Navbar loggedIn={loggedIn}/> */}
+      {/* <NavbarV2 loggedIn={loggedIn} /> */}
+
+      <header>
       <NavbarV2 loggedIn={loggedIn} />
+      </header>
 
       <header className="App-header">
+        <div className="App-body">
+      
         <BrowserRouter>
           <Switch>
 
@@ -64,18 +70,18 @@ function App() {
           <Route path="/login" component={Login}>
             <Login setUser={setUser} loggedIn={loggedIn}/>
           </Route>
-          <Route path="/logout" component={Logout}>
-            <Logout />
-          </Route>
+          <Route path="/logout" component={Logout}/>
           <Route path="/create_review" component={CreateReview}/>
           <Route path="/registeration" component={Registration}/>
           <Route path="/transaction" component={Transaction}/>
           <Route path="/feed" component={Feed}/>
           <Route path="/workspace" component={Workspace}/>
           <Route path="/viewprofile" component={ViewProfile}/>
+          <Route path="/" component={ViewProfile}/>
 
           </Switch>
         </BrowserRouter>
+    </div>
 
       </header>
       
