@@ -9,7 +9,7 @@ import Landing from '../Landing/Landing'
 import Login from '../Login/Login';
 import Logout from '../Login/Logout';
 import Navbar from '../Navbar/Navbar';
-import NavbarV2 from '../Landing Page/NavbarV2';
+import NavbarV2 from '../LandingPage/NavbarV2';
 import CreateReview from '../CreateReview/CreateReview'
 import Registration from '../Registration/Registration'
 import Transaction from '../Transaction/Transaction'
@@ -75,7 +75,7 @@ function App() {
           <Route path="/feed" component={Feed}/>
           <Route path="/workspace" component={Workspace}/>
           <Route path="/viewprofile" component={ViewProfile}/>
-          <Route path="/" component={ViewProfile}>
+          <Route path="/" component={ViewProfile}/>
 
           </Switch>
         </BrowserRouter>
