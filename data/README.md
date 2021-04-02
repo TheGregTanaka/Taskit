@@ -1,10 +1,8 @@
 ## TaskitDb
 
-A dockerfile is provided to spin up a MySQL instance and run the scripts, however the scripts can be manually run to generate the database without docker. These must be run in sequence.
+This file contains info on the db structure.
 
-`00.up.sql` contains the structure of the database, `01.up.sql` contains intial data. Subsequent files will be for alterations and migrations made durring the development process.
-
-See the README at the root of the project directory for details on running the database.
+See the README at the root of the project directory for details on running the database set up file.
 
 ## Tables
 **task**
