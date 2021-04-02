@@ -1,3 +1,4 @@
+import React from 'react';
 import './style.css'
 import img_profile from '../../image/img_profile.png'
 

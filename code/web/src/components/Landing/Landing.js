@@ -1,3 +1,4 @@
+import React from 'react';
 import './style.css'
 import landing_img from '../../image/landing_img.svg'
 

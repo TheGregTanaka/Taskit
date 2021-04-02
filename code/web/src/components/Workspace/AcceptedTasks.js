@@ -1,3 +1,4 @@
+import React from 'react';
 import DetailedTask from '../DetailedTask/DetailedTask'
 // import DetailedFeed from './DetailedFeed'                // Dummy feed
 import { useEffect, useState } from 'react';

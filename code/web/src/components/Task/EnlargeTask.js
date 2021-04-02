@@ -1,3 +1,6 @@
+import React from 'react';
+
+
 const EnlargeTask = ({name, price, description, location, deadline, email, phone}) => {
     return (
         <div>

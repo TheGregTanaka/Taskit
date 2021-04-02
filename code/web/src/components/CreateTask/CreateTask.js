@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Button } from '@material-ui/core';
 import Modal from 'react-modal';
-import { useState } from 'react'
+import React, { useState } from 'react';
 
 const customStyles = {
     overlay: {
