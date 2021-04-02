@@ -12,8 +12,11 @@ import Chat from '../Chat/Chat';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const review_ENDPOINT = "http://localhost:3200/review";
-const task_ENDPOINT = "http://localhost:3200/task";
+const user = JSON.parse(localStorage.getItem('user'));
+const id = user ? user.id : 'null';
+
+const review_ENDPOINT = "http://localhost:3200/review?";
+const task_ENDPOINT = `http://localhost:3200/task/tasker/${id}`;
 
 
 const company = [
