@@ -38,10 +38,9 @@ function CreateTask (){
         typeID: 1, // temp
         taskerID: userID, // temp
         dateCompleted: "", // temp
-        rating: 0, // temp
 
         title: "",
-        offeredPrice: 0,
+        price: 0,
         description: "",
         
         img: "",
@@ -58,7 +57,7 @@ function CreateTask (){
         e.preventDefault();
         setModalIsOpenToFalse();
         
-        axios.post('http://localhost:3200/task', { task })
+        axios.post('http://localhost:3200/task', task)
             .then((response) => { 
                 console.log(response.data);
             }, (error) => {
@@ -83,7 +82,7 @@ function CreateTask (){
                         </label>
                         <label>
                             Price:
-                            <input type="number" name="task_price" placeholder="USD" value={task.offeredPrice} onChange={e => setTask({ ...task, offeredPrice: e.target.value })} required/>
+                            <input type="number" name="task_price" placeholder="USD" value={task.price} onChange={e => setTask({ ...task, price: e.target.value })} required/>
                         </label>
                         <label>
                             Description: 

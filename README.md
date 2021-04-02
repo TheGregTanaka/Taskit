@@ -21,7 +21,10 @@ This project uses npm, so you'll need it [installed](https://www.npmjs.com/get-n
 
 This project uses MySQL.
 
-There is a data directory which contains scripts to set up the structure and initial data in your database. These must be run in sequence from lowest to highest number.
+A script to create a database as well as a `taskit` user is included in the `data`
+directory. Install and set up MySQL on your machine. Then, either copy the
+contents of `data/database.init.sql` into a MySQL client, or from the command
+line run `mysql -u root -p < data/database.init.sql`.
 
 ## 2. nodeJS Back End
 
@@ -42,7 +45,7 @@ See readme in the api folder for route documentation.
 
 The front end of the application is React, and located directly in the code directory. To run this, simply:
 ```
-cd code
+cd code/web
 npm install
 npm start
 ```

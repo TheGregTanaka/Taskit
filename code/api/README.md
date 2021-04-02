@@ -81,7 +81,7 @@ Returns a list of all tasks.
     "worker": ,
     "datePosted": ,
     "dateCompleted": ,
-    "rating": 
+    "price": 
   }
   {
     "id": ,
@@ -97,7 +97,7 @@ Returns a list of all tasks.
     "worker": ,
     "datePosted": ,
     "dateCompleted": ,
-    "rating": 
+    "price": 
   }
 ]
 ```
@@ -121,7 +121,7 @@ Returns the task specified by `:taskID`
     "worker": "Gregory Tanaka",
     "datePosted": "2021-02-09T07:00:00.000Z",
     "dateCompleted": null,
-    "rating": null
+    "price": 10.00
   }
 ]
 ```
@@ -144,7 +144,7 @@ Returns an array of tasks created by the specified user.
     "worker": ,
     "datePosted": ,
     "dateCompleted": ,
-    "rating": 
+    "price": 
   }
   {
     "id": ,
@@ -160,7 +160,7 @@ Returns an array of tasks created by the specified user.
     "worker": ,
     "datePosted": ,
     "dateCompleted": ,
-    "rating": 
+    "price": 
   }
 ]
 ```
@@ -183,7 +183,7 @@ Returns an array of tasks accepted by the specified user.
     "worker": ,
     "datePosted": ,
     "dateCompleted": ,
-    "rating": 
+    "price": 
   }
   {
     "id": ,
@@ -199,7 +199,7 @@ Returns an array of tasks accepted by the specified user.
     "worker": ,
     "datePosted": ,
     "dateCompleted": ,
-    "rating": 
+    "price": 
   }
 ]
 ```

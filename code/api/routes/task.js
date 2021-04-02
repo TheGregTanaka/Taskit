@@ -5,6 +5,7 @@ function routes(Task) {
   router
     .route("/")
     .get((req, res) => {
+      console.log("here");
       Task.get(req, (err, task) => {
         if (err) {
           return res.send(err);

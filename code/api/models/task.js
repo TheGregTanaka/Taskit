@@ -21,8 +21,7 @@ const queryStr = `SELECT
     worker.name as worker,
     task.datePosted,
     task.dateCompleted,
-    task.rating,
-    task.offeredPrice
+    task.price
   FROM task 
   JOIN typeTask ON task.typeID = typeTask.id
   JOIN statusTask ON task.statusID = statusTask.id
@@ -31,7 +30,7 @@ const queryStr = `SELECT
 
 Task.create = (newTask, result) => {
   let kStr, vStr;
-  newTask = newTask.task
+  //newTask = newTask.task
   kStr = vStr = "(";
   for (const key in newTask) {
     console.log(`k ${key} v ${newTask[key]}\n`);

@@ -13,17 +13,20 @@ See the README at the root of the project directory for details on running the d
 * typeID - _(int) NN_
 * statusID - _(int) NN *_
 * description - _(longtext)_
-* offeredPrice - _(float)_
-* negotiable - _(tinyint) NN **_
+* price - _(float)_
 * taskerID - _(int) NN_
 * workerID - _(int)_
 * datePosted - _(date)_
 * dateCompleted - _(date)_
-* rating - _(int)_
+* img - _(varchar128)_
+* address - _(varchar128)_
+* lat - _(float)_
+* lng - _(float)_
+* redirect - _(varchar128)_
+* remotePossible - _(bool) **_
 
 ##### \* statusID defaults to 1 ('Pending') on creation, indicating the task is open for workers to accept.
-
-##### \** 1/0 indicates the price is/is not negotiable. This may or may not be implemented, so this currently defaults to 0.
+##### \** remotePossible defaults to false. We may or may not end up using this, but this could be used to indicate that a location is not needed for the task.
 
 **typeTask**
 * id - _(int) PK, U, NN_
@@ -44,6 +47,15 @@ See the README at the root of the project directory for details on running the d
 * token - _(varchar128) *_
 
 ##### \* jwt refresh token for use with login 
+
+**review**
+* id - _(int) PK, U, NN_
+* rating - _(float) NN_
+* description - _(longtext)_
+* taskID - _(int) *_
+
+##### \* taskID is a foreign key that references task.id. It should cascade so if a task is deleted, its reviews will be as well.
+
 
 ### Key
 _PK_ = Primary Key (these auto increment used to index the table)
