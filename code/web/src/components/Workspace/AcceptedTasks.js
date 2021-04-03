@@ -31,7 +31,7 @@ const AcceptedTasks = () => {
                     <hr/>
                     <div className="row">
                         <div className="col" style={{float:"left"}}>
-                            <h6>Priority/Accepted Tasks</h6>
+                            <h6>Priority</h6>
                         </div>
                     </div>
 
