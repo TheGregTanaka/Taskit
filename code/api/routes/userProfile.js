@@ -43,8 +43,6 @@ function routes(UserProfile) {
         return res.sendStatus(204);
       });
     });
-
-
   return router;
 }
 

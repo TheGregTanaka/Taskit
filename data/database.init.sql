@@ -51,7 +51,6 @@ CREATE TABLE IF NOT EXISTS task
 	address VARCHAR(128),
 	lat FLOAT(10,6),
 	lng FLOAT(10,6),
-	redirect VARCHAR(128),
 	remotePossible BOOL DEFAULT FALSE,
     CONSTRAINT task_type_fk FOREIGN KEY (typeID) REFERENCES typeTask (id),
     CONSTRAINT task_status_fk FOREIGN KEY (statusID) REFERENCES statusTask (id),
@@ -93,26 +92,31 @@ VALUES
 
 # seed data
 INSERT INTO `userProfile` 
-	(`email`, `password`, `name`)
+	(`email`, `password`, `name`, `profilePicture`, `phone`, `bio`)
 VALUES
-	("testTasker@ineedhelp.com", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Theo Tasker"),
-	("mario@plumber.com", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Mario Pipes"),
-	("greenthumb@yourgardener.net", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Forrest Green"),
-	("gregory.tanaka@colorado.edu", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Gregory Tanaka");
+	("testTasker@ineedhelp.com", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Theo Tasker", "http://localhost:3200/img/static/img_profile.png", "xxx-xxx-xxxx", "Hello I'm Theo. I'm glad you're taking an interest in me."),
+	("mario@plumber.com", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Mario Pipes", "http://localhost:3200/img/static/img_profile.png", "111-222-3333", "Hello I'm mario. I'm glad you're taking an interest in me."),
+	("greenthumb@yourgardener.net", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Forrest Green", "http://localhost:3200/img/static/img_profile.png", "444-555-6666", "Hello I'm green. I'm glad you're taking an interest in me."),
+	("gregory.tanaka@colorado.edu", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Gregory Tanaka", "http://localhost:3200/img/static/img_profile.png", "777-888-9999", "Hello I'm Greg. I'm glad you're taking an interest in me.");
+
 
 INSERT INTO task
-	(`title`, `typeID`, `statusID`, `description`, `price`, `taskerID`, `workerID`, `datePosted`, `dateCompleted`)
+	(`title`, `typeID`, `statusID`, `description`, `price`, `taskerID`, `workerID`, `datePosted`, `dateCompleted`, `img`)
 VALUES
-	("Rake my leaves", 1, 1, "I need someone to rake the leaves in my yard", 20, 1, NULL, '2021-02-08', NULL),
-	("Hook up my speakers", 5, 2, "I need help setting up my new audio system.", 20, 1, 4, '2021-02-09', NULL),
-	("Wash my car", 4, 3, "My car is dirty! Help!", 20, 1, 2, '2021-03-29', '2021-04-01'),
-	("Mow My Lawn", 1, 3, "Grass is getting too long", 15, 1, 3, '2021-03-01', '2021-03-03'),
-	("Need Party Clown", 6, 3, "Looking for entertainment for my kid's birthday", 70, 3, 4, '2021-03-15', '2021-03-20');
+	("Rake my leaves", 1, 1, "I need someone to rake the leaves in my yard", 20, 2, 1, '2021-02-08', NULL, "http://localhost:3200/img/static/car_wash.jpeg"),
+	("Hook up my speakers", 5, 2, "I need help setting up my new audio system.", 20, 3, 1, '2021-02-09', NULL, "http://localhost:3200/img/static/car_wash.jpeg"),
+	("Wash my car", 4, 3, "My car is dirty! Help!", 20, 4, 1, '2021-03-29', '2021-04-01', "http://localhost:3200/img/static/car_wash.jpeg"),
+	("Mow My Lawn", 1, 3, "Grass is getting too long", 15, 2, 1, '2021-03-01', '2021-03-03', "http://localhost:3200/img/static/car_wash.jpeg"),
+	("Need Party Clown", 6, 3, "Looking for entertainment for my kid's birthday", 70, 3, 1, '2021-03-15', '2021-03-20', "http://localhost:3200/img/static/car_wash.jpeg"),
+    ("Need Clown", 6, 3, "Looking for entertainment Assigned by GREG(4) ACCEPTED by mario(2)", 70, 4, 2, '2021-03-15', '2021-03-20', "http://localhost:3200/img/static/car_wash.jpeg");
 
 
 INSERT INTO review
 	(`rating`, `description`, `taskID`)
 VALUES
+	(3.5, "Pretty good, but lines could be straighter", 1),
+	(1.0, "Greg's real", 2),
 	(5.0, "My car has never been cleaner", 3),
-	(3.5, "Pretty good, but lines could be straighter", 4),
-	(1.0, "Greg's a real clown", 5);
+	(3.5, "Pretty good, but lines could be curvy", 4),
+	(1.0, "Greg's a real clown", 5),
+    (1.0, "Test Case Review Assigned to ", 6);

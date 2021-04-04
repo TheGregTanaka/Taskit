@@ -21,7 +21,9 @@ const queryStr = `SELECT
     worker.name as worker,
     task.datePosted,
     task.dateCompleted,
-    task.price
+    task.price,
+    tasker.phone,
+    tasker.email
   FROM task 
   JOIN typeTask ON task.typeID = typeTask.id
   JOIN statusTask ON task.statusID = statusTask.id
@@ -172,6 +174,42 @@ Task.byUser = (type, id, result) => {
       return;
     }
   });
+};
+
+Task.getPending = (req, status, result) => {
+  var id = req.params.id;
+
+  var query = `
+  SELECT
+    task.id,
+    task.title,
+    task.typeID,
+    typeTask.type,
+    task.statusID,
+    statusTask.status,
+    task.description,
+    task.taskerID,
+    tasker.name as tasker,
+    task.workerID,
+    worker.name as worker,
+    task.datePosted,
+    task.dateCompleted,
+    task.price,
+    tasker.phone,
+    tasker.email
+  FROM task
+  JOIN typeTask ON task.typeID = typeTask.id
+  JOIN statusTask ON task.statusID = statusTask.id
+  JOIN userProfile as tasker ON task.taskerID = tasker.id
+  LEFT JOIN userProfile as worker ON task.workerID = worker.id 
+  WHERE workerID = ${id} AND statusTask.status = "${status}";`;
+
+  sql.executeQuery(query, (err, res) => {
+    if (err) { console.log(err); result(err, null); }
+    if (res) { result(null, res['rows']); }
+    return;
+  });
+  return;
 };
 	
 Task.update = (id, user, result) => {

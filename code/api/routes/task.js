@@ -5,7 +5,6 @@ function routes(Task) {
   router
     .route("/")
     .get((req, res) => {
-      console.log("here");
       Task.get(req, (err, task) => {
         if (err) {
           return res.send(err);
@@ -108,6 +107,31 @@ function routes(Task) {
         return res.sendStatus(404);
       });
     });
+
+  router.route('/worker/pending/:id')
+    .get((req, res) => {
+      Task.getPending(req, "Pending", (err, tasks) => {
+        if (err) { return res.send(err).status(400); }
+        if (tasks) { return res.json(tasks).status(200); }
+      });
+    });
+
+  router.route('/worker/accepted/:id')
+    .get((req, res) => {
+      Task.getPending(req, "Accepted", (err, tasks) => {
+        if (err) { return res.send(err).status(400); }
+        if (tasks) { return res.json(tasks).status(200); }
+      });
+    });
+
+  router.route('/worker/complete/:id')
+    .get((req, res) => {
+      Task.getPending(req, "Complete", (err, tasks) => {
+        if (err) { return res.send(err).status(400); }
+        if (tasks) { return res.json(tasks).status(200); }
+      });
+    });
+    
 
   return router;
 }
