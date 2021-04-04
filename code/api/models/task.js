@@ -112,7 +112,9 @@ Task.getOne = (taskID, result) => {
       return;
     } else {
       console.log("Res no length" + JSON.stringify(res));
-      return "HECC", null;
+
+      result("No Data returned", null);
+      return;
     }
   });
 };

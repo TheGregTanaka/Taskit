@@ -31,6 +31,8 @@ const customStyles = {
     transform: "translate(-50%, -50%)",
     backgroundColor: "white",
   },
+  
+  
 };
 
 class Task extends Component {
@@ -63,34 +65,6 @@ class Task extends Component {
     } = this.props;
     return (
       <div>
-        <Modal
-          isOpen={modalStatus}
-          style={customStyles}
-          onRequestClose={this.handleClick}
-        >
-          <Button
-            size="large"
-            color="primary"
-            class="fa fa-times"
-            style={{
-              float: "right",
-              border: "0",
-              backgroundColor: "white",
-              fontSize: "20px",
-            }}
-            onClick={this.handleClick}
-          />
-          <EnlargeTask
-            name={name}
-            price={price}
-            description={description}
-            location={location}
-            deadline={deadline}
-            email={email}
-            phone={phone}
-          />
-        </Modal>
-
         <Card style={{ width: 900 }}>
           <CardActionArea>
             <CardMedia
@@ -125,6 +99,20 @@ class Task extends Component {
             >
               Learn More
             </Button>
+            <Modal
+              open={modalStatus}
+              style={customStyles}
+              type="button"
+              onClose={this.handleClick}
+            >
+              <div  className="container">
+                <h2 id="simple-modal-title">Text in a modal</h2>
+                <p id="simple-modal-description">
+                  Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                </p>
+                
+              </div>
+            </Modal>
           </CardActions>
         </Card>
         <br />
