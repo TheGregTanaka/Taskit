@@ -52,26 +52,16 @@ function routes(Task) {
     })
     .put(Task.update)
     .patch((req, res) => {
-      const { task } = req;
-
-      /*if (req.body._id) {
-        delete req.body._id;
-      }
-      */
-      Object.entries(req.body).forEach((item) => {
-        const key = item[0];
-        const value = item[1];
-        task[key] = value;
-      });
-      req.task.save((err) => {
+      Task.update(req.params.taskID, req.body, (err, r) => {
         if (err) {
+          console.log(err);
           return res.send(err);
         }
-        return res.json(task);
+        return res.sendStatus(204);
       });
     })
     .delete((req, res) => {
-      req.task.remove((err) => {
+      Task.delete(req.params.taskID, (err, r) => {
         if (err) {
           return res.send(err);
         }
