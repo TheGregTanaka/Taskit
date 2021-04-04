@@ -213,11 +213,50 @@ Task.getPending = (req, status, result) => {
 };
 	
 Task.update = (id, user, result) => {
-  //TODO
+  console.log(id);
+  var updateStr = `UPDATE task SET`;
+  for (const key in user) {
+    updateStr += ` ${key} = "${user[key]}",`;
+  }
+  //remove final comma
+  updateStr = updateStr.substring(0, updateStr.length - 1);
+  updateStr += ` WHERE id = ${id};`;
+  sql.executeQuery(updateStr, (err, res) => {
+    if (err) {
+      //TODO better error handling
+      console.log("ERROR! : ", err);
+      result(err, null);
+      return;
+    }
+    if (res.affectedRows === 0) {
+      result({ kind: "not_found" }, null);
+      return;
+    }
+
+    console.log("updated task: ", { id: id, ...user });
+    result(null, { id: id, ...user });
+  }
+  );
 };
 
 Task.delete = (id, result) => {
-  //TODO
+  sql.executeQuery(`DELETE FROM task WHERE id = ${id}`, (err, res) => {
+    if (err) {
+      //TODO better error handling
+      console.log("ERROR! : ", err);
+      result(err, null);
+      return;
+    }
+
+    if (res.affectedRows === 0) {
+      result({ kind: "not_found" }, null);
+      return;
+    }
+
+    console.log("deleted task: ", { id: id });
+    result(null, res);
+  }
+  );
 };
 
 module.exports = Task;
