@@ -3,7 +3,7 @@ import DetailedTask from '../DetailedTask/DetailedTask'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const AcceptedTasks = () => {
+const MyTasks = () => {
     const [tasks, setTasks] = useState([]);
     const [err, setErr] = useState(false);
 
@@ -11,7 +11,7 @@ const AcceptedTasks = () => {
     const id = user ? user.id : 'null';
 
     useEffect(() => {
-        axios.get(`http://localhost:3200/task/worker/accepted/${id}`)
+        axios.get(`http://localhost:3200/task/tasker/${id}`)
             .then((response) => {
                 setTasks(response.data);
                 setErr(false);
@@ -30,21 +30,21 @@ const AcceptedTasks = () => {
                     <hr/>
                     <div className="row">
                         <div className="col" style={{float:"left"}}>
-                            <h6>My TODO Tasks</h6>
+                            <h6>My Created Tasks</h6>
                         </div>
                     </div>
 
                     <div className="row">
                         {!err && tasks.map((task) => (<DetailedTask key={task.id}
                                                                 name={task.title}
-                                                                price={task.price}
+                                                                price={task.offeredPrice}
                                                                 description={task.description}
                                                                 location={""}
                                                                 deadline={(task.datePosted)}
                                                                 email={task.email}
                                                                 phone={task.phone}
                                                                 status={task.status}
-                                                                taskMode="finished"
+                                                                taskMode="delete"
                                                             />))}
                     </div>
                     <hr/>
@@ -55,4 +55,4 @@ const AcceptedTasks = () => {
     )
 }
 
-export default AcceptedTasks
+export default MyTasks

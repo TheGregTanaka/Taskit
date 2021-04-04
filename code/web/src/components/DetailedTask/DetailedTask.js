@@ -42,21 +42,36 @@ const customStyles = {
 };
 
 
-const DetailedTask = ({img, name, price, description, location, deadline, email, phone}) => {
+const DetailedTask = ({status, img, name, price, description, location, deadline, email, phone, taskMode="finished"}) => {
   const [modalIsOpen,setModalIsOpen] = useState(false);
-  const [taskStatus, setTaskStatus] = useState(true);
+  const [finishTask, setFinishTask] = useState(false);
+  const [deleteTask, setDeleteTask] = useState(false);
 
-    const setModalIsOpenToTrue =()=>{
-        setModalIsOpen(true)
-    }
-    const setModalIsOpenToFalse =()=>{
-        setModalIsOpen(false);
-    }
+  const [showTask, setShowTask] = useState(true);
 
-    const setTaskStatusToFalse =()=>{
-      alert("Task is finished. TODO send post request to change task status and get verified status to client customer and add a confirmation dialogue");
-      setTaskStatus(false);
-  }
+    const setModalIsOpenToTrue = () => { setModalIsOpen(true) };
+    const setModalIsOpenToFalse = () => { setModalIsOpen(false); }
+
+    const setConfirmFinished_Hide = () => { setFinishTask(false); }
+    const setConfirmFinished_Show = () => { setFinishTask(true); }
+
+    const setConfirmDelete_Hide = () =>{ setDeleteTask(false); }
+    const setConfirmDelete_Show = () =>{ setDeleteTask(true); }
+
+    const finishedTask_put = () => {
+      setConfirmFinished_Hide();
+      setShowTask(false);
+
+      alert("Send Put request task status is complete");
+    };
+
+    const deleteTask_put = () => {
+      setConfirmDelete_Hide();
+      setShowTask(false);
+
+      alert("Send Put request task is removed");
+    };
+
   
   return (
     <>
@@ -66,12 +81,30 @@ const DetailedTask = ({img, name, price, description, location, deadline, email,
         <EnlargeTask name={name} price={price} description={description} location={location} deadline={deadline} email={email} phone={phone} />
       </Modal>
 
+      <Modal isOpen={finishTask} style={customStyles} ariaHideApp={false} onRequestClose={()=> setFinishTask(false)}>
+          Are you finished with your task?
+          <br/>
+          <Button variant="contained" color="secondary" style={{float:"right"}}onClick={setConfirmFinished_Hide}>Cancel</Button>{' '}
+          <Button style={{float:"right"}} onClick={finishedTask_put}>Confirm</Button>
+      </Modal>
+
+      <Modal isOpen={deleteTask} style={customStyles} ariaHideApp={false} onRequestClose={()=> setDeleteTask(false)}>
+        Are you sure you want to delete your task?
+          <br/>
+          <Button variant="contained" color="secondary" style={{float:"right"}} onClick={setConfirmDelete_Hide}>Cancel</Button>{' '}
+          <Button style={{float:"right"}} onClick={deleteTask_put}>Confirm</Button>
+      </Modal>
+
 
       {/* Display Task in minimized version */}
-      {taskStatus &&
+      {showTask &&
       <div className="col" style={{ marginBottom:'1%' }}>
         <Card style={{ width: 300 }}>
-          <Button size="small" color="primary" style={{color:"green", float:"right", border:"0", backgroundColor:"white"}} onClick={setTaskStatusToFalse}><DoneIcon/></Button>
+          <label style={{color:"black", float:"left", marginTop:"1vh"}}>{status}</label>
+
+          {taskMode == "finished" && <Button size="small" style={{float:"right"}} onClick={setConfirmFinished_Show}><DoneIcon/></Button>}
+          {taskMode == "delete" && <Button size="small" style={{float:"right"}} onClick={setConfirmDelete_Show}><CloseIcon/></Button>}
+          
           <CardActionArea onClick={setModalIsOpenToTrue}>
             <CardMedia
                       component="img"

@@ -75,7 +75,7 @@ function App() {
           <Route path="/feed" component={Feed}/>
           <Route path="/workspace" component={Workspace}/>
           <Route path="/viewprofile" component={ViewProfile}/>
-          <Route path="/" component={ViewProfile}/>
+          <Route path="/" component={Feed}/>
 
           </Switch>
         </BrowserRouter>

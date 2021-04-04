@@ -18,11 +18,12 @@ const EnlargeTask = ({name, price, description, location, deadline, email, phone
                 <div>
                     <b>Description: </b>{description}
                 </div>
+                <br/>
                 <div>
                 <hr/>
                     <b>Contact Info</b> <br/>
-                    <b>Email: </b>{email} <br/>
-                    <b>Phone: </b>{phone}
+                    &nbsp;&nbsp;&nbsp;<b>Email: </b>{email} <br/>
+                    &nbsp;&nbsp;&nbsp;<b>Phone: </b>{phone}
                 </div>
                 <hr/>
                 <div>

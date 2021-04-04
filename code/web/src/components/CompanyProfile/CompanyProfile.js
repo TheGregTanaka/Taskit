@@ -1,56 +1,58 @@
-import React from 'react';
-import './style.css'
-import img_profile from '../../image/img_profile.png'
+import React, { useEffect, useState } from 'react';
 
-
-import Task from '../Task/Task'
-
-import StarRating from '../StarRating/StarRating'
-import Review from '../Review/Review'
 import Chat from '../Chat/Chat';
+import Review from '../Review/Review'
+import StarRating from '../StarRating/StarRating'
+import Task from '../Task/Task'
+import Typography from "@material-ui/core/Typography";
 
-import { useEffect, useState } from 'react';
+import img_profile from '../../image/img_profile.png'
+import './style.css';
+
 import axios from 'axios';
 
 const user = JSON.parse(localStorage.getItem('user'));
 const id = user ? user.id : 'null';
 
-const review_ENDPOINT = "http://localhost:3200/review?";
-const task_ENDPOINT = `http://localhost:3200/task/tasker/${id}`;
 
 
-const company = [
-    {
-        name: 'Taskit',
-        rating: 3.5,
-        location: 'Boulder, CO',
-        bio: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.',
-    }
-]
+const profile_ENDPOINT = `http://localhost:3200/user/${id}`;
+const avgRating_ENDPOINT = `http://localhost:3200/review/getAvgRating/${id}`;
+
+
+const companyInfo_ENDPOINT = `http://localhost:3200/companyProfile/${id}`;
+
 
 const CompanyProfile = () => {
-    const [reviews, setReviews] = useState([]);
-    const [tasks, setTasks] = useState([]);
+    const [companyInfo, setCompanyInfo] = useState([]);
+    const [profile, setProfile] = useState([{name: "", bio: ""}]);
+    const [avgRating, setAvgRating] = useState([{avgRating: 0}]);
     const [err, setErr] = useState(false);
 
     useEffect(() => {
         axios.all([
-            axios.get(review_ENDPOINT),
-            axios.get(task_ENDPOINT)
+            axios.get(profile_ENDPOINT),
+            axios.get(avgRating_ENDPOINT),
+            axios.get(companyInfo_ENDPOINT)
         ])
-        .then(axios.spread((reviewRes, taskRes) => {
-            setReviews(reviewRes.data);
-            setTasks(taskRes.data);
+        .then(axios.spread((profileRes, avgRatingRes, companyInfoRes) => {
+            setProfile(profileRes.data);
+            setAvgRating(avgRatingRes.data);
+            setCompanyInfo(companyInfoRes.data);
             setErr(false);
 
-            console.log("Reviews Res: ", reviewRes.data);
-            console.log("Tasks Res: ", taskRes.data);
+            // console.log("Profile Res: ", profileRes.data);
+            // console.log("avgRating Res: ", avgRatingRes.data);
+            // console.log("Reviews Res: ", reviewRes.data);
+            // console.log("Tasks Res: ", taskRes.data);
         }))
         .catch(err => {
             setErr(true);
             console.log(err);
         });
     }, []);
+
+    console.log(companyInfo);
 
     return (
         <div style={{margin: "2% 1% 5% 5%"}}>
@@ -61,16 +63,12 @@ const CompanyProfile = () => {
                         
                         <div className="card-content">
                             <center>
-                                <span className="card-title">{company[0].name}</span>
+                                <span className="card-title">{profile[0].name}</span>
                                 
-                                {/* The rating should be done in the backend specifically the stars should be created else change the class with unique id*/}
-                                <StarRating value={company[0].rating}/>
+                                <StarRating value={avgRating[0].avgRating} />
                             </center>
-                            <i className="fa fa-map-marker" style={{color: "black", marginRight:'3%'}}></i>
-                            <span id='location'>{company[0].location}</span>
-
-                            <br/><br/>
-                            <p id='bio'>{company[0].bio}</p>
+                            
+                            <p id='bio'>{profile[0].bio}</p>
                         </div>
 
                         <div className="card-action">
@@ -79,24 +77,31 @@ const CompanyProfile = () => {
                     </div>
                 </div>
                 <div className="col l10 fit-in-container" style={{backgroundColor: 'white'}}>
-                    <div className="row" style={{marginTop:'1%'}}>
-                        {!err && tasks.map((task) => (<Task className="col" key={task.id} img={task.img} name={task.title} price={task.offeredPrice} 
-                                                                description={task.description} location={task.location}
-                                                                deadline={task.datePosted}/>))}
+                    <div className="row" style={{color:"black", marginTop:'1%'}}>
+                        <Typography gutterBottom variant="h5" component="h2" align="left">
+                            Completed Tasks
+                        </Typography>
+                        <hr/>
+
                     </div>
-                    <hr/>
+                    <div className="row" style={{marginTop:'1%'}}>
+                        {!err && companyInfo.map((task) => (<Task className="col" key={task.taskID} img={task.taskImg} taskName={task.taskTitle}
+                                                                description={task.taskDesc} dateCompleted={((task.dateCompleted).split("T"))[0]} taskerName={task.reviewerName}/>))}
+                    </div>
+                    <div className="row" style={{color:"black", marginLeft:"1%", marginTop:'1%'}}>
+                        <Typography gutterBottom variant="h5" component="h2" align="left">
+                            Reviews
+                        </Typography>
+                        <hr/>
+                        
+                    </div>
                     <div className="row">
-                        {!err && reviews.map((review) => (<Review key={review.id} username={review.username} description={review.description} ratingVal={review.rating} img={review.img}/>))}
+                        {!err && companyInfo.map((review) => (<Review key={review.reviewId} username={review.reviewerName} description={review.reviewDesc} ratingVal={review.reviewRating} img={review.reviewerPic}/>))}
                     </div>
                 </div>
             </div>
         </div>
     )
-}
-
-CompanyProfile.defaultProps = {
-    username: 'Firstname Lastname',
-    location: 'location',
 }
 
 export default CompanyProfile

@@ -35,15 +35,16 @@ function CreateTask (){
 
 
     const [task, setTask] = useState({
-        typeID: 1, // temp
-        taskerID: userID, // temp
-        dateCompleted: "", // temp
-
         title: "",
-        price: 0,
+        typeID: "1",
         description: "",
-        
+        price: 0,
+        taskerID: userID,
+        // datePosted: ,
         img: "",
+        address: "",
+        lat: 0,
+        lng: 0,
         remotePossible: 0,
     });
     
@@ -92,7 +93,7 @@ function CreateTask (){
                         </label>
                         <label>
                             Remote:
-                            <input type="radio" name="remote" value={task.isRemote} style={{position: "relative", opacity:"100%"}} required/>
+                            <input type="radio" name="remote" value={task.isRemote} style={{position: "relative", opacity:"100%"}}/>
                             <br/>
                         </label>
                         <label>
