@@ -19,6 +19,7 @@ const login = require('./routes/login')(UserModel);
 const reviewRouter = require('./routes/review')(ReviewModel);
 const taskRouter = require('./routes/task')(TaskModel);
 const userRouter = require('./routes/userProfile')(UserModel);
+const registrantion = require('./routes/registration')(UserModel);
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,6 +36,7 @@ app.use('/login', login);
 app.use('/review', reviewRouter);
 app.use('/task', taskRouter);
 app.use('/user', userRouter);
+app.use('/registration',registrantion);
 
 
 

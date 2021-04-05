@@ -84,8 +84,8 @@ function App() {
               <CreateReview />
             </Route>
 
-            <Route path="/registeration">
-              <Registration />
+            <Route path="/registeration" >
+              <Registration setUser={setUser} />
             </Route>
 
             <Route path='/transaction'>

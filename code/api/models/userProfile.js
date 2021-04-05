@@ -17,8 +17,9 @@ UserProfile.create = (newUser, result) => {
   console.log(newUser);
   //TODO validate email field exists? Should be required field by form
   //check if existing user
-  sql.executeQuery(`SELECT email FROM userProfile WHERE email = "${newUser['email']}";`, 
+  sql.executeQuery(`SELECT email FROM userProfile WHERE email = "${newUser['email']}";`,
     (err, res) => {
+      console.log(query);
       if (err) {console.log(err);}
       if (res['rows'].length > 0) {
         //TODO send redirect to login page
@@ -46,13 +47,23 @@ UserProfile.create = (newUser, result) => {
             result(err, null);
             return;
           }
-
-          //console.log("created user: ", { id: res.rows.insertId, ...newUser });
-          result(null, JSON.stringify({ id: res.rows.insertId, ...newUser }));
+          /*UserProfile.createCookie(req.name,req.id,(err, token) =>{
+            if(err){
+            console.log("ERROR! : ", err);
+            result(err, null);
+            return;
+            }
+            result(null,token,JSON.stringify({ id: res.rows.insertId, ...newUser }));
+          });
+          console.log("created user: ", { id: res.rows.insertId, ...newUser });*/
+          
         });
+        result(null, { id: res.rows.insertId, ...newTask });
+        return;
       }
     });
-};
+  };
+
 
 UserProfile.getOne = (userID, result) => {
   console.log(`up.getOne ${userID}`);
@@ -191,6 +202,31 @@ UserProfile.login = (req, result) => {
     }
   );
 }
+
+UserProfile.createCookie = (email, id,result) =>{
+  const payload = {email: email}
+          accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+            algorithm: "HS256",
+            expiresIn: process.env.ACCESS_TOKEN_LIFE
+          });
+          refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
+            algorithm: "HS256",
+            expiresIn: process.env.REFRESH_TOKEN_LIFE
+          });
+
+          //store refresh token in DB
+          sql.executeQuery(`UPDATE userProfile SET token = "${refreshToken}" WHERE id = ${id};`,
+            (e, r) => {
+              if (e) {
+                result(e, null,null);
+                return;
+              }
+              console.log("token saved");
+            }
+          );
+      result(null, accessToken);
+  return;
+};
 
 //utilities - maybe create controllers class?
 UserProfile.calcRating = (userID) => {

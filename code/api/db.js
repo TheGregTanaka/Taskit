@@ -1,6 +1,7 @@
 var pool = require('./config/datapool');
 
 exports.executeQuery = function(query, callback) {
+  console.log(query);
   pool.getConnection(function(err, connection) {
     if (err) {
       callback(err);
