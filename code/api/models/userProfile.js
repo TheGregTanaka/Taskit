@@ -89,7 +89,7 @@ UserProfile.getOne = (userID, result) => {
          return;
        } else {
          console.log("Res no length" + JSON.stringify(res));
-         return("HECC", null);
+         return("No data", null);
        }
      });
 };
