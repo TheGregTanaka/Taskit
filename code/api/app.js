@@ -11,6 +11,7 @@ const port = process.env.PORT || 3200;
 
 
 const CompanyProfileModel = require('./models/companyProfile');
+const PaymentModel = require('./models/payment');
 const ReviewModel = require('./models/review');
 const TaskModel = require('./models/task');
 const UserModel = require('./models/userProfile');
@@ -19,6 +20,7 @@ const UserModel = require('./models/userProfile');
 const chatRouter = require('./routes/chat');
 const companyProfileRouter = require('./routes/companyProfile')(CompanyProfileModel);
 const login = require('./routes/login')(UserModel);
+const paymentRouter = require('./routes/payment')(PaymentModel);
 const reviewRouter = require('./routes/review')(ReviewModel);
 const taskRouter = require('./routes/task')(TaskModel);
 const userRouter = require('./routes/userProfile')(UserModel);
@@ -37,6 +39,7 @@ app.use(express.static('public'));
 
 app.use('/companyProfile', companyProfileRouter);
 app.use('/login', login);
+app.use('/payment', paymentRouter);
 app.use('/review', reviewRouter);
 app.use('/task', taskRouter);
 app.use('/user', userRouter);
