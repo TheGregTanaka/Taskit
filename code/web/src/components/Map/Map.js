@@ -5,23 +5,8 @@ const key = "AIzaSyBr0e0T-9WGeBG-S-p05C9ahVicY14GtiQ";
 const mapApi = "https://maps.googleapis.com/maps/api/js?key=" + 
   key + 
   "&libraries=places";
-/*
-  //TODO make env
-const key = "AIzaSyBr0e0T-9WGeBG-S-p05C9ahVicY14GtiQ";
-const mapApi = "https://maps.googleapis.com/maps/api/js?key=" + 
-  key + 
-  "&libraries=places&callback=initMap";
-function initMap() {
-  map = new google.maps.Map(document.getElementById("map"), {
-    //center: { lat: location.lat, lng: location.lng },
-      center: { lat: 52.632469, lng: -1.689423 },
-      zoom: 8,
-    });
-  return map;
-}
-*/
 
-    const Map = ({location}) => {
+    const Map = ({address}) => {
       const mapRef = useRef();
       let map;
       useEffect(() => {
@@ -36,7 +21,7 @@ function initMap() {
 
       const createMap = (coordinates) => {
         map = new window.google.maps.Map(mapRef.current, {
-          zoom: 8,
+          zoom: 14,
           center: {
             lat: coordinates.lat(),
             lng: coordinates.lng(),
@@ -49,7 +34,7 @@ function initMap() {
         let id;
         let lat, lng;
         new window.google.maps.Geocoder().geocode(
-          { address: `${location}` },
+          { address: `${address}` },
           function (results, status) {
             if (status === window.google.maps.GeocoderStatus.OK) {
               id = results[0].place_id;
@@ -60,7 +45,7 @@ function initMap() {
                 position: { lat, lng },
                 map: map,
                 animation: window.google.maps.Animation.DROP,
-                title: `${location}`,
+                title: `${address}`,
               });
             } else {
               console.log("Geocode error: " + status);

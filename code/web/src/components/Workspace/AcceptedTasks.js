@@ -1,17 +1,18 @@
 import React from 'react';
 import DetailedTask from '../DetailedTask/DetailedTask'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 
 const AcceptedTasks = () => {
     const [tasks, setTasks] = useState([]);
     const [err, setErr] = useState(false);
+    const mountedRef = useRef(true)
 
     const user = JSON.parse(localStorage.getItem('user'));
     const id = user ? user.id : 'null';
 
     useEffect(() => {
-        axios.get(`http://localhost:3200/task/worker/accepted/${id}`)
+        axios.get(`${process.env.REACT_APP_DATA_API}/task/worker/accepted/${id}`)
             .then((response) => {
                 setTasks(response.data);
                 setErr(false);
@@ -21,6 +22,9 @@ const AcceptedTasks = () => {
                 setErr(true);
                 console.log(err);
             });
+        return () => {
+            mountedRef.current = false
+        }
     }, []);
 
     return (
@@ -40,7 +44,7 @@ const AcceptedTasks = () => {
                                                                 name={task.title}
                                                                 price={task.price}
                                                                 description={task.description}
-                                                                location={""}
+                                                                address={task.address}
                                                                 deadline={(task.datePosted)}
                                                                 email={task.email}
                                                                 phone={task.phone}

@@ -19,8 +19,7 @@ import ViewProfile from '../ViewProfile/ViewProfile'
 
 import './App.css';
 
-//TODO move to env var
-const api = 'http://localhost:3200';
+const api = process.env.REACT_APP_DATA_API;
 
 axios.interceptors.request.use(
   config => {

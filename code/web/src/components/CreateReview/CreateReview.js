@@ -39,7 +39,7 @@ function CreateReview (){
         e.preventDefault();
         setModalIsOpenToFalse();
         
-        axios.post('http://localhost:3200/review', { review })
+        axios.post(`${process.env.REACT_APP_DATA_API}/review`, { review })
             .then((response) => { 
                 // console.log(response.data);
             }, (error) => {

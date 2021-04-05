@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 async function registerUser(field) {
-  const api = "localhost:3200";
+  const api = process.env.REACT_APP_DATA_API;
   axios.post(api + '/registration', {
     name: field.name,
     email: field.email,
