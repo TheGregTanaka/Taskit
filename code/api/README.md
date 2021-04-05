@@ -11,7 +11,9 @@ Method | Route | Action | Body | Query String Parameters
 [`GET`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#get) | [`/task/worker/:workerID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#taskworkerworkerid) | Gets all tasks accepted by a givin worker | none |
 [`GET`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#get) | [`/user/:userID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#useruserid) | Gets specified user by id | none  |
 [`PATCH`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#patch) | [`/user/:userID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#useruserid-1) | Updates specified user | Fields and updated info |
-[`DELETE`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#delete) | `/user/:userID` | Removes specifid user | none |
+[`PATCH`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#patch) | [`/task/:taskID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#tasktaskid-1) | Updates specified task | Fields and updated info |
+[`DELETE`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#delete) | [`/task/:taskID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#tasktaskid-2) | Removes specified task | none |
+[`DELETE`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#delete) | [`/user/:userID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#useruserid-2) | Removes specified user | none |
 
 
 Below is detailed info on using each route. Keys are case sensitive.
@@ -248,10 +250,19 @@ Updates the specified user.
 
 Body should include only the fields being updated.
 
-Currently returns empty body and 204, this should be updated.
+### `/task/:taskID`
+Updates the specified user.
+
+Body should include only the fields being updated.
+
+Currently, these both return empty body and 204, this should be updated.
 
 ## DELETE
-NOT YET IMPLIMENTED
+### `/task/:taskID`
+Deletes the task with the matching ID
+
+### `/user/:userID`
+Deletes the user with the matching ID
 
 ---
 Important notes: 
