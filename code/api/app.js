@@ -11,16 +11,15 @@ const port = process.env.PORT || 3200;
 
 
 const CompanyProfileModel = require('./models/companyProfile');
-const PaymentModel = require('./models/payment');
+// const PaymentModel = require('./models/payment');
 const ReviewModel = require('./models/review');
 const TaskModel = require('./models/task');
 const UserModel = require('./models/userProfile');
 
 
-const chatRouter = require('./routes/chat');
 const companyProfileRouter = require('./routes/companyProfile')(CompanyProfileModel);
 const login = require('./routes/login')(UserModel);
-const paymentRouter = require('./routes/payment')(PaymentModel);
+// const paymentRouter = require('./routes/payment')(PaymentModel);
 const reviewRouter = require('./routes/review')(ReviewModel);
 const taskRouter = require('./routes/task')(TaskModel);
 const userRouter = require('./routes/userProfile')(UserModel);
@@ -39,40 +38,12 @@ app.use(express.static('public'));
 
 app.use('/companyProfile', companyProfileRouter);
 app.use('/login', login);
-app.use('/payment', paymentRouter);
+// app.use('/payment', paymentRouter);
 app.use('/review', reviewRouter);
 app.use('/task', taskRouter);
 app.use('/user', userRouter);
 
-// // --
-// const chatPort = process.env.PORT || 4001;
-// const http = require('http');
-// const socketIo = require("socket.io");
-// const server = http.createServer(app);
-// const io = socketIo(server);
 
-// let interval;
-
-// io.on("connection", (socket) => {
-//   console.log("New client connected");
-//   if (interval) {
-//     clearInterval(interval);
-//   }
-//   interval = setInterval(() => getApiAndEmit(socket), 1000);
-//   socket.on("disconnect", () => {
-//     console.log("Client disconnected");
-//     clearInterval(interval);
-//   });
-// });
-
-// const getApiAndEmit = socket => {
-//   const response = new Date();
-//   // Emitting a new message. Will be consumed by the client
-//   socket.emit("FromAPI", response);
-// };
-
-// server.listen(chatPort, () => console.log(`Listening on port ${chatPort}`));
-// // --
 
 app.get('/', (req, res) => {
   var s = 'Welcome to the Taskit API. ' +
