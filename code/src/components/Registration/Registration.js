@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState} from 'react';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -38,30 +38,35 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 async function registerUser(field) {
-  const api = "localhost:3200";
-  axios.post(api + '/registration', {
+  const api = 'http://localhost:3200';
+  const repsonse = await axios.post(api + '/registration', {
     name: field.name,
     email: field.email,
     password: field.password
   })
   .then(function (res) {
-    console.log(res);
+    return res;
   })
   .catch(function (err) {
     console.log(err);
+    return {data:null};
   });
+  return repsonse.data; 
+
 }
 
 
-export default function Registration({ setToken, registered }) {
+export default function Registration({ setUser, registered }) {
   const classes = useStyles();
-  const name = useStyles();
-  const email = useStyles();
-  const password = useStyles();
+  const [name, setName] = useState();
+  const [email,setEmail] = useState();
+  const [password,setPassword] = useState();
+  
   const data = async e => {
     e.preventDefault();
     const token = await registerUser({ name, email, password });
-    setToken(token);
+    localStorage.setItem('user', JSON.stringify(token));
+    setUser(token);
   }
 
   if (registered) {
@@ -74,7 +79,7 @@ export default function Registration({ setToken, registered }) {
       <div className={classes.paper}>
       <Typography variant="h5" color="textPrimary"> Join the Commuinty for Free</Typography>
       {/*<Avatar alt="TaskIT" src="/Users/ManojYeddanapudy/sign_up/Taskit.jpg" className={classes.large} />*/}
-        <form className={classes.form} noValidate >
+        <form className={classes.form} noValidate onSubmit={data}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -86,6 +91,9 @@ export default function Registration({ setToken, registered }) {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                value={name}
+                onChange={e => setName(e.target.value)}
+                
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -120,6 +128,8 @@ export default function Registration({ setToken, registered }) {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -132,6 +142,8 @@ export default function Registration({ setToken, registered }) {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
