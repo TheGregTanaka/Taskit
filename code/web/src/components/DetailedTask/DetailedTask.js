@@ -1,25 +1,22 @@
-import React from 'react';
-import { useState } from "react";
-import "../App/App.css";
+import React, { useState, useEffect } from 'react';
 
-// import { Card, CardActionArea } from "@material-ui/core";
-
+import axios from 'axios';
+import Button from "@material-ui/core/Button";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-
-import Modal from 'react-modal';
-
-import EnlargeTask from './EnlargeTask'
-import Chat from '../Chat/Chat'
-
-
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import { Card, CardActionArea, CardMedia } from "@material-ui/core";
-import default_img from "../../image/car_wash.jpeg";
+import Modal from 'react-modal';
+import Typography from "@material-ui/core/Typography";
 
+import default_img from "../../image/car_wash.jpeg";
 import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
+
+import EnlargeTask from './EnlargeTask';
+import Chat from '../Chat/Chat';
+import "../App/App.css";
+
+
 
 const customStyles = {
   overlay: {
@@ -42,7 +39,7 @@ const customStyles = {
 };
 
 
-const DetailedTask = ({status, img, name, price, description, location, deadline, email, phone, taskMode="finished"}) => {
+const DetailedTask = ({taskID, status, img, name, price, description, location, deadline, email, phone, taskMode="finished"}) => {
   const [modalIsOpen,setModalIsOpen] = useState(false);
   const [finishTask, setFinishTask] = useState(false);
   const [deleteTask, setDeleteTask] = useState(false);
@@ -62,14 +59,21 @@ const DetailedTask = ({status, img, name, price, description, location, deadline
       setConfirmFinished_Hide();
       setShowTask(false);
 
-      alert("Send Put request task status is complete");
+      var today = new Date();
+    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+      axios.patch(`http://localhost:3200/task/${taskID}`, {
+        data: { dateCompleted: date, statusID: 3}
+      })
+      .then( console.log("Successfully changed statusID") )
     };
 
-    const deleteTask_put = () => {
+    const DeleteTask_delete = () => {
       setConfirmDelete_Hide();
       setShowTask(false);
 
-      alert("Send Put request task is removed");
+      axios.delete(`http://localhost:3200/task/${taskID}`)
+          .then( console.log("Successfully removed task") );
     };
 
   
@@ -92,7 +96,7 @@ const DetailedTask = ({status, img, name, price, description, location, deadline
         Are you sure you want to delete your task?
           <br/>
           <Button variant="contained" color="secondary" style={{float:"right"}} onClick={setConfirmDelete_Hide}>Cancel</Button>{' '}
-          <Button style={{float:"right"}} onClick={deleteTask_put}>Confirm</Button>
+          <Button style={{float:"right"}} onClick={DeleteTask_delete}>Confirm</Button>
       </Modal>
 
 
@@ -100,7 +104,7 @@ const DetailedTask = ({status, img, name, price, description, location, deadline
       {showTask &&
       <div className="col" style={{ marginBottom:'1%' }}>
         <Card style={{ width: 300 }}>
-          <label style={{color:"black", float:"left", marginTop:"1vh"}}>{status}</label>
+          <label style={{color:"black", float:"left", marginTop:"1vh", marginLeft:"1vw"}}>{status}</label>
 
           {taskMode == "finished" && <Button size="small" style={{float:"right"}} onClick={setConfirmFinished_Show}><DoneIcon/></Button>}
           {taskMode == "delete" && <Button size="small" style={{float:"right"}} onClick={setConfirmDelete_Show}><CloseIcon/></Button>}

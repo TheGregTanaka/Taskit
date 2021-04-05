@@ -30,12 +30,13 @@ const AcceptedTasks = () => {
                     <hr/>
                     <div className="row">
                         <div className="col" style={{float:"left"}}>
-                            <h6>My TODO Tasks</h6>
+                            <h6>My TODOs</h6>
                         </div>
                     </div>
 
                     <div className="row">
                         {!err && tasks.map((task) => (<DetailedTask key={task.id}
+                                                                taskID={task.id}
                                                                 name={task.title}
                                                                 price={task.price}
                                                                 description={task.description}

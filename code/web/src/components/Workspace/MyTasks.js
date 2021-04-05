@@ -36,8 +36,9 @@ const MyTasks = () => {
 
                     <div className="row">
                         {!err && tasks.map((task) => (<DetailedTask key={task.id}
+                                                                taskID={task.id}
                                                                 name={task.title}
-                                                                price={task.offeredPrice}
+                                                                price={task.price}
                                                                 description={task.description}
                                                                 location={""}
                                                                 deadline={(task.datePosted)}

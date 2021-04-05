@@ -2,6 +2,8 @@ import axios from 'axios';
 import { Button } from '@material-ui/core';
 import Modal from 'react-modal';
 import React, { useState } from 'react';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const customStyles = {
     overlay: {
@@ -40,7 +42,8 @@ function CreateTask (){
         description: "",
         price: 0,
         taskerID: userID,
-        // datePosted: ,
+        dateCompleted: "",
+        datePosted: date,
         img: "",
         address: "",
         lat: 0,
@@ -66,7 +69,12 @@ function CreateTask (){
             });
     }
 
-   const [isRemote, setIsRemote] = useState(false);
+    const [isRemote, setIsRemote] = useState(false);
+    const handleInputChange = () => {
+        var value = isRemote ? false : true;
+        setIsRemote(value);
+        setTask({ ...task, remotePossible: !value })
+    }
 
     return(
         <>
@@ -81,10 +89,30 @@ function CreateTask (){
                             Task name: 
                             <input type="text" name="task_name" value={task.title} onChange={e => setTask({ ...task, title: e.target.value })} required/>
                         </label>
+                        <br/>
                         <label>
-                            Price:
-                            <input type="number" name="task_price" placeholder="USD" value={task.price} onChange={e => setTask({ ...task, price: e.target.value })} required/>
+                            <div className="row">
+                                <div className="col s6 m6 l6">
+                                    Price:
+                                    <br/>
+                                    <input type="number" name="task_price" placeholder="USD" value={task.price} onChange={e => setTask({ ...task, price: e.target.value })} required/>
+                                </div>
+                                {/* <div className="col s6 m6 l6">
+                                    Type:
+                                    <br/>
+                                    <Select displayEmpty style={{marginTop:"1.5vh"}} required>
+                                        <MenuItem value="" disabled><em>Select a Task Type</em></MenuItem>
+                                        <MenuItem value="Yard Work">Yard Work</MenuItem>
+                                        <MenuItem value="Cleaning">Cleaning</MenuItem>
+                                        <MenuItem value="Repair">Repair</MenuItem>
+                                        <MenuItem value="Auto">Auto</MenuItem>
+                                        <MenuItem value="Tech">Tech</MenuItem>
+                                        <MenuItem value="Misc">Misc</MenuItem>
+                                    </Select>
+                                </div> */}
+                            </div>
                         </label>
+                        <br/>
                         <label>
                             Description: 
                             <br/>
@@ -93,13 +121,15 @@ function CreateTask (){
                         </label>
                         <label>
                             Remote:
-                            <input type="radio" name="remote" value={task.isRemote} style={{position: "relative", opacity:"100%"}}/>
+                            <input type="checkbox" name="remote" value={task.isRemote} onChange={handleInputChange} checked={isRemote} style={{position: "relative", opacity:"100%"}}/>
                             <br/>
                         </label>
-                        <label>
-                            Location: 
-                            <input type="text" name="task_loc" required/>
-                        </label>
+                        {!isRemote &&
+                            <label>
+                                Location: 
+                                <input type="text" name="task_loc" required/>
+                            </label>
+                        }
                         <label>
                             Deadline: 
                             <input type="date" name="task_deadline" value={task.dateCompleted} onChange={e => setTask({ ...task, dateCompleted: e.target.value })} required/>

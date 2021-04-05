@@ -214,6 +214,7 @@ Task.getPending = (req, status, result) => {
 	
 Task.update = (id, user, result) => {
   console.log(id);
+  user = user.data;
   var updateStr = `UPDATE task SET`;
   for (const key in user) {
     updateStr += ` ${key} = "${user[key]}",`;
@@ -221,6 +222,7 @@ Task.update = (id, user, result) => {
   //remove final comma
   updateStr = updateStr.substring(0, updateStr.length - 1);
   updateStr += ` WHERE id = ${id};`;
+
   sql.executeQuery(updateStr, (err, res) => {
     if (err) {
       //TODO better error handling

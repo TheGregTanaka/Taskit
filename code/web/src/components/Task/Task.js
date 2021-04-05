@@ -14,13 +14,13 @@ const Task = ({img, taskName, description, dateCompleted, taskerName}) => {
   return (
     <>
       <div className="col" style={{ marginBottom:'1%' }}>
-        <Card style={{ width: 300 }}>
-          <CardActionArea>
+        <Card className="hoverable" style={{ width: 300 }}>
+          {/* <CardActionArea> */}
             <CardMedia
                       component="img"
                       height="140"
                       image={img}
-                      title="Contemplative Reptile"
+                      title="Task Image"
                     />
             <CardContent>
               <Typography gutterBottom variant="h6" component="h2" align="left" noWrap>
@@ -39,7 +39,7 @@ const Task = ({img, taskName, description, dateCompleted, taskerName}) => {
                 {description}
               </Typography>
             </CardContent>
-          </CardActionArea>
+          {/* </CardActionArea> */}
           <label style={{float:"right", marginRight:"0.5vw"}}>Posted by {taskerName}</label>
           <CardActions>
             {/* <Chat /> */}
