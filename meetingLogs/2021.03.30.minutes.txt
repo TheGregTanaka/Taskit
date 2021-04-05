@@ -1,0 +1,13 @@
+Meeting Notes: 03-30-2021
+Stand Up w/ TA Meeting minutes
+
+Discussed progress on back-end development and UI
+
+What's been done:
+Greg: working on backend connections for login page and also google map API
+Jules: I've been fixing problems with the view profile page and setting up the get/post 	requests for editing your profile.
+Josh: Helped ryan change his pure HTML to react for landing page, working on stripe API 
+Ryan: finished landing page and pushed all his work to GitHub. Fixing footer 
+Timothy: Finished a feed but is going to edit it and work on backend connections 
+Manoj: Testing connections of registration page to backend and working on maybe sending 	cookies to user that are already registered instead of having to redirect them. 
+
