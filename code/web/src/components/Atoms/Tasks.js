@@ -24,10 +24,7 @@ import imag from "../../image/car_wash.jpeg";
       
     },
   }));
-  useEffect(() => {
-    
-      
-  }, []);
+
   
   export default function SimpleModal(props) {
     const classes = useStyles();
