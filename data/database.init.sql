@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS userProfile
     profilePicture VARCHAR(128),
     phone VARCHAR(20),
     bio LONGTEXT,
-	token VARCHAR(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL
+    token VARCHAR(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL
 );
 CREATE UNIQUE INDEX userProfile_id_uindex ON userProfile (id);
 CREATE UNIQUE INDEX user_email_uindex ON userProfile (email);
@@ -47,15 +47,17 @@ CREATE TABLE IF NOT EXISTS task
     workerID INT,
     datePosted DATE,
     dateCompleted DATE,
-	img VARCHAR(128),
-	address VARCHAR(128),
-	lat FLOAT(10,6),
-	lng FLOAT(10,6),
-	remotePossible BOOL DEFAULT FALSE,
+    img VARCHAR(128),
+    address VARCHAR(128),
+    lat FLOAT(10,6),
+    lng FLOAT(10,6),
+    remotePossible BOOL DEFAULT FALSE,
     CONSTRAINT task_type_fk FOREIGN KEY (typeID) REFERENCES typeTask (id),
     CONSTRAINT task_status_fk FOREIGN KEY (statusID) REFERENCES statusTask (id),
-    CONSTRAINT task_tasker_fk FOREIGN KEY (taskerID) REFERENCES userProfile (id),
+    CONSTRAINT task_tasker_fk FOREIGN KEY (taskerID) REFERENCES userProfile (id)
+    ON DELETE CASCADE,
     CONSTRAINT task_worker_fk FOREIGN KEY (workerID) REFERENCES userProfile (id)
+    ON DELETE SET NULL
 );
 CREATE UNIQUE INDEX task_id_uindex ON task (id);
 
@@ -92,31 +94,31 @@ VALUES
 
 # seed data
 INSERT INTO `userProfile` 
-	(`email`, `password`, `name`, `profilePicture`, `phone`, `bio`)
+(`email`, `password`, `name`, `profilePicture`, `phone`, `bio`)
 VALUES
-	("testTasker@ineedhelp.com", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Theo Tasker", "http://localhost:3200/img/static/img_profile.png", "xxx-xxx-xxxx", "Hello I'm Theo. I'm glad you're taking an interest in me."),
-	("mario@plumber.com", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Mario Pipes", "http://localhost:3200/img/static/img_profile.png", "111-222-3333", "Hello I'm mario. I'm glad you're taking an interest in me."),
-	("greenthumb@yourgardener.net", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Forrest Green", "http://localhost:3200/img/static/img_profile.png", "444-555-6666", "Hello I'm green. I'm glad you're taking an interest in me."),
-	("gregory.tanaka@colorado.edu", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Gregory Tanaka", "http://localhost:3200/img/static/img_profile.png", "777-888-9999", "Hello I'm Greg. I'm glad you're taking an interest in me.");
+("testTasker@ineedhelp.com", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Theo Tasker", "http://localhost:3200/img/static/img_profile.png", "xxx-xxx-xxxx", "Hello I'm Theo. I'm glad you're taking an interest in me."),
+("mario@plumber.com", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Mario Pipes", "http://localhost:3200/img/static/img_profile.png", "111-222-3333", "Hello I'm mario. I'm glad you're taking an interest in me."),
+("greenthumb@yourgardener.net", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Forrest Green", "http://localhost:3200/img/static/img_profile.png", "444-555-6666", "Hello I'm green. I'm glad you're taking an interest in me."),
+("gregory.tanaka@colorado.edu", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Gregory Tanaka", "http://localhost:3200/img/static/img_profile.png", "777-888-9999", "Hello I'm Greg. I'm glad you're taking an interest in me.");
 
 
 INSERT INTO task
-	(`title`, `typeID`, `statusID`, `description`, `price`, `taskerID`, `workerID`, `datePosted`, `dateCompleted`, `img`)
+(`title`, `typeID`, `statusID`, `description`, `price`, `taskerID`, `workerID`, `datePosted`, `dateCompleted`, `img`)
 VALUES
-	("Rake my leaves", 1, 1, "I need someone to rake the leaves in my yard", 20, 2, 1, '2021-02-08', NULL, "http://localhost:3200/img/static/car_wash.jpeg"),
-	("Hook up my speakers", 5, 2, "I need help setting up my new audio system.", 20, 3, 1, '2021-02-09', NULL, "http://localhost:3200/img/static/car_wash.jpeg"),
-	("Wash my car", 4, 3, "My car is dirty! Help!", 20, 4, 1, '2021-03-29', '2021-04-01', "http://localhost:3200/img/static/car_wash.jpeg"),
-	("Mow My Lawn", 1, 3, "Grass is getting too long", 15, 2, 1, '2021-03-01', '2021-03-03', "http://localhost:3200/img/static/car_wash.jpeg"),
-	("Need Party Clown", 6, 3, "Looking for entertainment for my kid's birthday", 70, 3, 1, '2021-03-15', '2021-03-20', "http://localhost:3200/img/static/car_wash.jpeg"),
-    ("Need Clown", 6, 3, "Looking for entertainment Assigned by GREG(4) ACCEPTED by mario(2)", 70, 4, 2, '2021-03-15', '2021-03-20', "http://localhost:3200/img/static/car_wash.jpeg");
+("Rake my leaves", 1, 1, "I need someone to rake the leaves in my yard", 20, 2, 1, '2021-02-08', NULL, "http://localhost:3200/img/static/car_wash.jpeg"),
+("Hook up my speakers", 5, 2, "I need help setting up my new audio system.", 20, 3, 1, '2021-02-09', NULL, "http://localhost:3200/img/static/car_wash.jpeg"),
+("Wash my car", 4, 3, "My car is dirty! Help!", 20, 4, 1, '2021-03-29', '2021-04-01', "http://localhost:3200/img/static/car_wash.jpeg"),
+("Mow My Lawn", 1, 3, "Grass is getting too long", 15, 2, 1, '2021-03-01', '2021-03-03', "http://localhost:3200/img/static/car_wash.jpeg"),
+("Need Party Clown", 6, 3, "Looking for entertainment for my kid's birthday", 70, 3, 1, '2021-03-15', '2021-03-20', "http://localhost:3200/img/static/car_wash.jpeg"),
+("Need Clown", 6, 3, "Looking for entertainment Assigned by GREG(4) ACCEPTED by mario(2)", 70, 4, 2, '2021-03-15', '2021-03-20', "http://localhost:3200/img/static/car_wash.jpeg");
 
 
 INSERT INTO review
-	(`rating`, `description`, `taskID`)
+(`rating`, `description`, `taskID`)
 VALUES
-	(3.5, "Pretty good, but lines could be straighter", 1),
-	(1.0, "Greg's real", 2),
-	(5.0, "My car has never been cleaner", 3),
-	(3.5, "Pretty good, but lines could be curvy", 4),
-	(1.0, "Greg's a real clown", 5),
-    (1.0, "Test Case Review Assigned to ", 6);
+(3.5, "Pretty good, but lines could be straighter", 1),
+(1.0, "Greg's real", 2),
+(5.0, "My car has never been cleaner", 3),
+(3.5, "Pretty good, but lines could be curvy", 4),
+(1.0, "Greg's a real clown", 5),
+(1.0, "Test Case Review Assigned to ", 6);
