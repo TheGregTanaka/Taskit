@@ -43,6 +43,7 @@ const Feed = () => {
               deadline={task.datePosted}
               email={"XXX@gmail.com"}
               phone={"XXX-XXX-XXXX"}
+              id={task.id}
             />
           ))}
         </div>

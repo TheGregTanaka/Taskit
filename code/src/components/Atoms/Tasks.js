@@ -8,6 +8,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { Card, CardActionArea } from "@material-ui/core";
+import axios from "axios";
 
 import imag from "../../image/car_wash.jpeg";
   
@@ -23,19 +24,42 @@ import imag from "../../image/car_wash.jpeg";
       
     },
   }));
+  useEffect(() => {
+    
+      
+  }, []);
   
   export default function SimpleModal(props) {
     const classes = useStyles();
     // getModalStyle is not a pure function, we roll the style only on the first render
     //const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
-  
+
+    const user = JSON.parse(localStorage.getItem('user'));
+    const id    = user ? user.id : 'null';
+
+    const acceptInfo = {
+        taskId: props.id,
+        statusID: 2,
+        workerID: id
+    };
+
     const handleOpen = () => {
       setOpen(true);
     };
   
     const handleClose = () => {
       setOpen(false);
+    };
+
+    function acceptTask() {
+        axios
+            .patch("http://localhost:3200/task/" + `${acceptInfo.taskId}`, acceptInfo)
+            .then((response) => {
+                console.log(response);
+            }, (error) => {
+                console.log(error);
+            });
     };
   
     const body = (
@@ -63,7 +87,7 @@ import imag from "../../image/car_wash.jpeg";
             </CardContent>
           </CardActionArea>
           <CardActions>
-             <button type="button" onClick={handleOpen}>
+             <button type="button" onClick={() => acceptTask()}>
                  Accept
              </button>
           </CardActions>
