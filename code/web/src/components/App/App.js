@@ -16,6 +16,7 @@ import Transaction from '../Transaction/Transaction'
 import Feed from '../Feed/Feed';
 import Workspace from '../Workspace/Workspace'
 import ViewProfile from '../ViewProfile/ViewProfile'
+import EditProfile from '../ViewProfile/EditProfile'
 
 import './App.css';
 
@@ -74,6 +75,7 @@ function App() {
           <Route path="/feed" component={Feed}/>
           <Route path="/workspace" component={Workspace}/>
           <Route path="/viewprofile" component={ViewProfile}/>
+          <Route path="/editprofile" component={EditProfile}/>
           <Route path="/" component={Feed}/>
 
           </Switch>

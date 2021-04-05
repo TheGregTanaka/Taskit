@@ -114,10 +114,8 @@ Task.getOne = (taskID, result) => {
       return;
     } else {
       console.log("Res no length" + JSON.stringify(res));
-
       result("No Data returned", null);
       return;
-
     }
   });
 };

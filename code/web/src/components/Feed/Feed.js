@@ -41,10 +41,11 @@ const Feed = () => {
               name={task.title}
               price={task.offeredPrice}
               description={task.description}
-              location={""}
+              location={"Palo Alto"}
               deadline={task.datePosted}
               email={"XXX@gmail.com"}
               phone={"XXX-XXX-XXXX"}
+              id={task.id}
             />
           ))}
         </div>
