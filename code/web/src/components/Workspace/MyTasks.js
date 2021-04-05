@@ -11,7 +11,7 @@ const MyTasks = () => {
     const id = user ? user.id : 'null';
 
     useEffect(() => {
-        axios.get(`http://localhost:3200/task/tasker/${id}`)
+        axios.get(`${process.env.REACT_APP_DATA_API}/task/tasker/${id}`)
             .then((response) => {
                 setTasks(response.data);
                 setErr(false);
@@ -37,13 +37,14 @@ const MyTasks = () => {
                     <div className="row">
                         {!err && tasks.map((task) => (<DetailedTask key={task.id}
                                                                 name={task.title}
-                                                                price={task.offeredPrice}
+                                                                price={task.price}
                                                                 description={task.description}
-                                                                location={""}
+                                                                address={task.address}
                                                                 deadline={(task.datePosted)}
                                                                 email={task.email}
                                                                 phone={task.phone}
                                                                 status={task.status}
+                                                                address={task.address}
                                                                 taskMode="delete"
                                                             />))}
                     </div>

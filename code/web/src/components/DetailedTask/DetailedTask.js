@@ -42,7 +42,7 @@ const customStyles = {
 };
 
 
-const DetailedTask = ({status, img, name, price, description, location, deadline, email, phone, taskMode="finished"}) => {
+const DetailedTask = ({status, img, name, price, description, address, deadline, email, phone, taskMode="finished"}) => {
   const [modalIsOpen,setModalIsOpen] = useState(false);
   const [finishTask, setFinishTask] = useState(false);
   const [deleteTask, setDeleteTask] = useState(false);
@@ -78,7 +78,7 @@ const DetailedTask = ({status, img, name, price, description, location, deadline
       {/* Display task on modal as bigger version */}
       <Modal isOpen={modalIsOpen} style={customStyles} ariaHideApp={false} onRequestClose={()=> setModalIsOpen(false)}>
         <Button size="large" color="primary" style={{float:"right", border:"0", backgroundColor:"white", fontSize:"20px"}} onClick={setModalIsOpenToFalse}><CloseIcon/></Button>
-        <EnlargeTask name={name} price={price} description={description} location={location} deadline={deadline} email={email} phone={phone} />
+        <EnlargeTask name={name} price={price} description={description} address={address} deadline={deadline} email={email} phone={phone} />
       </Modal>
 
       <Modal isOpen={finishTask} style={customStyles} ariaHideApp={false} onRequestClose={()=> setFinishTask(false)}>
@@ -119,7 +119,7 @@ const DetailedTask = ({status, img, name, price, description, location, deadline
                 ${price}
               </Typography>
               <Typography gutterBottom variant="h6" component="h2" align="left">
-                {location}
+                {address}
               </Typography>
               <Typography
                 variant="body2"

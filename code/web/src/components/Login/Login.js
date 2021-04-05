@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 async function loginUser(credentials) {
   //TODO put api in env var
-  const api = "http://localhost:3200";
+  const api = process.env.REACT_APP_DATA_API;
   const response = await axios.post(api + '/login', {
     email: credentials.email,
     password: credentials.password

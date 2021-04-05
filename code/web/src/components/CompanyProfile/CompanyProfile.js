@@ -15,12 +15,12 @@ const user = JSON.parse(localStorage.getItem('user'));
 const id = user ? user.id : 'null';
 
 
+const api = process.env.REACT_APP_DATA_API;
+const profile_ENDPOINT = `${api}/user/${id}`;
+const avgRating_ENDPOINT = `${api}/review/getAvgRating/${id}`;
 
-const profile_ENDPOINT = `http://localhost:3200/user/${id}`;
-const avgRating_ENDPOINT = `http://localhost:3200/review/getAvgRating/${id}`;
 
-
-const companyInfo_ENDPOINT = `http://localhost:3200/companyProfile/${id}`;
+const companyInfo_ENDPOINT = `${api}/companyProfile/${id}`;
 
 
 const CompanyProfile = () => {

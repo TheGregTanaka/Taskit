@@ -15,7 +15,7 @@ const ViewProfile = ({login}) => {
     const [err, setErr] = useState(false);
 
     useEffect(() => {
-        axios.get("http://localhost:3200/task") //url from node js server (get & post request)
+        axios.get(`${process.env.REACT_APP_DATA_API}/task`) //url from node js server (get & post request)
             .then((response) => {
                 setProfile(response.data); //response.data is data from request
                 setErr(false);

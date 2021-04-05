@@ -13,7 +13,7 @@ const Feed = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3200/task/getFeed")
+      .get(`${process.env.REACT_APP_DATA_API}/task/getFeed`)
       .then((response) => {
         setTasks(response.data);
         setErr(false);

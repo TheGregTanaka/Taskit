@@ -81,7 +81,10 @@ Returns a list of all tasks.
     "worker": ,
     "datePosted": ,
     "dateCompleted": ,
-    "price": 
+    "price": ,
+    "location":,
+    "phone":,
+    "email":
   }
   {
     "id": ,
@@ -97,7 +100,10 @@ Returns a list of all tasks.
     "worker": ,
     "datePosted": ,
     "dateCompleted": ,
-    "price": 
+    "price": ,
+    "location":,
+    "phone":,
+    "email":
   }
 ]
 ```
@@ -108,20 +114,23 @@ Returns the task specified by `:taskID`
 ```
 [
   {
-    "id": 2,
-    "title": "Hook up my speakers",
-    "typeID": 5,
-    "type": "Tech",
-    "statusID": 2,
-    "status": "Accepted",
-    "description": "I need help setting up my new audio system.",
-    "taskerID": 1,
-    "tasker": "Theo Tasker",
-    "workerID": 4,
-    "worker": "Gregory Tanaka",
-    "datePosted": "2021-02-09T07:00:00.000Z",
-    "dateCompleted": null,
-    "price": 10.00
+    "id": ,
+    "title": ,
+    "typeID": ,
+    "type": ,
+    "statusID": ,
+    "status": ,
+    "description": ,
+    "taskerID": ,
+    "tasker": ,
+    "workerID": ,
+    "worker": ,
+    "datePosted": ,
+    "dateCompleted": ,
+    "price": ,
+    "location":,
+    "phone":,
+    "email":
   }
 ]
 ```
@@ -144,7 +153,10 @@ Returns an array of tasks created by the specified user.
     "worker": ,
     "datePosted": ,
     "dateCompleted": ,
-    "price": 
+    "price": ,
+    "location":,
+    "phone":,
+    "email":
   }
   {
     "id": ,
@@ -160,7 +172,10 @@ Returns an array of tasks created by the specified user.
     "worker": ,
     "datePosted": ,
     "dateCompleted": ,
-    "price": 
+    "price": ,
+    "location":,
+    "phone":,
+    "email":
   }
 ]
 ```
@@ -183,7 +198,10 @@ Returns an array of tasks accepted by the specified user.
     "worker": ,
     "datePosted": ,
     "dateCompleted": ,
-    "price": 
+    "price": ,
+    "location":,
+    "phone":,
+    "email":
   }
   {
     "id": ,
@@ -199,10 +217,15 @@ Returns an array of tasks accepted by the specified user.
     "worker": ,
     "datePosted": ,
     "dateCompleted": ,
-    "price": 
+    "price": ,
+    "location":,
+    "phone":,
+    "email":
   }
 ]
 ```
+
+NOTE: THE EMAIL AND PHONE RETURNED ARE THOSE OF THE TASKER, NOT THE WORKER
 
 ### `/user/:userID`
 Returns the user specified by `userID`

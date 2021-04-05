@@ -2,6 +2,7 @@ import React from 'react';
 import './styles.css';
 import { useState } from 'react';
 import { Button } from '@material-ui/core';
+import logo from '../../image/Taskit.png';
 
 const NavbarV2 = ({loggedIn}) => {
     const [toggle, setToggle] = useState(false);
@@ -20,7 +21,9 @@ const NavbarV2 = ({loggedIn}) => {
         <div>
             <nav className="navbar">
                 <div className="navbar__container">
-                    <a href="/" id="navbar__logo">TASKIT</a>
+                    <a href="/" id="navbar__logo">
+                      <img src={logo} className="taskitLogoSmall" alt="Taskit"></img>
+                    </a>
                     <div className={toggle ? "navbar__toggle is-active" : "navbar__toggle"} id="mobile-menu" onClick={toggle_menu}>
                         <span className="bar"></span>
                         <span className="bar"></span>
