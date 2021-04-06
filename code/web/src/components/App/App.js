@@ -8,8 +8,8 @@ import Dashboard from '../Dashboard/Dashboard';
 import Landing from '../Landing/Landing'
 import Login from '../Login/Login';
 import Logout from '../Login/Logout';
-import Navbar from '../Navbar/Navbar';
-import NavbarV2 from '../LandingPage/NavbarV2';
+// import Navbar from '../Navbar/Navbar';
+import NavbarV2 from '../Navbar/NavbarV2';
 import CreateReview from '../CreateReview/CreateReview'
 import Registration from '../Registration/Registration'
 import Transaction from '../Transaction/Transaction'

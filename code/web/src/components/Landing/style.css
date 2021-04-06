@@ -1,7 +1,7 @@
 .main {
     background-color: #4837ff;
-    width: 100vw;
-    height: 100vh;
+    width: 99vw;
+    height: 90vh;
 }
 
 .main__container {
@@ -23,6 +23,7 @@
     background-color: #ffd700;
     background-image: linear-gradient(to, top, #ff08 0%, #ff4 100%);
     background-size: 100%;
+    background-clip: text;
     -webkit-background-clip: text;
     -moz-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -34,6 +35,7 @@
     background-color: #bb62f7;
     background-image: linear-gradient(to, top, #d6ff21 0%, #21d4fd 100%);
     background-size: 100%;
+    background-clip: text;
     -webkit-background-clip: text;
     -moz-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -96,4 +98,34 @@
 #main__img {
     height: 80%;
     width: 80%;
+}
+
+/* Mid Section */
+
+.services {
+    background: #131313;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+}
+
+.services h1 {
+    background-color: #bb62f7;
+    background-image: linear-gradient(to right, #ff81ff 0%, #ff867a 0%, #ff8c7f 21%, #f9819a 52%, #cf556c 78%, #bb62f7 100%);
+    background-size: 100%;
+    margin-bottom: 5rem;
+    font-size: 2.5rem;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+}
+
+
+.services__container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }

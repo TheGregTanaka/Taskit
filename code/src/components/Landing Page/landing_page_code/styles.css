@@ -37,6 +37,7 @@
     background-color: #ffd700;
     background-image: linear-gradient(to top, #4837ff 0%, #ffd700 100%);
     background-size: 100%;
+    background-clip: text;
     -webkit-background-clip: text;
     -moz-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -237,6 +238,7 @@
     background-color: #ffd700;
     background-image: linear-gradient(to, top, #ff08 0%, #ff4 100%);
     background-size: 100%;
+    background-clip: text;
     -webkit-background-clip: text;
     -moz-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -248,6 +250,7 @@
     background-color: #bb62f7;
     background-image: linear-gradient(to, top, #d6ff21 0%, #21d4fd 100%);
     background-size: 100%;
+    background-clip: text;
     -webkit-background-clip: text;
     -moz-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -389,6 +392,7 @@
     background-size: 100%;
     margin-bottom: 5rem;
     font-size: 2.5rem;
+    background-clip: text;
     -webkit-background-clip: text;
     -moz-background-clip: text;
     -webkit-text-fill-color: transparent;
