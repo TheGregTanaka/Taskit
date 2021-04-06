@@ -319,7 +319,6 @@
     width: 80%;
 }
 
-<<<<<<< HEAD
 
 /* Mobile Component */
 
@@ -381,8 +380,6 @@
 }
 
 
-=======
->>>>>>> 3cd7aa5515204dc5fe9ea2549887be77903ca62c
 /* Mid Section */
 
 .services {
@@ -390,11 +387,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-<<<<<<< HEAD
     height: 100vh;
-=======
     height: auto;
->>>>>>> 3cd7aa5515204dc5fe9ea2549887be77903ca62c
 }
 
 .services h1 {
@@ -403,10 +397,7 @@
     background-size: 100%;
     margin-bottom: 5rem;
     font-size: 2.5rem;
-<<<<<<< HEAD
-=======
     background-clip: text;
->>>>>>> 3cd7aa5515204dc5fe9ea2549887be77903ca62c
     -webkit-background-clip: text;
     -moz-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -418,7 +409,6 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-<<<<<<< HEAD
 }
 
 
@@ -578,6 +568,4 @@
 
 
 
-=======
 }
->>>>>>> 3cd7aa5515204dc5fe9ea2549887be77903ca62c
