@@ -31,8 +31,10 @@ const ViewProfile = ({login}) => {
             <div class="container">
                 <div class="row">
                     <div class="col-10">&nbsp;</div>
-                        <div class="col-2" style={{float:"right"}}>                    
-                            <Button variant="contained" color="inherit" onClick={() => setProfile("EditProfile")}>Edit Profile</Button>
+                        <div class="col-2" style={{float:"right"}}>
+                            <a href="./EditProfile">
+                                <button varient="contained" color="inherit">Edit Profile</button>
+                            </a> 
                         </div>
                     </div> 
                 <div class="row">
