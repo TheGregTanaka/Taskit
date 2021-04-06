@@ -21,8 +21,10 @@ const queryStr = `SELECT
     worker.name as worker,
     task.datePosted,
     task.dateCompleted,
-    task.rating,
-    task.offeredPrice
+    task.price,
+    task.address,
+    tasker.phone,
+    tasker.email
   FROM task 
   JOIN typeTask ON task.typeID = typeTask.id
   JOIN statusTask ON task.statusID = statusTask.id
@@ -31,6 +33,7 @@ const queryStr = `SELECT
 
 Task.create = (newTask, result) => {
   let kStr, vStr;
+  //newTask = newTask.task
   kStr = vStr = "(";
   for (const key in newTask) {
     console.log(`k ${key} v ${newTask[key]}\n`);
@@ -111,10 +114,8 @@ Task.getOne = (taskID, result) => {
       return;
     } else {
       console.log("Res no length" + JSON.stringify(res));
-
       result("No Data returned", null);
       return;
-
     }
   });
 };
@@ -137,17 +138,103 @@ Task.getFeed = (req, result) => {
       return;
     } else {
       console.log("ERROR" + JSON.stringify(res));
-      return "HECC", null;
+      result("No Data returned", null);
+      return;
     }
   });
 };
 
+Task.byUser = (type, id, result) => {
+  var q = queryStr + ' WHERE '
+  if (type == 0) {
+    q += 'taskerID = ';
+  } else if (type == 1) {
+    q += 'workerID = ';
+  } else {
+    console.log("Error, invalid type");
+    result("Invalid user type", null);
+    return;
+  }
+  q += id;
+  sql.executeQuery(q, (err, res) => {
+    if (err) {
+      //TODO better error handling
+      console.log("ERROR! : ", err);
+      result(err, null);
+      return;
+    }
+    if (res) {
+      console.log("found: ", JSON.stringify(res));
+      result(null, res['rows']);
+      return;
+    } else {
+      console.log("Res no length" + JSON.stringify(res));
+      result("No Data returned", null);
+      return;
+    }
+  });
+};
+
+Task.getPending = (req, status, result) => {
+  var id = req.params.id;
+
+  var query = queryStr + `WHERE workerID = ${id} AND statusTask.status = "${status}";`;
+
+  sql.executeQuery(query, (err, res) => {
+    if (err) { console.log(err); result(err, null); }
+    if (res) { result(null, res['rows']); }
+    return;
+  });
+  return;
+};
+	
 Task.update = (id, user, result) => {
-  //TODO
+  console.log(id);
+  user = user.data;
+  var updateStr = `UPDATE task SET`;
+  for (const key in user) {
+    updateStr += ` ${key} = "${user[key]}",`;
+  }
+  //remove final comma
+  updateStr = updateStr.substring(0, updateStr.length - 1);
+  updateStr += ` WHERE id = ${id};`;
+
+  sql.executeQuery(updateStr, (err, res) => {
+    if (err) {
+      //TODO better error handling
+      console.log("ERROR! : ", err);
+      result(err, null);
+      return;
+    }
+    if (res.affectedRows === 0) {
+      result({ kind: "not_found" }, null);
+      return;
+    }
+
+    console.log("updated task: ", { id: id, ...user });
+    result(null, { id: id, ...user });
+  }
+  );
 };
 
 Task.delete = (id, result) => {
-  //TODO
+  sql.executeQuery(`DELETE FROM task WHERE id = ${id}`, (err, res) => {
+    if (err) {
+      //TODO better error handling
+      console.log("ERROR! : ", err);
+      result(err, null);
+      return;
+    }
+
+    if (res.affectedRows === 0) {
+      result({ kind: "not_found" }, null);
+      return;
+    }
+
+    console.log("deleted task: ", { id: id });
+    result(null, res);
+  }
+  );
 };
 
 module.exports = Task;

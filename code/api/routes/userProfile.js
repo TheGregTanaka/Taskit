@@ -36,15 +36,13 @@ function routes(UserProfile) {
       })
     })
     .delete((req, res) => {
-      req.userProfile.remove((err) => {
+      UserProfile.delete(req.params.userProfileID, (err, r) => {
         if (err) {
           return res.send(err);
         }
         return res.sendStatus(204);
       });
     });
-
-
   return router;
 }
 

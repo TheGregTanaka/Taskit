@@ -9,15 +9,21 @@ const app = express();
 const db = require('./db.js');
 const port = process.env.PORT || 3200;
 
-const UserModel = require('./models/userProfile');
-const TaskModel = require('./models/task');
-const ReviewModel = require('./models/review');
 
-const userRouter = require('./routes/userProfile')(UserModel);
+const CompanyProfileModel = require('./models/companyProfile');
+// const PaymentModel = require('./models/payment');
+const ReviewModel = require('./models/review');
+const TaskModel = require('./models/task');
+const UserModel = require('./models/userProfile');
+
+
+const companyProfileRouter = require('./routes/companyProfile')(CompanyProfileModel);
 const login = require('./routes/login')(UserModel);
-const taskRouter = require('./routes/task')(TaskModel);
+// const paymentRouter = require('./routes/payment')(PaymentModel);
 const reviewRouter = require('./routes/review')(ReviewModel);
-// const reviewRouter = require('./routes/review');
+const taskRouter = require('./routes/task')(TaskModel);
+const userRouter = require('./routes/userProfile')(UserModel);
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -28,12 +34,16 @@ app.use((req, res, next) => {
 });
 app.use(cors());
 
+app.use(express.static('public'));
 
-app.use('/user', userRouter);
+app.use('/companyProfile', companyProfileRouter);
 app.use('/login', login);
-app.use('/task', taskRouter);
+// app.use('/payment', paymentRouter);
 app.use('/review', reviewRouter);
-// app.use(reviewRouter);
+app.use('/task', taskRouter);
+app.use('/user', userRouter);
+
+
 
 app.get('/', (req, res) => {
   var s = 'Welcome to the Taskit API. ' +

@@ -1,5 +1,4 @@
 const sql = require('../db.js');
-const Task = require('./task.js');
 
 const Review = function(user) {
     this.id = user.id;
@@ -9,60 +8,25 @@ const Review = function(user) {
 }
 
 /*
-    Review.get will return all reviews if no query params is passed
-        If the URL contains valid query params (i.e. id and/or taskID), the db
-        will either return id or taskID or if both are present and return the review
-        that has both values
-
-        Possible outcomes:
-            // No params is present (/review)
-                SELECT * from review;
-
-            // id param is present (/review?id=...)
-                SELECT * from review WHERE id = ${queryParams['id']};
-
-            // taskID param is present (/review?taskID=...)
-                SELECT * from review WHERE taskID = ${queryParams['taskID']};
-
-            // Both id and taskID is present (/review?id=...&taskID=...)
-                SELECT * from review WHERE id = ${queryParams['id']} AND taskID = ${queryParams['taskID']};
+    Review.get will retrieve reviews and userprofile infomation based on workerID
 */
 Review.get = (req, result) => {
     console.log("[Review.js] - Get Request");
-    var queryParams = req.query; // Store params as json
 
-    var queryLen = Object.keys(queryParams).length;
-    if (queryLen == 0) {
-        // If there's no query params return all reviews
-        console.log("[/models/Review.js]", queryLen, "param passed");
-        sql.executeQuery('SELECT * from review', (err, res) => {
-            if (err) { result(err, null); }
-            if (res) { result(null, res['rows']); }
-            return;
-        });
-    } else {
-        // If query params exists process information
-        console.log("[/models/Review.js]", queryLen, "param passed");
+    var workerID = req.params.workerID;
 
-        var validParam = ['id', 'taskID'];
-        var queryStr = 'SELECT * from review WHERE';
-        var paramKeys = Object.keys(queryParams);
-        var first = true;
-        for (const i in validParam) {
-            if(paramKeys.includes(validParam[i])) {
-                queryStr += first ? '' : 'AND'; 
-                queryStr += ` ${validParam[i]} = ${queryParams[validParam[i]]} `;
-                first = false;
-            }
-        }
-        console.log(queryStr);
+    var query = `SELECT review.id, review.rating, review.description, userProfile.email, userProfile.name, userProfile.profilePicture
+                    FROM review
+                    JOIN task ON review.taskID = task.id
+                    JOIN userProfile ON task.taskerID = userProfile.id
+                    WHERE task.workerID = ${workerID}`;
+    
 
-        sql.executeQuery(queryStr, (err, res) => {
-            if (err) { console.log(err); result(err, null); }
-            if (res) { result(null, res['rows']); }
-            return;
-        })
-    }
+    sql.executeQuery(query, (err, res) => {
+        if (err) { console.log(err); result(err, null); }
+        if (res) { result(null, res['rows']); }
+        return;
+    });
 };
 
 /*
@@ -77,7 +41,7 @@ Review.get = (req, result) => {
 */
 Review.create = (newReview, result) => {
     console.log("[Review.js] - Post Request");
-    console.log(newReview.body);
+
     var rating = newReview.body.review.rating;
     var description = newReview.body.review.description;
     var taskID = newReview.body.review.taskID;
@@ -101,4 +65,21 @@ Review.create = (newReview, result) => {
     return;
 };
 
+/*
+    Review.getAvgRating will return the average rating from each task that the reviewers make
+*/
+Review.getAvgRating = (req, result) => {
+    var workerID = req.params.workerID;
+    var query = `SELECT AVG(review.rating) as "avgRating"
+                    FROM review
+                    JOIN task ON review.taskID = task.id
+                    JOIN userProfile ON task.workerID = userProfile.id
+                    WHERE task.workerID = ${workerID};`;
+    sql.executeQuery(query, (err, res) => {
+        if (err) { console.log(err); result(err, null); }
+        if (res) { result(null, res['rows']); }
+        return;
+    });
+
+};
 module.exports = Review;
