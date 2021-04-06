@@ -7,7 +7,7 @@ import { Card, CardActionArea, CardMedia } from "@material-ui/core";
 const TypeCard = ({img, type}) => {
     return (
         <div>
-            <div className="col" style={{ marginBottom:'1%' }}>
+            <div className="col" style={{ marginBottom:'3%' }}>
                 <Card className="hoverable" style={{ width: 350 }}>
                     <CardActionArea>
                         <CardMedia

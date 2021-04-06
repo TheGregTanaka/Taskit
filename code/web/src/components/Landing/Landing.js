@@ -40,8 +40,8 @@ const Landing = () => {
                         <h2> Make money completing tasks in your neighboorhood</h2>
                     </div>
                 </div>
-                <div className="container" style={{marginBottom:"30vh"}}>
-                    <div className="row" style={{marginLeft:'7%'}}>
+                <div className="" style={{  marginBottom:"20vh", width:"100vw"}}>
+                    <div className="row" style={{alignContent:"center", alignItems:"center", justifyContent:"center"}}>
                         {Types.map((type) => (
                             <TypeCard key={type.id} type={type.name} img={type.img} />
                         ))}
