@@ -37,6 +37,7 @@
     background-color: #ffd700;
     background-image: linear-gradient(to top, #4837ff 0%, #ffd700 100%);
     background-size: 100%;
+    background-clip: text;
     -webkit-background-clip: text;
     -moz-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -557,9 +558,13 @@
         padding: 10px;
         width: 100%;
     }
+<<<<<<< HEAD
 }
 
 
 
 
 
+=======
+}
+>>>>>>> bf3d55a1d946965c416560203efab17c220450d9
