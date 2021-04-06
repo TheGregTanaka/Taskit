@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import Chat from '../Chat/Chat';
+
+import { Button } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import Review from '../Review/Review'
 
@@ -44,7 +45,7 @@ const CompanyProfile = () => {
             setProfile(profileRes.data);
             setErr(false);
 
-            // console.log("Profile Res: ", profileRes.data);
+            console.log("Profile Res: ", profileRes.data);
             // console.log("avgRating Res: ", (avgRatingRes.data)[0].avgRating);
             // console.log("Reviews Res: ", reviewRes.data);
             // console.log("Tasks Res: ", taskRes.data);
@@ -60,8 +61,7 @@ const CompanyProfile = () => {
             <div className="row">
                 <div className="col l2 white accent-3">
                     <div className="card bio">
-                        <img className="circle img-profile-responsive" src={img_profile} alt="Profile Image"/>
-                        
+                        {/* <img className="circle img-profile-responsive" src={img_profile} alt="Profile Image"/> */}
                         <div className="card-content">
                             <center>
                                 <span className="card-title">{profile[0].name}</span>
@@ -70,7 +70,12 @@ const CompanyProfile = () => {
                             <p id='bio'>{profile[0].bio}</p>
                         </div>
                         <div className="card-action">
-                            <Chat />
+                            <Button href={`mailto:${profile[0].email}`} size="small" color="primary">
+                                <Typography style={{color:"#ffab40"}}>Email</Typography>
+                            </Button>
+                            <Button size="small" color="primary">
+                                <Typography style={{color:"#ffab40"}}>{profile[0].phone}</Typography>
+                            </Button>
                         </div>
                     </div>
                 </div>

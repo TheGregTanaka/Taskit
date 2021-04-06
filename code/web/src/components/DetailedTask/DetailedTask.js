@@ -8,12 +8,11 @@ import { Card, CardActionArea, CardMedia } from "@material-ui/core";
 import Modal from 'react-modal';
 import Typography from "@material-ui/core/Typography";
 
-import default_img from "../../image/car_wash.jpeg";
+
 import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
 
 import EnlargeTask from './EnlargeTask';
-import Chat from '../Chat/Chat';
 import "../App/App.css";
 
 
@@ -39,7 +38,7 @@ const customStyles = {
 };
 
 
-const DetailedTask = ({taskID, status, img, name, price, description, address, location, deadline, email, phone, taskMode="finished"}) => {
+const DetailedTask = ({taskID, status, img, name, price, description, address, deadline, email, phone, taskMode="finished"}) => {
   const [modalIsOpen,setModalIsOpen] = useState(false);
   const [finishTask, setFinishTask] = useState(false);
   const [deleteTask, setDeleteTask] = useState(false);
@@ -122,7 +121,7 @@ const DetailedTask = ({taskID, status, img, name, price, description, address, l
                 <br/>
                 ${price}
               </Typography>
-              <Typography gutterBottom variant="h6" component="h2" align="left">
+              <Typography gutterBottom variant="h6" component="h2" align="left" noWrap>
                 {address}
               </Typography>
               <Typography
@@ -137,7 +136,12 @@ const DetailedTask = ({taskID, status, img, name, price, description, address, l
             </CardContent>
           </CardActionArea>
           <CardActions>
-            <Chat />
+            <Button href={`mailto:${email}`} size="small" color="primary">
+                <Typography style={{color:"#ffab40"}}>Email</Typography>
+            </Button>
+            <Button style={{textAlign:"right"}} size="small" color="primary">
+                <Typography style={{color:"#ffab40"}}>{phone}</Typography>
+            </Button>
           </CardActions>
         </Card>
       </div>}
@@ -146,7 +150,7 @@ const DetailedTask = ({taskID, status, img, name, price, description, address, l
 }
 
 DetailedTask.defaultProps = {
-  img: default_img,
+  img: "",
 }
 
 export default DetailedTask

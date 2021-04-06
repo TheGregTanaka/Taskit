@@ -1,11 +1,8 @@
 import React from 'react'
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-
-
 import Typography from "@material-ui/core/Typography";
+
 import { Card, CardActionArea, CardMedia } from "@material-ui/core";
-import default_img from "../../image/car_wash.jpeg";
 
 const TypeCard = ({img, type}) => {
     return (
@@ -32,7 +29,6 @@ const TypeCard = ({img, type}) => {
 }
 
 TypeCard.defaultProps = {
-    img: default_img,
     type: "",
     description: "",
   }

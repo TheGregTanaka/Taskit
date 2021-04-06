@@ -48,7 +48,6 @@ function CreateTask (){
         address: "",
         lat: 0,
         lng: 0,
-        remotePossible: 0,
     });
     
      // Create Task Modal
@@ -67,13 +66,6 @@ function CreateTask (){
             }, (error) => {
                 console.log(error);
             });
-    }
-
-    const [isRemote, setIsRemote] = useState(false);
-    const handleInputChange = () => {
-        var value = isRemote ? false : true;
-        setIsRemote(value);
-        setTask({ ...task, remotePossible: !value })
     }
 
     return(
@@ -119,17 +111,6 @@ function CreateTask (){
                             <textarea id="task_desc" maxLength="1200" style={{width:"100%", height:"150px"}} placeholder={"I will"}
                                 value={task.description} onChange={e => setTask({ ...task, description: e.target.value })} required/>
                         </label>
-                        <label>
-                            Remote:
-                            <input type="checkbox" name="remote" value={task.isRemote} onChange={handleInputChange} checked={isRemote} style={{position: "relative", opacity:"100%"}}/>
-                            <br/>
-                        </label>
-                        {!isRemote &&
-                            <label>
-                                Location: 
-                                <input type="text" name="task_loc" required/>
-                            </label>
-                        }
                         <label>
                             Deadline: 
                             <input type="date" name="task_deadline" value={task.dateCompleted} onChange={e => setTask({ ...task, dateCompleted: e.target.value })} required/>

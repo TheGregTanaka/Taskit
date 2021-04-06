@@ -1,8 +1,8 @@
 import React from 'react';
-import './style.css'
-import landing_img from '../../image/landing_img.svg';
 import TypeCard from './TypeCard';
-import EnlargeTask from '../DetailedTask/EnlargeTask';
+
+import './style.css';
+
 
 const Types = [
     {id: 0, name: "Yard Work", img: "http://localhost:3200/img/static/car_wash.jpeg"},
@@ -12,7 +12,8 @@ const Types = [
     {id: 4, name: "Tech", img: "http://localhost:3200/img/static/car_wash.jpeg"},
     {id: 5, name: "Misc", img: "http://localhost:3200/img/static/car_wash.jpeg"},
 ];
-console.log(Types);
+
+const landing_img = "http://localhost:3200/img/static/landing_img.svg"
 
 const Landing = () => {
     return (

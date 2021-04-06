@@ -44,6 +44,7 @@ const MyTasks = () => {
                                                                 deadline={(task.datePosted)}
                                                                 email={task.email}
                                                                 phone={task.phone}
+                                                                img={task.img}
                                                                 status={task.status}
                                                                 address={task.address}
                                                                 taskMode="delete"
