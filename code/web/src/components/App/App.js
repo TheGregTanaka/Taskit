@@ -12,6 +12,7 @@ import CreateReview from '../CreateReview/CreateReview'
 import Registration from '../Registration/Registration'
 import Transaction from '../Transaction/Transaction'
 import Feed from '../Feed/Feed';
+import Footer from '../Footer/Footer';
 import Workspace from '../Workspace/Workspace'
 import ViewProfile from '../ViewProfile/ViewProfile'
 import EditProfile from '../ViewProfile/EditProfile'
@@ -80,7 +81,7 @@ function App() {
     </header>
 
       
-      <footer>
+      {/* <footer>
         <p>2021 Team 011_6 ERROR404</p>
         <a
           className="githubLink"
@@ -90,6 +91,10 @@ function App() {
         >
           Code in github
         </a>
+      </footer> */}
+
+      <footer>
+        <Footer />
       </footer>
     </div>
   );

@@ -23,6 +23,9 @@ const customStyles = {
       marginTop: '2%',
       transform: 'translate(-50%, -50%)',
       backgroundColor: 'white',
+      height: "80vh",
+      width: "auto"
+
     }
 };
 
@@ -83,26 +86,22 @@ function CreateTask (){
                         </label>
                         <br/>
                         <label>
-                            <div className="row">
-                                <div className="col s6 m6 l6">
-                                    Price:
-                                    <br/>
-                                    <input type="number" name="task_price" placeholder="USD" value={task.price} onChange={e => setTask({ ...task, price: e.target.value })} required/>
-                                </div>
-                                {/* <div className="col s6 m6 l6">
-                                    Type:
-                                    <br/>
-                                    <Select displayEmpty style={{marginTop:"1.5vh"}} required>
-                                        <MenuItem value="" disabled><em>Select a Task Type</em></MenuItem>
-                                        <MenuItem value="Yard Work">Yard Work</MenuItem>
-                                        <MenuItem value="Cleaning">Cleaning</MenuItem>
-                                        <MenuItem value="Repair">Repair</MenuItem>
-                                        <MenuItem value="Auto">Auto</MenuItem>
-                                        <MenuItem value="Tech">Tech</MenuItem>
-                                        <MenuItem value="Misc">Misc</MenuItem>
-                                    </Select>
-                                </div> */}
-                            </div>
+                            Price:
+                            <br/>
+                            <input type="number" name="task_price" placeholder="USD" value={task.price} onChange={e => setTask({ ...task, price: e.target.value })} required/>
+                        </label>
+                        <label>
+                            Type:
+                                <br/>
+                                <select required>
+                                    <option value="" disabled><em>Select a Task Type</em></option>
+                                    <option value="Yard Work">Yard Work</option>
+                                    <option value="Cleaning">Cleaning</option>
+                                    <option value="Repair">Repair</option>
+                                    <option value="Auto">Auto</option>
+                                    <option value="Tech">Tech</option>
+                                    <option value="Misc">Misc</option>
+                                </select>
                         </label>
                         <br/>
                         <label>
@@ -116,12 +115,9 @@ function CreateTask (){
                             <input type="date" name="task_deadline" value={task.dateCompleted} onChange={e => setTask({ ...task, dateCompleted: e.target.value })} required/>
                         </label>
                         <label>
-                            Image:
-                            <br/>
-                            <input type="file" name="task_img" accept="image/*"></input>
+                            <Button type="submit" variant="contained" color='inherit' style={{float:"right", margin:"1% 1% 1% 1%"}}>Submit</Button>
+                            <Button variant="outlined" color="secondary" onClick={setModalIsOpenToFalse} style={{float:"right", margin:"1% 1% 1% 1%"}}>Cancel</Button>
                         </label>
-                        <Button type="submit" variant="contained" color='inherit' style={{float:"right", margin:"1% 1% 1% 1%"}}>Submit</Button>
-                        <Button variant="outlined" color="secondary" onClick={setModalIsOpenToFalse} style={{float:"right", margin:"1% 1% 1% 1%"}}>Cancel</Button>
                     </form>
                 </div>
             </Modal>
