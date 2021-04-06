@@ -14,6 +14,7 @@ const CompanyProfileModel = require('./models/companyProfile');
 // const PaymentModel = require('./models/payment');
 const ReviewModel = require('./models/review');
 const TaskModel = require('./models/task');
+const TypeModel = require('./models/type');
 const UserModel = require('./models/userProfile');
 
 
@@ -22,6 +23,7 @@ const login = require('./routes/login')(UserModel);
 // const paymentRouter = require('./routes/payment')(PaymentModel);
 const reviewRouter = require('./routes/review')(ReviewModel);
 const taskRouter = require('./routes/task')(TaskModel);
+const typeRouter = require('./routes/type')(TypeModel);
 const userRouter = require('./routes/userProfile')(UserModel);
 
 
@@ -41,6 +43,7 @@ app.use('/login', login);
 // app.use('/payment', paymentRouter);
 app.use('/review', reviewRouter);
 app.use('/task', taskRouter);
+app.use('/type', typeRouter);
 app.use('/user', userRouter);
 
 
