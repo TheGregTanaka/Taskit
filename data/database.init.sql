@@ -51,7 +51,6 @@ CREATE TABLE IF NOT EXISTS task
     address VARCHAR(128),
     lat FLOAT(10,6),
     lng FLOAT(10,6),
-    remotePossible BOOL DEFAULT FALSE,
     CONSTRAINT task_type_fk FOREIGN KEY (typeID) REFERENCES typeTask (id),
     CONSTRAINT task_status_fk FOREIGN KEY (statusID) REFERENCES statusTask (id),
     CONSTRAINT task_tasker_fk FOREIGN KEY (taskerID) REFERENCES userProfile (id)

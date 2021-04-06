@@ -4,12 +4,10 @@ import axios from 'axios';
 
 import Chat from '../Chat/Chat'
 import CreateTask from '../CreateTask/CreateTask';
-import Dashboard from '../Dashboard/Dashboard';
 import Landing from '../Landing/Landing'
 import Login from '../Login/Login';
 import Logout from '../Login/Logout';
-import Navbar from '../Navbar/Navbar';
-import NavbarV2 from '../LandingPage/NavbarV2';
+import NavbarV2 from '../Navbar/NavbarV2';
 import CreateReview from '../CreateReview/CreateReview'
 import Registration from '../Registration/Registration'
 import Transaction from '../Transaction/Transaction'
@@ -61,10 +59,8 @@ function App() {
         <BrowserRouter>
           <Switch>
 
-          <Route path="/landing" component={Landing}/>
           <Route path="/chat" component={Chat}/>
           <Route path="/create_task" component={CreateTask}/>
-          <Route path="/dashboard" component={Dashboard}/>
           <Route path="/login" component={Login}>
             <Login setUser={setUser} loggedIn={loggedIn}/>
           </Route>
@@ -76,7 +72,7 @@ function App() {
           <Route path="/workspace" component={Workspace}/>
           <Route path="/viewprofile" component={ViewProfile}/>
           <Route path="/editprofile" component={EditProfile}/>
-          <Route path="/" component={Feed}/>
+          <Route path="/" component={Landing}/>
 
           </Switch>
         </BrowserRouter>

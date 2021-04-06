@@ -13,7 +13,7 @@ A React/NodeJS marketplace to facilitate short term free-lance work for small jo
 
 # **Setting up the project**
 
-### There are 3 separate pieces to this project. You can run them separately for dev, but you will need to start all three seperately for a completely functional app.
+### There are 3 separate pieces to this project. You can run them separately for dev, but you will need to start all three for a completely functional app.
 
 This project uses npm, so you'll need it [installed](https://www.npmjs.com/get-npm) to run locally.
 
