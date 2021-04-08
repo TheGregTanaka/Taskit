@@ -15,7 +15,8 @@ const queryStr = `SELECT
     task.statusID, 
     statusTask.status,
     task.description, 
-    task.taskerID, 
+    task.taskerID,
+    task.img,
     tasker.name as tasker,
     task.workerID, 
     worker.name as worker,
@@ -114,10 +115,8 @@ Task.getOne = (taskID, result) => {
       return;
     } else {
       console.log("Res no length" + JSON.stringify(res));
-
       result("No Data returned", null);
       return;
-
     }
   });
 };

@@ -1,8 +1,6 @@
 import React from 'react';
 import './styles.css';
 import { useState } from 'react';
-import { Button } from '@material-ui/core';
-import logo from '../../image/Taskit.png';
 
 const NavbarV2 = ({loggedIn}) => {
     const [toggle, setToggle] = useState(false);
@@ -16,6 +14,8 @@ const NavbarV2 = ({loggedIn}) => {
       log = "Logout";
       action = "/logout";
     }
+
+    const logo = "http://localhost:3200/img/static/Taskit.png";
 
     return (
         <div>
@@ -32,8 +32,8 @@ const NavbarV2 = ({loggedIn}) => {
                     </div>
                     <ul className={toggle ? "navbar__menu active" : "navbar__menu"}>
                         <li className="navbar__item">
-                            <a href="/dashboard" className="navbar__links">
-                            Dashboard
+                            <a href="/feed" className="navbar__links">
+                            Explore
                             </a>
                         </li>
                         <li className="navbar__item">

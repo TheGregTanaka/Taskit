@@ -4,18 +4,18 @@ import axios from 'axios';
 
 import Chat from '../Chat/Chat'
 import CreateTask from '../CreateTask/CreateTask';
-import Dashboard from '../Dashboard/Dashboard';
 import Landing from '../Landing/Landing'
 import Login from '../Login/Login';
 import Logout from '../Login/Logout';
-import Navbar from '../Navbar/Navbar';
-import NavbarV2 from '../LandingPage/NavbarV2';
+import NavbarV2 from '../Navbar/NavbarV2';
 import CreateReview from '../CreateReview/CreateReview'
 import Registration from '../Registration/Registration'
 import Transaction from '../Transaction/Transaction'
 import Feed from '../Feed/Feed';
+import Footer from '../Footer/Footer';
 import Workspace from '../Workspace/Workspace'
 import ViewProfile from '../ViewProfile/ViewProfile'
+import EditProfile from '../ViewProfile/EditProfile'
 
 import './App.css';
 
@@ -67,10 +67,8 @@ function App() {
         <BrowserRouter>
           <Switch>
 
-          <Route path="/landing" component={Landing}/>
           <Route path="/chat" component={Chat}/>
           <Route path="/create_task" component={CreateTask}/>
-          <Route path="/dashboard" component={Dashboard}/>
           <Route path="/login" component={Login}>
             <Login setUser={setUser} loggedIn={loggedIn}/>
           </Route>
@@ -83,7 +81,8 @@ function App() {
           <Route path="/feed" component={Feed}/>
           <Route path="/workspace" component={Workspace}/>
           <Route path="/viewprofile" component={ViewProfile}/>
-          <Route path="/" component={Feed}/>
+          <Route path="/editprofile" component={EditProfile}/>
+          <Route path="/" component={Landing}/>
 
           </Switch>
         </BrowserRouter>
@@ -91,7 +90,7 @@ function App() {
     </header>
 
       
-      <footer>
+      {/* <footer>
         <p>2021 Team 011_6 ERROR404</p>
         <a
           className="githubLink"
@@ -101,6 +100,10 @@ function App() {
         >
           Code in github
         </a>
+      </footer> */}
+
+      <footer>
+        <Footer />
       </footer>
     </div>
   );
