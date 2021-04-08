@@ -1,6 +1,6 @@
 const express = require('express');
 
-function routes(Registration) {
+function routes(UserProfile) {
     const router = express.Router();
     router.route('/')
 

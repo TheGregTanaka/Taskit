@@ -54,6 +54,12 @@ const mapApi = "https://maps.googleapis.com/maps/api/js?key=" +
         );
       };
 
+      const marker = (taskID) => {
+        
+        
+
+      };
+
       return (
         <div
           id="map" 

@@ -1,6 +1,7 @@
 import React, { useState} from 'react';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { render } from "react-dom";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -51,28 +52,30 @@ async function registerUser(field) {
     console.log(err);
     return {data:null};
   });
+  
   return repsonse.data; 
 
 }
 
 
-export default function Registration({ setUser, registered }) {
+export default function Registration({ setRegister, registered }) {
   const classes = useStyles();
   const [name, setName] = useState();
   const [email,setEmail] = useState();
   const [password,setPassword] = useState();
+
   
   const data = async e => {
     e.preventDefault();
-    const token = await registerUser({ name, email, password });
-    localStorage.setItem('user', JSON.stringify(token));
-    setUser(token);
+    const message = await registerUser({ name, email, password });
+    setRegister(message);
   }
-
-  if (registered) {
-    return (<Redirect to="/login" />);
+  if(registered) {
+    
   } 
-  else {
+
+  else{
+
     return (
     <Container component="main" maxWidth="xs" style={{backgroundColor: "white", marginCenter:'3%'}} >
       <CssBaseline />
@@ -173,3 +176,4 @@ export default function Registration({ setUser, registered }) {
   );
   }
 }
+

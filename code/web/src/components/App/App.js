@@ -40,11 +40,18 @@ axios.interceptors.request.use(
 function App() {
   const userData = JSON.parse(localStorage.getItem('user'));
   const [user, setUser] = useState(userData || null);
+  const [registeredUser, setRegister] = useState(userData || null);
 
   //let loggedIn = true;
   let loggedIn = false;
   if (user) {
     loggedIn = true;
+  }
+
+  //let registered 
+  let registered = false;
+  if (registeredUser) {
+    registered = true;
   }
   return (
     <div className="App">
@@ -70,7 +77,7 @@ function App() {
           <Route path="/logout" component={Logout}/>
           <Route path="/create_review" component={CreateReview}/>
           <Route path="/registeration" component={Registration}>
-            <Registration setUser={setUser}/>
+            <Registration setRegister={setRegister}/>
           </Route>
           <Route path="/transaction" component={Transaction}/>
           <Route path="/feed" component={Feed}/>

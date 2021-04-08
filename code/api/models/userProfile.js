@@ -19,7 +19,6 @@ UserProfile.create = (newUser, result) => {
   //check if existing user
   sql.executeQuery(`SELECT email FROM userProfile WHERE email = "${newUser['email']}";`,
     (err, res) => {
-      console.log(query);
       if (err) {console.log(err);}
       if (res['rows'].length > 0) {
         //TODO send redirect to login page
@@ -47,18 +46,17 @@ UserProfile.create = (newUser, result) => {
             result(err, null);
             return;
           }
-          /*UserProfile.createCookie(req.name,req.id,(err, token) =>{
+
+          UserProfile.createCookie(newUser['email'],res.rows.insertId,(err, token) =>{
             if(err){
             console.log("ERROR! : ", err);
             result(err, null);
             return;
             }
-            result(null,token,JSON.stringify({ id: res.rows.insertId, ...newUser }));
+            result(null,{id: res.rows.insertId, email:newUser['email']},token);
           });
-          console.log("created user: ", { id: res.rows.insertId, ...newUser });*/
-          
+          console.log("created user: ", { id: res.rows.insertId, ...newUser });
         });
-        result(null, { id: res.rows.insertId, ...newTask });
         return;
       }
     });
