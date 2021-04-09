@@ -8,14 +8,19 @@ const NavbarV2 = () => {
         if(toggle) { setToggle(false); } else { setToggle(true); }
     }
 
+  const userData = JSON.parse(localStorage.getItem('user'));
     let log = "Login";
     let action = "/login";
-    if (false) {
+    let b1 = "SignUp";
+    let b1Act = "/registeration";
+    if (userData) {
+      b1 = "Profile";
+      b1Act = "/viewprofile";
       log = "Logout";
       action = "/logout";
     }
 
-    const logo = "http://localhost:3200/img/static/Taskit.png";
+    const logo = `${process.env.REACT_APP_DATA_API}/img/static/Taskit.png`;
 
     return (
         <div>
@@ -42,13 +47,13 @@ const NavbarV2 = () => {
                             </a>
                         </li>
                         <li className="navbar__btn">
-                            <a href={action} className="button">
-                            {log}
+                            <a href={b1Act} className="button">
+      {b1}
                             </a>
                         </li>
                         <li className="navbar__btn">
-                            <a href="/registeration" className="button">
-                            Sign_Up
+                            <a href={action} className="button">
+                            {log}
                             </a>
                         </li>
                     </ul>

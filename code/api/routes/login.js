@@ -20,7 +20,7 @@ function routes(UserProfile) {
           return res.send("Database error");
         } else if (err) {
           res.status(501);
-          return res.json(err);
+          return res.json("Server error");
         }
 
         //TODO https?

@@ -164,33 +164,44 @@ UserProfile.login = (req, result) => {
           result(errorType.BAD_REQUEST, null, null);
           return;
         } else {
-          const payload = {email: email}
-          accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-            algorithm: "HS256",
-            expiresIn: process.env.ACCESS_TOKEN_LIFE
-          });
-          refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
-            algorithm: "HS256",
-            expiresIn: process.env.REFRESH_TOKEN_LIFE
-          });
-
-          //store refresh token in DB
-          sql.executeQuery(`UPDATE userProfile SET token = "${refreshToken}" WHERE id = ${id};`,
-            (e, r) => {
-              if (e) {
-                result(e, null, null);
-                return;
-              }
-              console.log("token saved");
+          UserProfile.createCookie(id, email, (err, at) => {
+            if (err) {
+              console.log(err);
+              result(err, null, null);
+              return;
             }
-          );
-          //send access token to client inside cookie
-          result(null, accessToken, {'id':id, 'email':email});
-          return;
+            result(null, at, {'id':id, 'email':email});
+            return;
+          });
         }
       });
     }
   );
+}
+
+UserProfile.createCookie = (id, email, res) => {
+  const payload = {email: email}
+  accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+    algorithm: "HS256",
+    expiresIn: process.env.ACCESS_TOKEN_LIFE
+  });
+  refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
+    algorithm: "HS256",
+    expiresIn: process.env.REFRESH_TOKEN_LIFE
+  });
+
+  //store refresh token in DB
+  sql.executeQuery(`UPDATE userProfile SET token = "${refreshToken}" WHERE id = ${id};`,
+    (e, r) => {
+      if (e) {
+        res(e, null);
+        return;
+      }
+      console.log("token saved");
+    }
+  );
+  res(null, accessToken);
+  return;
 }
 
 //utilities - maybe create controllers class?
