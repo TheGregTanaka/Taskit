@@ -9,6 +9,8 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { Card, CardActionArea } from "@material-ui/core";
 import axios from "axios";
+import { useHistory } from 'react-router';
+import Map from '../Map/Map';
 
 import imag from "../../image/car_wash.jpeg";
   
@@ -34,9 +36,9 @@ import imag from "../../image/car_wash.jpeg";
 
     const user = JSON.parse(localStorage.getItem('user'));
     const id    = user ? user.id : 'null';
+    const history = useHistory();
 
     const acceptInfo = {
-        taskId: props.id,
         statusID: 2,
         workerID: id
     };
@@ -51,9 +53,10 @@ import imag from "../../image/car_wash.jpeg";
 
     function acceptTask() {
         axios
-            .patch("http://localhost:3200/task/" + `${acceptInfo.taskId}`, acceptInfo)
+            .patch(`${process.env.REACT_APP_DATA_API}/task/` + props.id, acceptInfo)
             .then((response) => {
                 console.log(response);
+                history.push("/workspace");
             }, (error) => {
                 console.log(error);
             });
@@ -80,13 +83,15 @@ import imag from "../../image/car_wash.jpeg";
                 <br/>
                 <br/>
                 Phone Number: {props.phone}
+                <br/>
               </Typography>
+              <div><Map address={props.location} /></div>
             </CardContent>
           </CardActionArea>
           <CardActions>
-             <button type="button" onClick={() => acceptTask()}>
+             <Button variant="outlined" color="primary" onClick={() => acceptTask()}>
                  Accept
-             </button>
+             </Button>
           </CardActions>
         </Card>
         </center>
@@ -123,9 +128,9 @@ import imag from "../../image/car_wash.jpeg";
             </CardContent>
           </CardActionArea>
           <CardActions>
-          <button type="button" onClick={handleOpen}>
+          <Button variant="outlined" color="primary" onClick={handleOpen}>
           Learn more
-        </button>
+        </Button>
         <Modal
           open={open}
           onClose={handleClose}

@@ -12,17 +12,17 @@ import './style.css'
 const Footer = () => {
     return (
         <div>
-            <div class="footer__container">
-                <div class="footer__links">
-                    <div class="footer__link--wrapper">
-                        <div class="footer__links--items">
+            <div className="footer__container">
+                <div className="footer__links">
+                    <div className="footer__link--wrapper">
+                        <div className="footer__links--items">
                             <h2>About Us</h2>
                             <a href="/">How it works</a>
                             <a href="/">Testimonials</a>
                             <a href="/">Terms of Service</a>
                             <a href="/">Careers</a>
                         </div>
-                        <div class="footer__links--items">
+                        <div className="footer__links--items">
                             <h2>Contact Us</h2>
                             <a href="/">Admin Messenger</a>
                             <a href="/">Phone</a>
@@ -32,26 +32,26 @@ const Footer = () => {
                         </div>
                     </div>
                 </div>
-                <div class="social__media">
-                    <div class="social__media--wrap">
-                        <div class="footer__logo">
-                            <a href="/" id="footer__logo"><i class="fas faa-gem"></i>TASKIT</a>
+                <div className="social__media">
+                    <div className="social__media--wrap">
+                        <div className="footer__logo">
+                            <a href="/" id="footer__logo"><i className="fas faa-gem"></i>TASKIT</a>
                         </div>
-                        <p class="website__right"> © TASKIT 2021. All rights reserved</p>
-                        <div class="social__icons">
-                            <a href="/" class="social__icon--link" target = "_blank">
+                        <p className="website__right"> © TASKIT 2021. All rights reserved</p>
+                        <div className="social__icons">
+                            <a href="/" className="social__icon--link" target = "_blank">
                                 <FacebookIcon fontSize="large"/>
                             </a>
-                            <a href="/" class="social__icon--link" target = "_blank">
+                            <a href="/" className="social__icon--link" target = "_blank">
                                 <TwitterIcon fontSize="large"/>
                             </a>
-                            <a href="/" class="social__icon--link" target = "_blank">
+                            <a href="/" className="social__icon--link" target = "_blank">
                                 <InstagramIcon fontSize="large"/>
                             </a>
-                            <a href="/" class="social__icon--link" target = "_blank">
+                            <a href="/" className="social__icon--link" target = "_blank">
                                 <LinkedInIcon fontSize="large"/>
                             </a>
-                            <a href="/" class="social__icon--link" target = "_blank">
+                            <a href="/" className="social__icon--link" target = "_blank">
                                 <GitHubIcon fontSize="large"/>
                             </a>
                         </div>

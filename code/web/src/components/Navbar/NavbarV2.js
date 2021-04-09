@@ -2,7 +2,7 @@ import React from 'react';
 import './styles.css';
 import { useState } from 'react';
 
-const NavbarV2 = ({loggedIn}) => {
+const NavbarV2 = () => {
     const [toggle, setToggle] = useState(false);
     const toggle_menu = () => {
         if(toggle) { setToggle(false); } else { setToggle(true); }
@@ -10,7 +10,7 @@ const NavbarV2 = ({loggedIn}) => {
 
     let log = "Login";
     let action = "/login";
-    if (loggedIn) {
+    if (false) {
       log = "Logout";
       action = "/logout";
     }

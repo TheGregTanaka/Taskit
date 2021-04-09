@@ -2,6 +2,7 @@ require('dotenv').config();
 const sql = require("../db.js");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const errorType = require('../enums.js');
 const saltRounds = 10;
 
 const UserProfile = function(user) {
@@ -144,11 +145,11 @@ UserProfile.login = (req, result) => {
         return;
       }
       if (res.rows.length > 1) {
-        result("Data error, two matches for this email", null, null);
+        result(errorType.DATABASE_ERROR, null, null);
         return;
       }
       if (res.rows.length === 0) {
-        result("No user found with that email.", null, null);
+        result(errorType.DOES_NOT_EXIST, null, null);
         return;
       }
       id = res['rows'][0].id;
@@ -160,7 +161,7 @@ UserProfile.login = (req, result) => {
           return;
         }
         if (!match) {
-          result("Bad password!", null, null);
+          result(errorType.BAD_REQUEST, null, null);
           return;
         } else {
           const payload = {email: email}
@@ -183,11 +184,11 @@ UserProfile.login = (req, result) => {
               console.log("token saved");
             }
           );
+          //send access token to client inside cookie
+          result(null, accessToken, {'id':id, 'email':email});
+          return;
         }
       });
-      //send access token to client inside cookie
-      result(null, accessToken, {'id':id, 'email':email});
-      return;
     }
   );
 }

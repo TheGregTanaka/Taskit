@@ -1,17 +1,9 @@
 import React from 'react';
 import TypeCard from './TypeCard';
+import {TYPEID, Types} from '../../constants/tasks';
 
 import './style.css';
 
-
-const Types = [
-    {id: 0, name: "Yard Work", img: "http://localhost:3200/img/static/car_wash.jpeg"},
-    {id: 1, name: "Cleaning", img: "http://localhost:3200/img/static/car_wash.jpeg"},
-    {id: 2, name: "Repair", img: "http://localhost:3200/img/static/car_wash.jpeg"},
-    {id: 3, name: "Auto", img: "http://localhost:3200/img/static/car_wash.jpeg"},
-    {id: 4, name: "Tech", img: "http://localhost:3200/img/static/car_wash.jpeg"},
-    {id: 5, name: "Misc", img: "http://localhost:3200/img/static/car_wash.jpeg"},
-];
 
 const landing_img = "http://localhost:3200/img/static/landing_img.svg"
 

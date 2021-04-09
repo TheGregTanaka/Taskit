@@ -12,7 +12,7 @@ const AcceptedTasks = () => {
     const id = user ? user.id : 'null';
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_DATA_API}/task/worker/accepted/${id}`)
+        axios.get(`${process.env.REACT_APP_DATA_API}/task/worker/${id}?status=2`)
             .then((response) => {
                 setTasks(response.data);
                 setErr(false);
@@ -41,6 +41,8 @@ const AcceptedTasks = () => {
                     <div className="row">
                         {!err && tasks.map((task) => (<DetailedTask key={task.id}
                                                                 taskID={task.id}
+                                                                status={task.status}
+                                                                typeID={task.typeID}
                                                                 name={task.title}
                                                                 price={task.price}
                                                                 description={task.description}
