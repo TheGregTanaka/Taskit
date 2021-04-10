@@ -8,7 +8,6 @@ const saltRounds = 10;
 const UserProfile = function(user) {
   this.email = user.email;
   this.name = user.name;
-  this.profilePicture = user.profilePicture;
   this.phone = user.phone;
   this.bio = user.bio;
 };
@@ -61,7 +60,6 @@ UserProfile.getOne = (userID, result) => {
     `SELECT 
        email, 
        name, 
-       profilePicture, 
        phone,
        bio
      FROM userProfile
