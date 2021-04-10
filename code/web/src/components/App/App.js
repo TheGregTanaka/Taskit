@@ -40,31 +40,13 @@ axios.interceptors.request.use(
 
 const getUser = () => {
   const userData = JSON.parse(localStorage.getItem('user'));
-<<<<<<< HEAD
-  const [user, setUser] = useState(userData || null);
-  const [userProfile, setProfile] = useState(userData || null);
-
-  //let loggedIn = true;
-  let loggedIn = false;
-  if (user) {
-    loggedIn = true;
-  }
-  let profileExists = false;
-  if (userProfile) {
-    profileExists = true;
-  }
-=======
   return userData;
 };
 
-/*const saveUser = (userData) => {
-  localStorage.setItem('user', JSON.stringify(userData));
-};*/
-
 function App() {
-  const user = getUser();
+  const user = getUser(); 
+  const [userProfile, setProfile] = useState(user || null)
 
->>>>>>> 28cae75efb5735b48a36d0a17f28e4fe54d0078a
   return (
     <div className="App">
 
@@ -100,17 +82,6 @@ function App() {
     </header>
 
       
-      {/* <footer>
-        <p>2021 Team 011_6 ERROR404</p>
-        <a
-          className="githubLink"
-          href="https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Code in github
-        </a>
-      </footer> */}
 
       <footer>
         <Footer />
