@@ -46,9 +46,7 @@ function CreateTask (){
         description: "",
         price: 0,
         taskerID: userID,
-        dateCompleted: "",
         datePosted: date,
-        img: "",
         address: "",
         lat: 0,
         lng: 0,
@@ -116,10 +114,6 @@ function CreateTask (){
                             <br/>
                             <textarea id="task_desc" maxLength="1200" style={{width:"100%", height:"150px"}} placeholder={"I will"}
                                 value={task.description} onChange={e => setTask({ ...task, description: e.target.value })} required/>
-                        </label>
-                        <label>
-                            Deadline: 
-                            <input type="date" name="task_deadline" value={task.dateCompleted} onChange={e => setTask({ ...task, dateCompleted: e.target.value })} required/>
                         </label>
                         <label>
                             <Button type="submit" variant="contained" color='inherit' style={{float:"right", margin:"1% 1% 1% 1%"}}>Submit</Button>

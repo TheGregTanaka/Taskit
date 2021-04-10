@@ -6,7 +6,7 @@ const CompanyProfile = function(user) {
 
 CompanyProfile.taskNreview = (req, result) => {
     var workerID = req.params.workerID;
-    var query = `SELECT userProfile.name as "reviewerName", userProfile.profilePicture as "reviewerPic", task.id as "taskID", task.title as "taskTitle", task.description as "taskDesc", task.price as "taskPrice", task.datePosted, task.dateCompleted, task.img as "taskImg", review.id as "reviewID", review.rating as "reviewRating", review.description as "reviewDesc"
+    var query = `SELECT userProfile.name as "reviewerName", userProfile.profilePicture as "reviewerPic", task.id as "taskID", task.title as "taskTitle", task.description as "taskDesc", task.price as "taskPrice", task.datePosted, task.dateCompleted, review.id as "reviewID", review.rating as "reviewRating", review.description as "reviewDesc"
                     FROM task
                     JOIN statusTask ON task.statusID = statusTask.id
                     JOIN review ON review.taskID = task.id
