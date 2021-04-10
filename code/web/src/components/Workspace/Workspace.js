@@ -1,5 +1,6 @@
 import { Button } from '@material-ui/core';
 import React, { useState } from 'react'
+import { Redirect } from 'react-router-dom';
 
 import MyTasks from './MyTasks';
 import AcceptedTasks from './AcceptedTasks';
@@ -9,7 +10,9 @@ import CreateTask from '../CreateTask/CreateTask';
 const Workspace = () => {
     // Display Company Profile
     const [page, setPage] = useState("displayWorkspace");
+    const userData = JSON.parse(localStorage.getItem('user'));
     
+  if (userData) {
     return (
         <div className=''>
             <div className="row" style={{marginTop:"0"}}>
@@ -33,5 +36,8 @@ const Workspace = () => {
             {page === "companyprofile" && <CompanyProfile />}
         </div>
     )
+  } else {
+    return (<Redirect to="/login" />);
+  }
 }
 export default Workspace
