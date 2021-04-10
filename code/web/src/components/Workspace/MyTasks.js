@@ -15,7 +15,6 @@ const MyTasks = () => {
             .then((response) => {
                 setTasks(response.data);
                 setErr(false);
-                console.log("Tasks Res: ", response.data);
             })
             .catch(err => {
                 setErr(true);
@@ -25,6 +24,7 @@ const MyTasks = () => {
 
     return (
         <div>
+            {tasks.length != 0 &&
             <div className="" style={{marginLeft:'7%', marginRight:'7%'}}>
                 <div className='row'>
                     <hr/>
@@ -54,8 +54,7 @@ const MyTasks = () => {
                     </div>
                     <hr/>
                 </div>
-            </div>
-            
+            </div>}
         </div>
     )
 }

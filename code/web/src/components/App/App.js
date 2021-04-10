@@ -8,7 +8,6 @@ import Landing from '../Landing/Landing'
 import Login from '../Login/Login';
 import Logout from '../Login/Logout';
 import NavbarV2 from '../Navbar/NavbarV2';
-import CreateReview from '../CreateReview/CreateReview'
 import Registration from '../Registration/Registration'
 import Transaction from '../Transaction/Transaction'
 import Feed from '../Feed/Feed';
@@ -65,14 +64,13 @@ function App() {
           <Route path="/create_task" component={CreateTask}/>
           <Route path="/login" component={Login}/>
           <Route path="/logout" component={Logout}/>
-          <Route path="/create_review" component={CreateReview}/>
           <Route path="/registeration" component={Registration}/>
           <Route path="/transaction" component={Transaction}/>
           <Route path="/feed" component={Feed}/>
           <Route path="/workspace" component={Workspace}/>
           <Route path="/viewprofile" component={ViewProfile}/>
           <Route path="/editprofile" component={EditProfile}>
-            <EditProfile setProfile={setProfile}/>
+            {/* <EditProfile setProfile={setProfile}/> */}
           </Route>
           <Route path="/" component={Landing}/>
 

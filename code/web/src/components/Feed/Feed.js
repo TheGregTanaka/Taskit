@@ -37,7 +37,6 @@ const Feed = () => {
       .then((response) => {
         setTasks(response.data);
         setErr(false);
-        console.log("Tasks Res: ", response.data);
       })
       .catch((err) => {
         setErr(true);
@@ -76,6 +75,7 @@ const Feed = () => {
         <div className="row">
           {tasks.map((task) => (
             <Task
+              key={task.id}
               name={task.title}
               typeID={task.typeID}
               price={task.price}

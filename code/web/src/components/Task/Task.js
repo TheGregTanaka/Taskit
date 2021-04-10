@@ -7,10 +7,11 @@ import CardContent from "@material-ui/core/CardContent";
 
 import Typography from "@material-ui/core/Typography";
 import { Card, CardActionArea, CardMedia } from "@material-ui/core";
-import default_img from "../../image/car_wash.jpeg";
+import {Types} from '../../constants/tasks';
 
 
-const Task = ({img, taskName, description, dateCompleted, taskerName}) => {
+const Task = ({typeID, taskName, description, dateCompleted, taskerName}) => {
+  const img = Types[typeID - 1].img;
   return (
     <>
       <div className="col" style={{ marginBottom:'1%' }}>
@@ -19,7 +20,7 @@ const Task = ({img, taskName, description, dateCompleted, taskerName}) => {
             <CardMedia
                       component="img"
                       height="140"
-                      image={img}
+                      src={img}
                       title="Task Image"
                     />
             <CardContent>
@@ -50,8 +51,8 @@ const Task = ({img, taskName, description, dateCompleted, taskerName}) => {
   )
 }
 
-Task.defaultProps = {
-  img: default_img,
-}
+// Task.defaultProps = {
+//   img: default_img,
+// }
 
 export default Task

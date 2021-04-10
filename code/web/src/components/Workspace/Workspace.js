@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 import MyTasks from './MyTasks';
 import AcceptedTasks from './AcceptedTasks';
+import ConfirmCompletedTask from './ConfirmCompletedTask';
 import CompanyProfile from '../CompanyProfile/CompanyProfile';
 import CreateTask from '../CreateTask/CreateTask';
 
@@ -31,9 +32,11 @@ const Workspace = () => {
                     {page === "displayWorkspace" && <CreateTask/>}
                 </div>
             </div>
+            
+            {page === 'displayWorkspace' && <ConfirmCompletedTask />}
             {page === 'displayWorkspace' && <MyTasks />}
             {page === 'displayWorkspace' && <AcceptedTasks />}
-            {page === "companyprofile" && <CompanyProfile />}
+            {page === 'companyprofile' && <CompanyProfile />}
         </div>
     )
   } else {
