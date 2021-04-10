@@ -26,7 +26,7 @@ directory. Install and set up MySQL on your machine. Then, either copy the
 contents of `data/database.init.sql` into a MySQL client, or from the command
 line run `mysql -u root -p < data/database.init.sql`.
 
-See readme in the `data` directory for table and column type documentation.
+See [readme](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/blob/main/data/README.md) in the `data` directory for table and column type documentation.
 
 ## 2. nodeJS Back End
 
@@ -41,7 +41,7 @@ npm start
 
 This will start a nodemon process listening on `localhost:3200`.
 
-See readme in the `api` directory for route documentation.
+See [readme](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/blob/main/code/api/README.md) in the `api` directory for route documentation.
 
 ## 3. React Front End
 
