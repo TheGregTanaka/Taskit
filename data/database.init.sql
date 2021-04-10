@@ -27,7 +27,6 @@ CREATE TABLE IF NOT EXISTS userProfile
     email VARCHAR(128) NOT NULL,
     password VARCHAR(128) NOT NULL,
     name VARCHAR(128) NOT NULL,
-    profilePicture VARCHAR(128),
     phone VARCHAR(20),
     bio LONGTEXT,
     token VARCHAR(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL
@@ -94,12 +93,12 @@ VALUES
 
 # seed data
 INSERT INTO `userProfile` 
-(`email`, `password`, `name`, `profilePicture`, `phone`, `bio`)
+(`email`, `password`, `name`, `phone`, `bio`)
 VALUES
-("testTasker@ineedhelp.com", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Theo Tasker", "http://localhost:3200/img/static/img_profile.png", "xxx-xxx-xxxx", "Hello I'm Theo. I'm glad you're taking an interest in me."),
-("mario@plumber.com", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Mario Pipes", "http://localhost:3200/img/static/img_profile.png", "111-222-3333", "Hello I'm mario. I'm glad you're taking an interest in me."),
-("greenthumb@yourgardener.net", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Forrest Green", "http://localhost:3200/img/static/img_profile.png", "444-555-6666", "Hello I'm green. I'm glad you're taking an interest in me."),
-("gregory.tanaka@colorado.edu", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Gregory Tanaka", "http://localhost:3200/img/static/img_profile.png", "777-888-9999", "Hello I'm Greg. I'm glad you're taking an interest in me.");
+("testTasker@ineedhelp.com", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Theo Tasker", "xxx-xxx-xxxx", "Hello I'm Theo. I'm glad you're taking an interest in me."),
+("mario@plumber.com", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Mario Pipes", "111-222-3333", "Hello I'm mario. I'm glad you're taking an interest in me."),
+("greenthumb@yourgardener.net", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Forrest Green", "444-555-6666", "Hello I'm green. I'm glad you're taking an interest in me."),
+("gregory.tanaka@colorado.edu", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Gregory Tanaka", "777-888-9999", "Hello I'm Greg. I'm glad you're taking an interest in me.");
 
 
 INSERT INTO task
