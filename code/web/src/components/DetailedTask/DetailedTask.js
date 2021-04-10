@@ -76,9 +76,6 @@ const DetailedTask = ({taskID, status, typeID, name, price, description, address
           .then( console.log("Successfully removed task") );
     };
 
-  console.log(typeID);
-  console.log(Types);
-  //const img = "http://localhost:3200/img/static/taskitthumbnail.png";
   const img = Types[typeID - 1].img;
   
   return (

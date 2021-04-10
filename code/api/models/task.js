@@ -125,6 +125,9 @@ Task.getFeed = (req, result) => {
   const pending = "Pending";
   var q = queryStr + ` WHERE task.statusID = 1`;
 
+  if (req.query.type) {
+    q += ` AND task.typeID = ${req.query.type}`;
+  }
 
   sql.executeQuery(q, (err, res) => {
     if (err) {

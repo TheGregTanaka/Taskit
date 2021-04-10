@@ -11,8 +11,7 @@ import { Card, CardActionArea } from "@material-ui/core";
 import axios from "axios";
 import { useHistory } from 'react-router';
 import Map from '../Map/Map';
-
-import imag from "../../image/car_wash.jpeg";
+import {TypeID, Types} from '../../constants/tasks';
   
   
   const useStyles = makeStyles((theme) => ({
@@ -44,7 +43,11 @@ import imag from "../../image/car_wash.jpeg";
     };
 
     const handleOpen = () => {
-      setOpen(true);
+      if (user) {
+        setOpen(true);
+      } else {
+        history.push('/login');
+      }
     };
   
     const handleClose = () => {
@@ -107,7 +110,7 @@ import imag from "../../image/car_wash.jpeg";
             <CardMedia
               component="img"
               height="400"
-              image={imag}
+              image={Types[props.typeID - 1].img}
               title="Task Photo"
             />
             <CardContent>

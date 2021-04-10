@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import React, { useState } from 'react';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import {TYPEID, Types } from '../../constants/tasks';
+import {TypeID, Types } from '../../constants/tasks';
 
 const customStyles = {
     overlay: {
@@ -42,7 +42,7 @@ function CreateTask (){
 
     const [task, setTask] = useState({
         title: "",
-        typeID: "1",
+        typeID: "",
         description: "",
         price: 0,
         taskerID: userID,
@@ -94,7 +94,11 @@ function CreateTask (){
                         <label>
                             Type:
                               <br/>
-                                <Select labelID="typeSelector" id="typeSelect" defaultValue="none">
+                                <Select labelID="typeSelector" 
+                                        id="typeSelect" 
+                                        defaultValue="none"
+                                        onChange={e => setTask({...task, typeID: e.target.value})} 
+                                        required>
                                   <MenuItem value="none" disabled>Select a Type</MenuItem>
                                   {Types.map((type) => (
                                     <MenuItem key={type.id} value={type.id}>{type.name}</MenuItem>))}
