@@ -2,6 +2,7 @@ require('dotenv').config();
 const sql = require("../db.js");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const errorType = require('../enums.js');
 const saltRounds = 10;
 
 const UserProfile = function(user) {
@@ -153,11 +154,11 @@ UserProfile.login = (req, result) => {
         return;
       }
       if (res.rows.length > 1) {
-        result("Data error, two matches for this email", null, null);
+        result(errorType.DATABASE_ERROR, null, null);
         return;
       }
       if (res.rows.length === 0) {
-        result("No user found with that email.", null, null);
+        result(errorType.DOES_NOT_EXIST, null, null);
         return;
       }
       id = res['rows'][0].id;
@@ -169,62 +170,48 @@ UserProfile.login = (req, result) => {
           return;
         }
         if (!match) {
-          result("Bad password!", null, null);
+          result(errorType.BAD_REQUEST, null, null);
           return;
         } else {
-          const payload = {email: email}
-          accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-            algorithm: "HS256",
-            expiresIn: process.env.ACCESS_TOKEN_LIFE
-          });
-          refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
-            algorithm: "HS256",
-            expiresIn: process.env.REFRESH_TOKEN_LIFE
-          });
-
-          //store refresh token in DB
-          sql.executeQuery(`UPDATE userProfile SET token = "${refreshToken}" WHERE id = ${id};`,
-            (e, r) => {
-              if (e) {
-                result(e, null, null);
-                return;
-              }
-              console.log("token saved");
+          UserProfile.createCookie(id, email, (err, at) => {
+            if (err) {
+              console.log(err);
+              result(err, null, null);
+              return;
             }
-          );
+            result(null, at, {'id':id, 'email':email});
+            return;
+          });
         }
       });
-      //send access token to client inside cookie
-      result(null, accessToken, {'id':id, 'email':email});
-      return;
     }
   );
 }
 
-UserProfile.createCookie = (email, id,result) =>{
+UserProfile.createCookie = (id, email, res) => {
   const payload = {email: email}
-          accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-            algorithm: "HS256",
-            expiresIn: process.env.ACCESS_TOKEN_LIFE
-          });
-          refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
-            algorithm: "HS256",
-            expiresIn: process.env.REFRESH_TOKEN_LIFE
-          });
+  accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+    algorithm: "HS256",
+    expiresIn: process.env.ACCESS_TOKEN_LIFE
+  });
+  refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
+    algorithm: "HS256",
+    expiresIn: process.env.REFRESH_TOKEN_LIFE
+  });
 
-          //store refresh token in DB
-          sql.executeQuery(`UPDATE userProfile SET token = "${refreshToken}" WHERE id = ${id};`,
-            (e, r) => {
-              if (e) {
-                result(e, null,null);
-                return;
-              }
-              console.log("token saved");
-            }
-          );
-      result(null, accessToken);
+  //store refresh token in DB
+  sql.executeQuery(`UPDATE userProfile SET token = "${refreshToken}" WHERE id = ${id};`,
+    (e, r) => {
+      if (e) {
+        res(e, null);
+        return;
+      }
+      console.log("token saved");
+    }
+  );
+  res(null, accessToken);
   return;
-};
+}
 
 //utilities - maybe create controllers class?
 UserProfile.calcRating = (userID) => {

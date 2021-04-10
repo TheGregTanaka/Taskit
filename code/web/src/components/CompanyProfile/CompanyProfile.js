@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 
+import { Redirect } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import Review from '../Review/Review'
@@ -56,6 +57,7 @@ const CompanyProfile = () => {
         });
     }, []);
 
+  if (profile[0]) {
     return (
         <div style={{margin: "2% 1% 5% 5%"}}>
             <div className="row">
@@ -103,6 +105,9 @@ const CompanyProfile = () => {
             </div>
         </div>
     )
+  } else {
+    return (<Redirect to="/login" />);
+  }
 }
 
 export default CompanyProfile

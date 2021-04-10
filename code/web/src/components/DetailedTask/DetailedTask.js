@@ -14,6 +14,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 import EnlargeTask from './EnlargeTask';
 import "../App/App.css";
+import {TYPEID, Types} from '../../constants/tasks';
 
 
 
@@ -38,7 +39,7 @@ const customStyles = {
 };
 
 
-const DetailedTask = ({taskID, status, img, name, price, description, address, deadline, email, phone, taskMode="finished"}) => {
+const DetailedTask = ({taskID, status, typeID, name, price, description, address, deadline, email, phone, taskMode="finished"}) => {
   const [modalIsOpen,setModalIsOpen] = useState(false);
   const [finishTask, setFinishTask] = useState(false);
   const [deleteTask, setDeleteTask] = useState(false);
@@ -59,7 +60,7 @@ const DetailedTask = ({taskID, status, img, name, price, description, address, d
       setShowTask(false);
 
       var today = new Date();
-    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+      var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
       axios.patch(`http://localhost:3200/task/${taskID}`, {
         data: { dateCompleted: date, statusID: 3}
@@ -75,6 +76,10 @@ const DetailedTask = ({taskID, status, img, name, price, description, address, d
           .then( console.log("Successfully removed task") );
     };
 
+  console.log(typeID);
+  console.log(Types);
+  //const img = "http://localhost:3200/img/static/taskitthumbnail.png";
+  const img = Types[typeID - 1].img;
   
   return (
     <>

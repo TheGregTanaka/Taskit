@@ -8,7 +8,27 @@ import axios from 'axios';
 
 import { Button } from '@material-ui/core'; 
 
-const ViewProfile = ({login}) => {
+async function EditInfoCall(FirstName, LastName, Location, Bio) {
+    const api = process.env.REACT_APP_DATA_API;
+    // Where to do if statements for null/blank input?
+    const response = await axios.post(api + '/ViewProfile', {
+        firstname: FirstName,
+        lastname: LastName,
+        location: Location,
+        bio: Bio
+    })
+    .then(function (res) {
+      return res;
+    })
+    .catch(function (err) {
+      console.log(err);
+      return {data:null};
+    });
+        
+    return response;
+}
+
+const EditProfile = ({login}) => {
     const [profile, setProfile] = useState([]);
     const [err, setErr] = useState(false);
 
@@ -28,26 +48,26 @@ const ViewProfile = ({login}) => {
             <div class="container">
                 <div class="row">
                     <div class="col-10">&nbsp;</div>
-                    <div class="col-4">
-                        <div class="card">
-                            <img class="card-img-top" src={profile_imag} width="150"></img>
-                        </div>
-                    </div>
-                    <div class="col-8">
+                    <div class="col-10">
                         <div class="table">
                             <tr>
                                 <th>
-                                    Name:
+                                    First Name:
                                 </th>
                                 <td>
-                                    John Sullivan
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="firstName" id="password" placeholder="First Name"></input>
+                                    </div>
                                 </td>
+                            </tr>
+                            <tr>
                                 <th>
-                                    Rating:
+                                    Last Name:
                                 </th>
                                 <td>
-                                    5/5 
-                                    {/* Import Star Rating System */}   
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="lastName" placeholder="Last Name"></input>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -55,17 +75,30 @@ const ViewProfile = ({login}) => {
                                     Location:
                                 </th>
                                 <td>
-                                    Boulder, CO
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="location" placeholder="Location"></input>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Bio:
+                                </th>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="bio" placeholder="Bio"></input>
+                                    </div>
                                 </td>
                             </tr>
                         </div>
                     </div>
-                </div>
-                <div class="col-2" style={{float:"middle"}}>                    
-                    <Button variant="contained" color="inherit" onClick={() => setProfile("EditProfile")}>Submit</Button>
+                    <div class="col-8" style={{float:"middle"}}>                    
+                        <Button variant="contained" color="inherit" onClick={() => EditInfoCall()}>Submit</Button>
+                        {/* How to make EditInfoCall(firstName, lastName, location, bio) */}
+                    </div>
                 </div>
             </div>
     )
 }
 
-export default ViewProfile
+export default EditProfile

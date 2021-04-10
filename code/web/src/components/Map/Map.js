@@ -1,17 +1,18 @@
 import React, {Component, useRef, useEffect} from 'react';
 
-//TODO make env
+/*TODO make env
 const key = "AIzaSyBr0e0T-9WGeBG-S-p05C9ahVicY14GtiQ";
 const mapApi = "https://maps.googleapis.com/maps/api/js?key=" + 
   key + 
   "&libraries=places";
+  */
 
     const Map = ({address}) => {
       const mapRef = useRef();
       let map;
       useEffect(() => {
         var scriptTag = document.createElement("script");
-        scriptTag.src = mapApi;
+        scriptTag.src = process.env.REACT_APP_MAP_API;
         scriptTag.async = true;
         window.document.body.appendChild(scriptTag);
         scriptTag.addEventListener("load", () => {
@@ -21,7 +22,7 @@ const mapApi = "https://maps.googleapis.com/maps/api/js?key=" +
 
       const createMap = (coordinates) => {
         map = new window.google.maps.Map(mapRef.current, {
-          zoom: 14,
+          zoom: 16,
           center: {
             lat: coordinates.lat(),
             lng: coordinates.lng(),
@@ -64,7 +65,7 @@ const mapApi = "https://maps.googleapis.com/maps/api/js?key=" +
         <div
           id="map" 
           ref={mapRef}
-          style={{ width: "400px", height: "300px" }}
+          style={{ width: "300px", height: "200px" }}
         />
       );
     }

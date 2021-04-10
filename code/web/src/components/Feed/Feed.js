@@ -39,12 +39,12 @@ const Feed = () => {
           {tasks.map((task) => (
             <Task
               name={task.title}
-              price={task.offeredPrice}
+              price={task.price}
               description={task.description}
-              location={"Palo Alto"}
+              location={task.address}
               deadline={task.datePosted}
-              email={"XXX@gmail.com"}
-              phone={"XXX-XXX-XXXX"}
+              email={task.email}
+              phone={task.phone}
               id={task.id}
             />
           ))}
