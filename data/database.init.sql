@@ -88,7 +88,9 @@ INSERT INTO statusTask
 VALUES
 ("Pending"),
 ("Accepted"),
+("Confirmation Required"),
 ("Complete");
+
 
 
 # seed data
@@ -107,7 +109,7 @@ VALUES
 ("Rake my leaves", 1, 1, "I need someone to rake the leaves in my yard", 20, 2, 1, '2021-02-08', NULL, "http://localhost:3200/img/static/car_wash.jpeg", "University of Colorado Boulder, Boulder, CO"),
 ("Hook up my speakers", 5, 2, "I need help setting up my new audio system.", 20, 3, 1, '2021-02-09', NULL, "http://localhost:3200/img/static/car_wash.jpeg", "1669 Euclid Ave, Boulder, CO 80309"),
 ("Wash my car", 4, 3, "My car is dirty! Help!", 20, 4, 1, '2021-03-29', '2021-04-01', "http://localhost:3200/img/static/car_wash.jpeg", "409 4th Ave, Longmont, CO 80501"),
-("Mow My Lawn", 1, 3, "Grass is getting too long", 15, 2, 1, '2021-03-01', '2021-03-03', "http://localhost:3200/img/static/car_wash.jpeg", "1265 Boston Ave, Longmont, CO 80501"),
+("Mow My Lawn", 1, 4, "Grass is getting too long", 15, 4, 1, '2021-03-01', '2021-03-03', "http://localhost:3200/img/static/car_wash.jpeg", "1265 Boston Ave, Longmont, CO 80501"),
 ("Need Party Clown", 6, 3, "Looking for entertainment for my kid's birthday", 70, 3, 4, '2021-03-15', '2021-03-20', "http://localhost:3200/img/static/car_wash.jpeg", "2922 Baseline Rd, Boulder, CO 80303"),
 ("Need Clown", 6, 3, "Looking for entertainment Assigned by GREG(4) ACCEPTED by mario(2)", 70, 4, 2, '2021-03-15', '2021-03-20', "http://localhost:3200/img/static/car_wash.jpeg", "500 Linden St, Fort Collins, CO 80524");
 
