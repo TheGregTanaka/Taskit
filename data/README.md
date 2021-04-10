@@ -4,6 +4,8 @@ This file contains info on the db structure.
 
 See the README at the root of the project directory for details on running the database set up file.
 
+![](/data/erd.png)
+
 ## Tables
 **task**
 * id - _(int) PK, U, NN_

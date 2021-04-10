@@ -42,12 +42,9 @@ const getUser = () => {
   return userData;
 };
 
-/*const saveUser = (userData) => {
-  localStorage.setItem('user', JSON.stringify(userData));
-};*/
-
 function App() {
-  const user = getUser();
+  const user = getUser(); 
+  const [userProfile, setProfile] = useState(user || null)
 
   return (
     <div className="App">
@@ -83,17 +80,6 @@ function App() {
     </header>
 
       
-      {/* <footer>
-        <p>2021 Team 011_6 ERROR404</p>
-        <a
-          className="githubLink"
-          href="https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Code in github
-        </a>
-      </footer> */}
 
       <footer>
         <Footer />

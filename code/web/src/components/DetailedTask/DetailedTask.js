@@ -111,8 +111,6 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
           .then( console.log("Successfully removed task") );
     };
 
-  // console.log(typeID);
-  // console.log(Types);
   const img = Types[typeID - 1].img;
   
   return (
