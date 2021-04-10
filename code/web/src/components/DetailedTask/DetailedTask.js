@@ -80,7 +80,9 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
       axios.patch(`http://localhost:3200/task/${taskID}`, {
         data: { dateCompleted: date, statusID: 3}
       })
-      .then( console.log("Successfully changed statusID(2 -> 3)") )
+      .then( console.log("Successfully changed statusID(2 -> 3)") );
+
+      window.location.reload();
     };
 
     const confirmedTask_patch = () => {
@@ -101,6 +103,8 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
         }, (error) => {
             console.log(error);
         });
+
+    window.location.reload();
     }
 
     const DeleteTask_delete = () => {
@@ -109,6 +113,8 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
 
       axios.delete(`http://localhost:3200/task/${taskID}`)
           .then( console.log("Successfully removed task") );
+
+      window.location.reload();
     };
 
   const img = Types[typeID - 1].img;

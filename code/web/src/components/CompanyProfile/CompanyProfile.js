@@ -45,7 +45,7 @@ const CompanyProfile = () => {
 
             // console.log("Profile Res: ", profileRes.data);
             // console.log("avgRating Res: ", (avgRatingRes.data)[0].avgRating);
-            console.log("Completed Tasks Res: ", completedTasksRes.data);
+            // console.log("Completed Tasks Res: ", completedTasksRes.data);
         }))
         .catch(err => {
             setErr(true);

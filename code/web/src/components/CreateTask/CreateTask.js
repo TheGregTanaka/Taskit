@@ -63,11 +63,13 @@ function CreateTask (){
         setModalIsOpenToFalse();
         
         axios.post('http://localhost:3200/task', task)
-            .then((response) => { 
-                console.log(response.data);
-            }, (error) => {
-                console.log(error);
-            });
+          .then((response) => { 
+              console.log(response.data);
+          }, (error) => {
+              console.log(error);
+          });
+
+        window.location.reload();
     }
 
     return(
