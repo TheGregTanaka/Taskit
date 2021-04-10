@@ -25,6 +25,7 @@ const reviewRouter = require('./routes/review')(ReviewModel);
 const taskRouter = require('./routes/task')(TaskModel);
 const typeRouter = require('./routes/type')(TypeModel);
 const userRouter = require('./routes/userProfile')(UserModel);
+const profileRouter = require('./routes/editProfile')(UserModel);
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -45,7 +46,7 @@ app.use('/review', reviewRouter);
 app.use('/task', taskRouter);
 app.use('/type', typeRouter);
 app.use('/user', userRouter);
-
+app.use('/editProfile', profileRouter);
 
 
 app.get('/', (req, res) => {

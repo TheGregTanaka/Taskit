@@ -40,11 +40,16 @@ axios.interceptors.request.use(
 function App() {
   const userData = JSON.parse(localStorage.getItem('user'));
   const [user, setUser] = useState(userData || null);
+  const [userProfile, setProfile] = useState(userData || null);
 
   //let loggedIn = true;
   let loggedIn = false;
   if (user) {
     loggedIn = true;
+  }
+  let profileExists = false;
+  if (userProfile) {
+    profileExists = true;
   }
   return (
     <div className="App">
@@ -72,7 +77,9 @@ function App() {
           <Route path="/feed" component={Feed}/>
           <Route path="/workspace" component={Workspace}/>
           <Route path="/viewprofile" component={ViewProfile}/>
-          <Route path="/editprofile" component={EditProfile}/>
+          <Route path="/editprofile" component={EditProfile}>
+            <EditProfile setProfile={setProfile}/>
+          </Route>
           <Route path="/" component={Landing}/>
 
           </Switch>
