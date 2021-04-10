@@ -6,6 +6,7 @@
   "scripts": {
     "lint": "eslint .",
     "start": "nodemon app.js",
+    "publishHeroku": "cd ../.. && git subtree push --prefix code/api htaskit-backend master",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
