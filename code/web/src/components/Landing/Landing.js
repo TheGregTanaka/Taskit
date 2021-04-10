@@ -1,6 +1,6 @@
 import React from 'react';
 import TypeCard from './TypeCard';
-import {TYPEID, Types} from '../../constants/tasks';
+import {Types} from '../../constants/tasks';
 
 import './style.css';
 
@@ -16,7 +16,7 @@ const Landing = () => {
                         <h1>THE FUTURE OF HOME</h1>
                         <h2>IMPROVEMENT</h2>
                         <p>Get your home tasks done.</p>
-                        <button className="main__btn"><a href="/">Get Started</a></button>
+                        <button className="main__btn"><a href="/registeration">Get Started</a></button>
 
                     </div>
                     <div className="main_image--container">
@@ -35,7 +35,7 @@ const Landing = () => {
                 <div className="" style={{  marginBottom:"20vh", width:"100vw"}}>
                     <div className="row" style={{alignContent:"center", alignItems:"center", justifyContent:"center"}}>
                         {Types.map((type) => (
-                            <TypeCard key={type.id} type={type.name} img={type.img} />
+                            <TypeCard key={type.id} typeID={type.id} />
                         ))}
                     </div>
                 </div>

@@ -26,7 +26,6 @@ const Feed = () => {
   const { search } = useLocation();
   const type = queryString.parse(search);
   const typeID = TypeID[type.t];
-  const userData = JSON.parse(localStorage.getItem('user'));
 
 
   useEffect(() => {
