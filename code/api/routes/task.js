@@ -100,7 +100,7 @@ function routes(Task) {
 
   router.route('/worker/pending/:id')
     .get((req, res) => {
-      Task.getPending(req, "Pending", (err, tasks) => {
+      Task.filterTaskStatus_worker(req, "Pending", (err, tasks) => {
         if (err) { return res.send(err).status(400); }
         if (tasks) { return res.json(tasks).status(200); }
       });
@@ -108,7 +108,7 @@ function routes(Task) {
 
   router.route('/worker/accepted/:id')
     .get((req, res) => {
-      Task.getPending(req, "Accepted", (err, tasks) => {
+      Task.filterTaskStatus_worker(req, "Accepted", (err, tasks) => {
         if (err) { return res.send(err).status(400); }
         if (tasks) { return res.json(tasks).status(200); }
       });
@@ -116,7 +116,15 @@ function routes(Task) {
 
   router.route('/worker/complete/:id')
     .get((req, res) => {
-      Task.getPending(req, "Complete", (err, tasks) => {
+      Task.filterTaskStatus_worker(req, "Complete", (err, tasks) => {
+        if (err) { return res.send(err).status(400); }
+        if (tasks) { return res.json(tasks).status(200); }
+      });
+    });
+
+  router.route('/tasker/confirm/:id')
+    .get((req, res) => {
+      Task.getRequiredConfirmation(req, (err, tasks) => {
         if (err) { return res.send(err).status(400); }
         if (tasks) { return res.json(tasks).status(200); }
       });

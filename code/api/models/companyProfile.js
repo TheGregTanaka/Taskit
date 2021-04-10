@@ -11,7 +11,7 @@ CompanyProfile.taskNreview = (req, result) => {
                     JOIN statusTask ON task.statusID = statusTask.id
                     JOIN review ON review.taskID = task.id
                     JOIN userProfile ON userProfile.id = task.taskerID
-                    WHERE task.workerID = ${workerID} AND statusTask.status = "Complete";`;
+                    WHERE task.workerID = ${workerID} AND statusID = 4;`;
     sql.executeQuery(query, (err, res) => {
         if (err) { console.log(err); result(err, null); }
         if (res) { result(null, res['rows']); }

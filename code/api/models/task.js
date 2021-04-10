@@ -122,7 +122,6 @@ Task.getOne = (taskID, result) => {
 
 
 Task.getFeed = (req, result) => {
-  const pending = "Pending";
   var q = queryStr + ` WHERE task.statusID = 1`;
 
 
@@ -191,10 +190,23 @@ Task.byUser = (type, req, result) => {
   });
 };
 
-Task.getPending = (req, status, result) => {
+Task.filterTaskStatus_worker = (req, status, result) => {
   var id = req.params.id;
 
   var query = queryStr + `WHERE workerID = ${id} AND statusTask.status = "${status}";`;
+
+  sql.executeQuery(query, (err, res) => {
+    if (err) { console.log(err); result(err, null); }
+    if (res) { result(null, res['rows']); }
+    return;
+  });
+  return;
+};
+
+Task.getRequiredConfirmation = (req, result) => {
+  var id = req.params.id;
+
+  var query = queryStr + ` WHERE taskerID = ${id} AND statusID=3;`;
 
   sql.executeQuery(query, (err, res) => {
     if (err) { console.log(err); result(err, null); }
@@ -207,6 +219,8 @@ Task.getPending = (req, status, result) => {
 Task.update = (id, task, result) => {
   console.log(id);
   console.log(task);
+  if(task.hasOwnProperty('data')) { task = task.data; }
+  
   var updateStr = `UPDATE task SET`;
   for (const key in task) {
     updateStr += ` ${key} = "${task[key]}",`;

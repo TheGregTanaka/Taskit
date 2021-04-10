@@ -8,7 +8,6 @@ import Landing from '../Landing/Landing'
 import Login from '../Login/Login';
 import Logout from '../Login/Logout';
 import NavbarV2 from '../Navbar/NavbarV2';
-import CreateReview from '../CreateReview/CreateReview'
 import Registration from '../Registration/Registration'
 import Transaction from '../Transaction/Transaction'
 import Feed from '../Feed/Feed';
@@ -40,20 +39,6 @@ axios.interceptors.request.use(
 
 const getUser = () => {
   const userData = JSON.parse(localStorage.getItem('user'));
-<<<<<<< HEAD
-  const [user, setUser] = useState(userData || null);
-  const [userProfile, setProfile] = useState(userData || null);
-
-  //let loggedIn = true;
-  let loggedIn = false;
-  if (user) {
-    loggedIn = true;
-  }
-  let profileExists = false;
-  if (userProfile) {
-    profileExists = true;
-  }
-=======
   return userData;
 };
 
@@ -64,7 +49,6 @@ const getUser = () => {
 function App() {
   const user = getUser();
 
->>>>>>> 28cae75efb5735b48a36d0a17f28e4fe54d0078a
   return (
     <div className="App">
 
@@ -83,14 +67,13 @@ function App() {
           <Route path="/create_task" component={CreateTask}/>
           <Route path="/login" component={Login}/>
           <Route path="/logout" component={Logout}/>
-          <Route path="/create_review" component={CreateReview}/>
           <Route path="/registeration" component={Registration}/>
           <Route path="/transaction" component={Transaction}/>
           <Route path="/feed" component={Feed}/>
           <Route path="/workspace" component={Workspace}/>
           <Route path="/viewprofile" component={ViewProfile}/>
           <Route path="/editprofile" component={EditProfile}>
-            <EditProfile setProfile={setProfile}/>
+            {/* <EditProfile setProfile={setProfile}/> */}
           </Route>
           <Route path="/" component={Landing}/>
 
