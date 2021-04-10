@@ -26,6 +26,8 @@ directory. Install and set up MySQL on your machine. Then, either copy the
 contents of `data/database.init.sql` into a MySQL client, or from the command
 line run `mysql -u root -p < data/database.init.sql`.
 
+See readme in the `data` directory for table and column type documentation.
+
 ## 2. nodeJS Back End
 
 The directory `code/api` contains the source code for a REST api, writen in nodeJS using the express framework, which provides the data access layer of the application. This performs calls to the database.
@@ -39,7 +41,7 @@ npm start
 
 This will start a nodemon process listening on `localhost:3200`.
 
-See readme in the api folder for route documentation.
+See readme in the `api` directory for route documentation.
 
 ## 3. React Front End
 
