@@ -64,24 +64,22 @@ Task.create = (newTask, result) => {
 Task.get = (req, result) => {
   var query = {};
   if (req.query.status) {
-    console.log("stat!");
     query.status = req.query.status;
   }
   if (req.query.type) {
-    console.log("type!");
     query.type = req.query.type;
   }
   var q = queryStr;
   //TODO validate better and protect against sql injection
-  // if (Object.keys(query).length > 0) {
-  //   q += " WHERE ";
-  //   var first = true;
-  //   for (const key in query) {
-  //     q += first ? "" : " AND ";
-  //     q += `${key}ID = ${query[key]}`;
-  //     first = false;
-  //   }
-  // }
+  if (Object.keys(query).length > 0) {
+     q += " WHERE ";
+     var first = true;
+     for (const key in query) {
+       q += first ? "" : " AND ";
+       q += `${key}ID = ${query[key]}`;
+       first = false;
+     }
+   }
 
   sql.executeQuery(q, (err, res) => {
     if (err) {
@@ -95,7 +93,8 @@ Task.get = (req, result) => {
       return;
     } else {
       console.log("ERROR" + JSON.stringify(res));
-      return "HECC", null;
+      result("Error: " + JSON.stringify(res), null);
+      return;
     }
   });
 };
@@ -145,7 +144,15 @@ Task.getFeed = (req, result) => {
   });
 };
 
-Task.byUser = (type, id, result) => {
+Task.byUser = (type, req, result) => {
+  const id = req.params.id;
+  var query = {};
+  if (req.query.status) {
+    query.status = req.query.status;
+  }
+  if (req.query.type) {
+    query.type = req.query.type;
+  }
   var q = queryStr + ' WHERE '
   if (type == 0) {
     q += 'taskerID = ';
@@ -157,9 +164,17 @@ Task.byUser = (type, id, result) => {
     return;
   }
   q += id;
+  if (Object.keys(query).length > 0) {
+     q += " AND ";
+     var first = true;
+     for (const key in query) {
+       q += first ? "" : " AND ";
+       q += `${key}ID = ${query[key]}`;
+       first = false;
+     }
+   }
   sql.executeQuery(q, (err, res) => {
     if (err) {
-      //TODO better error handling
       console.log("ERROR! : ", err);
       result(err, null);
       return;
@@ -189,12 +204,12 @@ Task.getPending = (req, status, result) => {
   return;
 };
 	
-Task.update = (id, user, result) => {
+Task.update = (id, task, result) => {
   console.log(id);
-  user = user.data;
+  console.log(task);
   var updateStr = `UPDATE task SET`;
-  for (const key in user) {
-    updateStr += ` ${key} = "${user[key]}",`;
+  for (const key in task) {
+    updateStr += ` ${key} = "${task[key]}",`;
   }
   //remove final comma
   updateStr = updateStr.substring(0, updateStr.length - 1);
@@ -202,7 +217,6 @@ Task.update = (id, user, result) => {
 
   sql.executeQuery(updateStr, (err, res) => {
     if (err) {
-      //TODO better error handling
       console.log("ERROR! : ", err);
       result(err, null);
       return;
@@ -212,8 +226,8 @@ Task.update = (id, user, result) => {
       return;
     }
 
-    console.log("updated task: ", { id: id, ...user });
-    result(null, { id: id, ...user });
+    console.log("updated task: ", { id: id, ...task});
+    result(null, { id: id, ...task });
   }
   );
 };
@@ -221,7 +235,6 @@ Task.update = (id, user, result) => {
 Task.delete = (id, result) => {
   sql.executeQuery(`DELETE FROM task WHERE id = ${id}`, (err, res) => {
     if (err) {
-      //TODO better error handling
       console.log("ERROR! : ", err);
       result(err, null);
       return;

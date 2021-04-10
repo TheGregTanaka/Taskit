@@ -1,19 +1,14 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import { Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import Avatar from '@material-ui/core/Avatar';
-/*import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';*/
+import { Avater, Box, Checkbox, Container, Grid, Link } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import axios from 'axios';
 
 import './Login.css';
@@ -38,42 +33,53 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 async function loginUser(credentials) {
-  //TODO put api in env var
   const api = process.env.REACT_APP_DATA_API;
-  const response = await axios.post(api + '/login', {
+  let response = await axios.post(api + '/login', {
     email: credentials.email,
     password: credentials.password
   })
   .then(function (res) {
-    return res;
+    return {data: res.data, error: null};
   })
   .catch(function (err) {
-    console.log(err);
-    return {data:null};
+    return {data: null, error: err.response};
   });
       
-  return response.data;
+  return response;
 }
 
-export default function Login({ setUser, loggedIn }) {
+//class Login extends React.Component {
+export default function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [error, setError] = useState();
   const classes = useStyles();
+  const history = useHistory();
+  const userData = JSON.parse(localStorage.getItem('user'));
   const handleSubmit = async e => {
     e.preventDefault();
+    console.log('aaa');
     const user = await loginUser({email, password});
-    localStorage.setItem('user', JSON.stringify(user));
-    setUser(user);
+    console.log(user);
+    if (user.data) {
+      console.log('success');
+      localStorage.setItem('user', JSON.stringify(user.data));
+      history.push("/feed");
+    } else {
+      console.log('fail');
+      console.log(user.error);
+      setError(user.error);
+    }
   }
-  if (loggedIn) {
-    return (<Redirect to="/dashboard" />);
+  if (userData) {
+    return (<Redirect to="/feed" />);
   } else {
     return (
 <Container component="main" maxWidth="xs" style={{backgroundColor: "white", marginCenter:'3%'}} >
 <CssBaseline />
 <div className={classes.paper}>
+  { error && <Alert severity="error"> { error.data } </Alert> }
 <Typography variant="h5" color="textPrimary"> Sign In with your TaskIT Credentials</Typography>
   <form className={classes.form} noValidate onSubmit={handleSubmit}>
     <Grid container spacing={2}>
@@ -87,7 +93,7 @@ export default function Login({ setUser, loggedIn }) {
           name="email"
           autoComplete="email"
           value={email}
-          onChange={e => setEmail(e.target.value)}
+          onChange={(e) => {setEmail(e.target.value)}}
         />
       </Grid>
       <Grid item xs={12}>
@@ -101,7 +107,7 @@ export default function Login({ setUser, loggedIn }) {
           id="password"
           autoComplete="current-password"
           value={password}
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e) => {setPassword(e.target.value)}}
         />
       </Grid>
       <Grid item xs={12}>
@@ -112,9 +118,8 @@ export default function Login({ setUser, loggedIn }) {
       fullWidth
       variant="contained"
       color="primary"
-      /*className={classes.submit}*/
     >
-    <Typography color='#ffffff'>SUBMIT</Typography>
+    <Typography color='textPrimary'>SUBMIT</Typography>
     </Button>
     <Grid container justify="flex-end">
       <Grid item>

@@ -75,7 +75,7 @@ function routes(Task) {
   }
   router.route('/tasker/:id')
     .get((req, res) => {
-      Task.byUser(userType.TASKER, req.params.id, (err, tasks) => {
+      Task.byUser(userType.TASKER, req, (err, tasks) => {
         if (err) {
           return res.send(err);
         }
@@ -87,7 +87,7 @@ function routes(Task) {
     });
   router.route('/worker/:id')
     .get((req, res) => {
-      Task.byUser(userType.WORKER, req.params.id, (err, tasks) => {
+      Task.byUser(userType.WORKER, req, (err, tasks) => {
         if (err) {
           return res.send(err);
         }

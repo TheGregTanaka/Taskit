@@ -16,6 +16,7 @@ import Footer from '../Footer/Footer';
 import Workspace from '../Workspace/Workspace'
 import ViewProfile from '../ViewProfile/ViewProfile'
 import EditProfile from '../ViewProfile/EditProfile'
+import useUserData from './userData'
 
 import './App.css';
 
@@ -37,8 +38,9 @@ axios.interceptors.request.use(
   }
 );
 
-function App() {
+const getUser = () => {
   const userData = JSON.parse(localStorage.getItem('user'));
+<<<<<<< HEAD
   const [user, setUser] = useState(userData || null);
   const [userProfile, setProfile] = useState(userData || null);
 
@@ -51,12 +53,24 @@ function App() {
   if (userProfile) {
     profileExists = true;
   }
+=======
+  return userData;
+};
+
+/*const saveUser = (userData) => {
+  localStorage.setItem('user', JSON.stringify(userData));
+};*/
+
+function App() {
+  const user = getUser();
+
+>>>>>>> 28cae75efb5735b48a36d0a17f28e4fe54d0078a
   return (
     <div className="App">
 
 
       <header>
-      <NavbarV2 loggedIn={loggedIn} />
+      <NavbarV2 />
       </header>
 
       <header className="App-header">
@@ -67,9 +81,7 @@ function App() {
 
           <Route path="/chat" component={Chat}/>
           <Route path="/create_task" component={CreateTask}/>
-          <Route path="/login" component={Login}>
-            <Login setUser={setUser} loggedIn={loggedIn}/>
-          </Route>
+          <Route path="/login" component={Login}/>
           <Route path="/logout" component={Logout}/>
           <Route path="/create_review" component={CreateReview}/>
           <Route path="/registeration" component={Registration}/>
