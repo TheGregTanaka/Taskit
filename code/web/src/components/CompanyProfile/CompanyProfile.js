@@ -22,8 +22,6 @@ const id = user ? user.id : 'null';
 const api = process.env.REACT_APP_DATA_API;
 const profile_ENDPOINT = `${api}/user/${id}`;
 const avgRating_ENDPOINT = `${api}/review/getAvgRating/${id}`;
-
-
 const companyInfo_ENDPOINT = `${api}/companyProfile/${id}`;
 
 
@@ -87,7 +85,7 @@ const CompanyProfile = () => {
                         <hr/>
                     </div>
                     <div className="row" style={{marginTop:'1%'}}>
-                        {!err && completedTask.map((task) => (<Task className="col" key={task.taskID} img={task.taskImg} taskName={task.taskTitle}
+                        {!err && completedTask.map((task) => (<Task className="col" key={task.taskID} typeID={task.typeID} taskName={task.taskTitle}
                                                                 description={task.taskDesc} dateCompleted={((task.dateCompleted).split("T"))[0]} taskerName={task.reviewerName}/>))}
                     </div>
                     <div className="row" style={{color:"black", marginLeft:"1%", marginTop:'1%'}}>
