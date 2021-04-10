@@ -17,7 +17,6 @@ const ConfirmCompletedTask = () => {
             .then((response) => {
                 setTasks(response.data);
                 setErr(false);
-                console.log("Confirmation Res: ", response.data);
             })
             .catch(err => {
                 setErr(true);

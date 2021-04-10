@@ -107,12 +107,14 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
     window.location.reload();
     }
 
+    // Delete task
     const DeleteTask_delete = () => {
       setConfirmDelete_Hide();
       setShowTask(false);
 
       axios.delete(`http://localhost:3200/task/${taskID}`)
-          .then( console.log("Successfully removed task") );
+          .then( console.log("Successfully removed task") )
+          .catch( console.log("Cannnot delete task") )
 
       window.location.reload();
     };
@@ -121,6 +123,7 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
   
   return (
     <>
+    
       {/* Display task on modal as bigger version */}
       <Modal isOpen={modalIsOpen} style={customStyles} ariaHideApp={false} onRequestClose={()=> setModalIsOpen(false)}>
         <Button size="large" color="primary" style={{float:"right", border:"0", backgroundColor:"white", fontSize:"20px"}} onClick={setModalIsOpenToFalse}><CloseIcon/></Button>

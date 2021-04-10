@@ -249,7 +249,7 @@ Task.update = (id, task, result) => {
 };
 
 Task.delete = (id, result) => {
-  sql.executeQuery(`DELETE FROM task WHERE id = ${id}`, (err, res) => {
+  sql.executeQuery(`DELETE FROM task WHERE id = ${id} AND workerID is NULL`, (err, res) => {
     if (err) {
       console.log("ERROR! : ", err);
       result(err, null);
@@ -257,7 +257,7 @@ Task.delete = (id, result) => {
     }
 
     if (res.affectedRows === 0) {
-      result({ kind: "not_found" }, null);
+      result({ kind: "not_found or workerID is not null" }, null);
       return;
     }
 
