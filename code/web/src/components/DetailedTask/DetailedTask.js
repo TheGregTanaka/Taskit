@@ -70,6 +70,8 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
     const setConfirmCompletedTask_Hide = () =>{ setConfirmCompletedTask(false); }
     const setConfirmCompletedTask_Show = () =>{ setConfirmCompletedTask(true); }
 
+    const api = process.env.REACT_APP_DATA_API;
+
     const finishedTask_put = () => {
       setConfirmFinished_Hide();
       setShowTask(false);
@@ -77,7 +79,7 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
       var today = new Date();
       var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
-      axios.patch(`http://localhost:3200/task/${taskID}`, {
+      axios.patch(`${api}/task/${taskID}`, {
         data: { dateCompleted: date, statusID: 3}
       })
       .then( console.log("Successfully changed statusID(2 -> 3)") );
@@ -90,7 +92,7 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
       setShowTask(false);
 
       // Update task status
-      axios.patch(`http://localhost:3200/task/${taskID}`, {
+      axios.patch(`${api}/task/${taskID}`, {
         data: { statusID: 4}
       })
       .then( console.log("Successfully changed statusID(3 -> 4)") )
@@ -112,7 +114,7 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
       setConfirmDelete_Hide();
       setShowTask(false);
 
-      axios.delete(`http://localhost:3200/task/${taskID}`)
+      axios.delete(`${api}/task/${taskID}`)
           .then( console.log("Successfully removed task") )
           .catch( console.log("Cannnot delete task") )
 
