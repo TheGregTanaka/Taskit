@@ -44,7 +44,7 @@ function CreateTask (){
         title: "",
         typeID: "",
         description: "",
-        price: 0,
+        price: null,
         taskerID: userID,
         datePosted: date,
         address: "",
