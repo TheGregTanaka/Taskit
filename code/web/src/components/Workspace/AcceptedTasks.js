@@ -39,7 +39,7 @@ const AcceptedTasks = () => {
                     </div>
 
                     <div className="row">
-                        {!err && tasks.map((task) => (<DetailedTask key={task.id}
+                        {!err && tasks.slice(0).reverse().map((task) => (<DetailedTask key={task.id}
                                                                 taskID={task.id}
                                                                 status={task.status}
                                                                 typeID={task.typeID}

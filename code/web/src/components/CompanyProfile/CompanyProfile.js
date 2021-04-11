@@ -85,7 +85,7 @@ const CompanyProfile = () => {
                         <hr/>
                     </div>
                     <div className="row" style={{marginTop:'1%'}}>
-                        {!err && completedTask.map((task) => (<Task className="col" key={task.taskID} typeID={task.typeID} taskName={task.taskTitle}
+                        {!err && completedTask.slice(0).reverse().map((task) => (<Task className="col" key={task.taskID} typeID={task.typeID} taskName={task.taskTitle}
                                                                 description={task.taskDesc} dateCompleted={((task.dateCompleted).split("T"))[0]} taskerName={task.reviewerName}/>))}
                     </div>
                     <div className="row" style={{color:"black", marginLeft:"1%", marginTop:'1%'}}>
@@ -95,7 +95,7 @@ const CompanyProfile = () => {
                         <hr/>
                     </div>
                     <div className="row">
-                        {!err && completedTask.map((review) => (<Review key={review.reviewId} username={review.reviewerName} description={review.reviewDesc} ratingVal={review.reviewRating} img={review.reviewerPic}/>))}
+                        {!err && completedTask.slice(0).reverse().map((review) => (<Review key={review.reviewId} username={review.reviewerName} description={review.reviewDesc} ratingVal={review.reviewRating} img={review.reviewerPic}/>))}
                     </div>
                 </div>
             </div>

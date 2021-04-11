@@ -40,7 +40,7 @@ const ConfirmCompletedTask = () => {
                     </div>
 
                     <div className="row">
-                        {!err && tasks.map((task) => (<DetailedTask key={task.id}
+                        {!err && tasks.slice(0).reverse().map((task) => (<DetailedTask key={task.id}
                                                                 workerID={task.workerID}
                                                                 taskID={task.id}
                                                                 status={task.status}
