@@ -249,14 +249,14 @@ Task.update = (id, task, result) => {
 };
 
 Task.delete = (id, result) => {
-  sql.executeQuery(`DELETE FROM task WHERE id = ${id} AND workerID is NULL`, (err, res) => {
+  console.log("id", id)
+  sql.executeQuery(`DELETE FROM task WHERE id = ${id} AND workerID is NULL;`, (err, res) => {
     if (err) {
       console.log("ERROR! : ", err);
       result(err, null);
       return;
     }
 
-    
     if (res.rows.affectedRows == 0) {
       result({ kind: "not_found or workerID is not null" }, null);
       return;
@@ -272,6 +272,15 @@ Task.drop = (id, task, result) => {
   var query = `UPDATE task 
                 SET statusID = 1, workerID = NULL
                 WHERE id = ${id};`
+  sql.executeQuery(query, (err, res) => {
+    if (err) { console.log(err); result(err, null); }
+    if (res) { result(null, res['rows']); }
+    return;
+  });
+};
+
+Task.deleteComplete = (id, result) => {
+  var query = `DELETE FROM task WHERE id = ${id} AND statusID=4;`
   sql.executeQuery(query, (err, res) => {
     if (err) { console.log(err); result(err, null); }
     if (res) { result(null, res['rows']); }

@@ -24,8 +24,8 @@ const customStyles = {
       marginTop: '2%',
       transform: 'translate(-50%, -50%)',
       backgroundColor: 'white',
-      height: "80vh",
-      width: "auto"
+    //   height: "80vh",
+    //   width: "auto"
 
     }
 };

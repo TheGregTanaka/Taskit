@@ -138,6 +138,15 @@ function routes(Task) {
         return res.sendStatus(204);
       });
     });
+
+    router.route('/deleteComplete/:taskID')
+      .delete((req, res) => {
+        Task.deleteComplete(req.params.taskID, (err, r) => {
+          if (err) { return res.status(401).send(err); }
+          return res.sendStatus(204);
+        });
+      });
+  
     
 
   return router;

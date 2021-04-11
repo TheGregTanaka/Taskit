@@ -129,21 +129,26 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
     // Delete task
     const DeleteTask_delete = () => {
       setConfirmDelete_Hide();
-      
-
-      axios.delete(`${api}/${taskID}`)
+      setNotify(true);
+      if (status == "Pending" || status == "Accepted") {
+        axios.delete(`${api}/task/${taskID}`)
           .then(response => {
             console.log("Successfully removed task");
-            setNotify(true);
-            setShowTask(false);
-            setNotifyMsg({severity:"success", message:"Successfully deleted task"});
+            setNotifyMsg({severity:"success", message:"Successfully deleted a task"});
             window.location.reload();
           })
           .catch(err => {
-            setNotify(true);
             setShowTask(true);
             setNotifyMsg({severity:"error", message:"You cannot delete a task that has already been accepted."});
           });
+      } else if (status == "Complete") {
+        axios.delete(`${api}/task/deleteComplete/${taskID}`)
+          .then(response => {
+            console.log("Successfully removed task");
+            setNotifyMsg({severity:"success", message:"Successfully deleted a task"});
+            window.location.reload();
+          })
+      }
     };
 
     // Drop Task
