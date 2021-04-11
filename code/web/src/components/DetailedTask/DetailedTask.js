@@ -20,7 +20,7 @@ import "./style.css";
 
 import EnlargeTask from './EnlargeTask';
 import "../App/App.css";
-import {TYPEID, Types} from '../../constants/tasks';
+import { Types } from '../../constants/tasks';
 
 
 
