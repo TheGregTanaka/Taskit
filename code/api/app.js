@@ -21,6 +21,7 @@ const UserModel = require('./models/userProfile');
 const companyProfileRouter = require('./routes/companyProfile')(CompanyProfileModel);
 const login = require('./routes/login')(UserModel);
 // const paymentRouter = require('./routes/payment')(PaymentModel);
+const paymentRouter = require('./routes/payment');
 const reviewRouter = require('./routes/review')(ReviewModel);
 const taskRouter = require('./routes/task')(TaskModel);
 const typeRouter = require('./routes/type')(TypeModel);
@@ -41,7 +42,7 @@ app.use(express.static('public'));
 
 app.use('/companyProfile', companyProfileRouter);
 app.use('/login', login);
-// app.use('/payment', paymentRouter);
+app.use('/payment', paymentRouter);
 app.use('/review', reviewRouter);
 app.use('/task', taskRouter);
 app.use('/type', typeRouter);
