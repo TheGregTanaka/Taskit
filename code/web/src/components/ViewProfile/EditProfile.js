@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import './ViewProfile.css';
-import profile_imag from '../../image/img_profile.png';
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -10,7 +9,9 @@ import { Button } from '@material-ui/core';
 
 async function EditInfoCall(field) {
     const api = process.env.REACT_APP_DATA_API;
+    const profile_imag = `${process.env.REACT_APP_DATA_API}/img/static/img_profile.png`;
     // Where to do if statements for null/blank input?
+
     const response = await axios.post(api + '/editProfile', {
         name: field.Name,
         location: field.Location,
