@@ -69,9 +69,7 @@ function App() {
           <Route path="/login" component={Login}/>
           <Route path="/logout" component={Logout}/>
           <Route path="/create_review" component={CreateReview}/>
-          <Route path="/registeration" component={Registration}>
-            <Registration setRegister={setRegister}/>
-          </Route>
+          <Route path="/registeration" component={Registration}/>
           <Route path="/transaction" component={Transaction}/>
           <Route path="/feed" component={Feed}/>
           <Route path="/workspace" component={Workspace}/>
