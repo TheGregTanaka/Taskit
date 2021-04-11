@@ -87,8 +87,8 @@ VALUES
 ("Pending"),
 ("Accepted"),
 ("Confirmation Required"),
+("Pending Payment"),
 ("Complete");
-
 
 
 # seed data
