@@ -32,28 +32,31 @@ const Form = (props) => {
     return (
         <div>
             <Paper>
-            <main className="container" style={{marginTop:"10%"}}>
-                <form onSubmit={handleSubmit}>
-                    <label>Email</label>
-                    <input 
-                        type="email"
-                        value={card.email}
-                        onChange={e => setCard({...card, email: e.target.value})}
-                        placeholder="Email"
-                        required
-                    />
-                    <label>Amount</label>
-                    <input 
-                        type="text"
-                        value={card.amount}
-                        onChange={e => setCard({...card, amount: e.target.value})}
-                        required
-                    />
-                    <label>CC Number -- Exp. Date -- CVC</label>
-                    <CardElement />
-                    <Button type="submit">Charge It!</Button>
-                </form>
-            </main>
+                <main className="container" style={{marginTop:"10%"}}>
+                    <form onSubmit={handleSubmit}>
+                        <label>Email</label>
+                        <input 
+                            type="email"
+                            value={card.email}
+                            onChange={e => setCard({...card, email: e.target.value})}
+                            placeholder="Email"
+                            required
+                        />
+                        <label>Amount</label>
+                        <input 
+                            type="text"
+                            value={card.amount}
+                            onChange={e => setCard({...card, amount: e.target.value})}
+                            required
+                        />
+                        <label>CC Number -- Exp. Date -- CVC</label>
+                        <div style={{padding:"10px", border:"1px solid #000", borderRadius:"25px"}}>
+                            <CardElement />
+                        </div>
+                        <br/>
+                        <Button variant="contained" color="inherit" type="submit">Charge It!</Button>
+                    </form>
+                </main>
             </Paper>
         </div>
     )
