@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-import { CardElement, injectStripe, ReactStripeElements  } from 'react-stripe-elements';
-import Box from '@material-ui/core/Box';
+import { CardElement, injectStripe  } from 'react-stripe-elements';
 import Paper from '@material-ui/core/Paper';
 import { Button } from '@material-ui/core';
 
@@ -17,9 +16,9 @@ const Form = (props) => {
         e.preventDefault();
         try {
             let token = await props.stripe.createToken({ name: card.name });
-            console.log(token);
+            // console.log(token);
 
-            axios.post(`${process.env.REACT_APP_DATA_API}/payment/donate`, {token, card})
+            axios.post(`${process.env.REACT_APP_DATA_API}/payment`, {token, card})
                 .then((response) => {
                     console.log(response.data);
                 }, (error) => {

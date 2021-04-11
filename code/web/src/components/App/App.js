@@ -61,11 +61,11 @@ function App() {
         <BrowserRouter>
           <Switch>
           
-          <Route path="/payment" component={Payment}/>
           <Route path="/chat" component={Chat}/>
           <Route path="/create_task" component={CreateTask}/>
           <Route path="/login" component={Login}/>
           <Route path="/logout" component={Logout}/>
+          <Route path="/payment" component={Payment}/>
           <Route path="/registeration" component={Registration}/>
           <Route path="/transaction" component={Transaction}/>
           <Route path="/feed" component={Feed}/>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
@@ -23,6 +24,7 @@ import "./style.css";
 
 
 import EnlargeTask from './EnlargeTask';
+import Payment from '../Payment/Payment';
 import "../App/App.css";
 import { Types } from '../../constants/tasks';
 
@@ -123,7 +125,6 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
 
     setNotify(true);
     setNotifyMsg({severity:"success", message:"Confirmation Complete"});
-    window.location.reload();
     }
 
     // Delete task
@@ -224,7 +225,7 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
                 <br/>
                 {/* <Button variant="contained" color="secondary" style={{float:"right", background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'}}>Submit</Button>{' '} */}
                 <Button variant="contained" color="secondary" style={{float:"right"}} onClick={setConfirmCompletedTask_Hide}>Cancel</Button>{' '}
-                <Button style={{float:"right"}} onClick={confirmedTask_patch}>Confirm</Button>
+                <a href="/payment"><Button style={{float:"right"}} onClick={confirmedTask_patch}>Confirm</Button></a>
             </form>
         </div>
     </Modal>
