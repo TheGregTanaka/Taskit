@@ -26,12 +26,20 @@ directory. Install and set up MySQL on your machine. Then, either copy the
 contents of `data/database.init.sql` into a MySQL client, or from the command
 line run `mysql -u root -p < data/database.init.sql`.
 
+See [readme](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/blob/main/data/README.md) in the `data` directory for table and column type documentation.
+
 ## 2. nodeJS Back End
 
 The directory `code/api` contains the source code for a REST api, writen in nodeJS using the express framework, which provides the data access layer of the application. This performs calls to the database.
 
-To run the node app, run:
+The application requires environment variables. There is an example provided at
+`code/api/example.env` which works for development, however should be renamed.
+(.env\* is gitignored). The values in this are different on the
+production server.
+
+To run the node app for development, run:
 ```
+cp code/api/example.env code/api/.env 
 cd code/api
 npm install
 npm start
@@ -39,12 +47,24 @@ npm start
 
 This will start a nodemon process listening on `localhost:3200`.
 
-See readme in the api folder for route documentation.
+NOTE: YOU MUST HAVE A LOCAL COPY OF THE DATABASE FOR THIS TO WORK PROPERLY
+
+To push to heroku, from the `code/api` directory run `npm run publishHeroku`
+
+See [readme](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/blob/main/code/api/README.md) in the `api` directory for route documentation.
 
 ## 3. React Front End
 
-The front end of the application is React, and located directly in the code directory. To run this, simply:
+The front end of the application is React, and located directly in the code directory.
+
+The application requires environment variables. There is an example provided at
+`code/api/example.env` which works for development, however should be renamed.
+(.env\* is gitignored). The values in this are different on the
+production server.
+
+To run the React app for development, run:
 ```
+cp code/web/example.env code/web/.env
 cd code/web
 npm install
 npm start
@@ -52,6 +72,8 @@ npm start
 
 This will start the application on `localhost:3000`.
 
+
+To push to heroku, from the `code/web` directory run `npm run publishHeroku`
 
 
 ---

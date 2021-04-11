@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import React, { useState } from 'react';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import {TYPEID, Types } from '../../constants/tasks';
+import {TypeID, Types } from '../../constants/tasks';
 
 const customStyles = {
     overlay: {
@@ -24,8 +24,8 @@ const customStyles = {
       marginTop: '2%',
       transform: 'translate(-50%, -50%)',
       backgroundColor: 'white',
-      height: "80vh",
-      width: "auto"
+    //   height: "80vh",
+    //   width: "auto"
 
     }
 };
@@ -42,13 +42,11 @@ function CreateTask (){
 
     const [task, setTask] = useState({
         title: "",
-        typeID: "1",
+        typeID: "",
         description: "",
-        price: 0,
+        price: null,
         taskerID: userID,
-        dateCompleted: "",
         datePosted: date,
-        img: "",
         address: "",
         lat: 0,
         lng: 0,
@@ -64,12 +62,14 @@ function CreateTask (){
         e.preventDefault();
         setModalIsOpenToFalse();
         
-        axios.post('http://localhost:3200/task', task)
-            .then((response) => { 
-                console.log(response.data);
-            }, (error) => {
-                console.log(error);
-            });
+        axios.post(`${process.env.REACT_APP_DATA_API}/task`, task)
+          .then((response) => { 
+              console.log(response.data);
+          }, (error) => {
+              console.log(error);
+          });
+
+        window.location.reload();
     }
 
     return(
@@ -94,7 +94,11 @@ function CreateTask (){
                         <label>
                             Type:
                               <br/>
-                                <Select labelID="typeSelector" id="typeSelect" defaultValue="none">
+                                <Select labelID="typeSelector" 
+                                        id="typeSelect" 
+                                        defaultValue="none"
+                                        onChange={e => setTask({...task, typeID: e.target.value})} 
+                                        required>
                                   <MenuItem value="none" disabled>Select a Type</MenuItem>
                                   {Types.map((type) => (
                                     <MenuItem key={type.id} value={type.id}>{type.name}</MenuItem>))}
@@ -112,10 +116,6 @@ function CreateTask (){
                             <br/>
                             <textarea id="task_desc" maxLength="1200" style={{width:"100%", height:"150px"}} placeholder={"I will"}
                                 value={task.description} onChange={e => setTask({ ...task, description: e.target.value })} required/>
-                        </label>
-                        <label>
-                            Deadline: 
-                            <input type="date" name="task_deadline" value={task.dateCompleted} onChange={e => setTask({ ...task, dateCompleted: e.target.value })} required/>
                         </label>
                         <label>
                             <Button type="submit" variant="contained" color='inherit' style={{float:"right", margin:"1% 1% 1% 1%"}}>Submit</Button>

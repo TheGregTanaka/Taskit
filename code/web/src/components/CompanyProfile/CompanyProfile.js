@@ -9,7 +9,6 @@ import Review from '../Review/Review'
 import Task from '../Task/Task'
 import Typography from "@material-ui/core/Typography";
 
-import img_profile from '../../image/img_profile.png'
 import './style.css';
 
 import axios from 'axios';
@@ -21,15 +20,13 @@ const id = user ? user.id : 'null';
 
 
 const api = process.env.REACT_APP_DATA_API;
-const profile_ENDPOINT = `${api}/user/${id}`;
-const avgRating_ENDPOINT = `${api}/review/getAvgRating/${id}`;
-
-
-const companyInfo_ENDPOINT = `${api}/companyProfile/${id}`;
+const profile_ENDPOINT = `${api}/user/${id}`; // User name, bio
+const avgRating_ENDPOINT = `${api}/review/getAvgRating/${id}`; // Avg rating
+const companyInfo_ENDPOINT = `${api}/companyProfile/${id}`; // Tasks and reviews
 
 
 const CompanyProfile = () => {
-    const [companyInfo, setCompanyInfo] = useState([]);
+    const [completedTask, setCompletedTask] = useState([]);
     const [profile, setProfile] = useState([{name: "", bio: ""}]);
     const [avgRating, setAvgRating] = useState(null);
     const [err, setErr] = useState(false);
@@ -40,16 +37,15 @@ const CompanyProfile = () => {
             axios.get(companyInfo_ENDPOINT),
             axios.get(profile_ENDPOINT),
         ])
-        .then(axios.spread((avgRatingRes, companyInfoRes, profileRes) => {
+        .then(axios.spread((avgRatingRes, completedTasksRes, profileRes) => {
             setAvgRating((avgRatingRes.data)[0].avgRating);
-            setCompanyInfo(companyInfoRes.data);
+            setCompletedTask(completedTasksRes.data);
             setProfile(profileRes.data);
             setErr(false);
 
-            console.log("Profile Res: ", profileRes.data);
+            // console.log("Profile Res: ", profileRes.data);
             // console.log("avgRating Res: ", (avgRatingRes.data)[0].avgRating);
-            // console.log("Reviews Res: ", reviewRes.data);
-            // console.log("Tasks Res: ", taskRes.data);
+            // console.log("Completed Tasks Res: ", completedTasksRes.data);
         }))
         .catch(err => {
             setErr(true);
@@ -89,7 +85,7 @@ const CompanyProfile = () => {
                         <hr/>
                     </div>
                     <div className="row" style={{marginTop:'1%'}}>
-                        {!err && companyInfo.map((task) => (<Task className="col" key={task.taskID} img={task.taskImg} taskName={task.taskTitle}
+                        {!err && completedTask.slice(0).reverse().map((task) => (<Task className="col" key={task.taskID} typeID={task.typeID} taskName={task.taskTitle}
                                                                 description={task.taskDesc} dateCompleted={((task.dateCompleted).split("T"))[0]} taskerName={task.reviewerName}/>))}
                     </div>
                     <div className="row" style={{color:"black", marginLeft:"1%", marginTop:'1%'}}>
@@ -99,7 +95,7 @@ const CompanyProfile = () => {
                         <hr/>
                     </div>
                     <div className="row">
-                        {!err && companyInfo.map((review) => (<Review key={review.reviewId} username={review.reviewerName} description={review.reviewDesc} ratingVal={review.reviewRating} img={review.reviewerPic}/>))}
+                        {!err && completedTask.slice(0).reverse().map((review) => (<Review key={review.reviewId} username={review.reviewerName} description={review.reviewDesc} ratingVal={review.reviewRating} img={review.reviewerPic}/>))}
                     </div>
                 </div>
             </div>

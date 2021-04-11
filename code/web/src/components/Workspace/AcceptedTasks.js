@@ -16,7 +16,6 @@ const AcceptedTasks = () => {
             .then((response) => {
                 setTasks(response.data);
                 setErr(false);
-                console.log("Tasks Res: ", response.data);
             })
             .catch(err => {
                 setErr(true);
@@ -29,9 +28,9 @@ const AcceptedTasks = () => {
 
     return (
         <div>
+            {tasks.length != 0 &&
             <div className="" style={{marginLeft:'7%', marginRight:'7%'}}>
                 <div className='row'>
-                    <hr/>
                     <div className="row">
                         <div className="col" style={{float:"left"}}>
                             <h6>My TODOs</h6>
@@ -39,7 +38,7 @@ const AcceptedTasks = () => {
                     </div>
 
                     <div className="row">
-                        {!err && tasks.map((task) => (<DetailedTask key={task.id}
+                        {!err && tasks.slice(0).reverse().map((task) => (<DetailedTask key={task.id}
                                                                 taskID={task.id}
                                                                 status={task.status}
                                                                 typeID={task.typeID}
@@ -54,10 +53,8 @@ const AcceptedTasks = () => {
                                                                 taskMode="finished"
                                                             />))}
                     </div>
-                    <hr/>
                 </div>
-            </div>
-            
+            </div>}
         </div>
     )
 }

@@ -8,7 +8,6 @@ import Landing from '../Landing/Landing'
 import Login from '../Login/Login';
 import Logout from '../Login/Logout';
 import NavbarV2 from '../Navbar/NavbarV2';
-import CreateReview from '../CreateReview/CreateReview'
 import Registration from '../Registration/Registration'
 import Transaction from '../Transaction/Transaction'
 import Feed from '../Feed/Feed';
@@ -17,6 +16,7 @@ import Workspace from '../Workspace/Workspace'
 import ViewProfile from '../ViewProfile/ViewProfile'
 import EditProfile from '../ViewProfile/EditProfile'
 import useUserData from './userData'
+import Payment from '../Payment/Payment';
 
 import './App.css';
 
@@ -43,12 +43,9 @@ const getUser = () => {
   return userData;
 };
 
-/*const saveUser = (userData) => {
-  localStorage.setItem('user', JSON.stringify(userData));
-};*/
-
 function App() {
-  const user = getUser();
+  const user = getUser(); 
+  const [userProfile, setProfile] = useState(user || null)
 
   return (
     <div className="App">
@@ -63,18 +60,20 @@ function App() {
       
         <BrowserRouter>
           <Switch>
-
+          
           <Route path="/chat" component={Chat}/>
           <Route path="/create_task" component={CreateTask}/>
           <Route path="/login" component={Login}/>
           <Route path="/logout" component={Logout}/>
-          <Route path="/create_review" component={CreateReview}/>
+          <Route path="/payment" component={Payment}/>
           <Route path="/registeration" component={Registration}/>
           <Route path="/transaction" component={Transaction}/>
           <Route path="/feed" component={Feed}/>
           <Route path="/workspace" component={Workspace}/>
           <Route path="/viewprofile" component={ViewProfile}/>
-          <Route path="/editprofile" component={EditProfile}/>
+          <Route path="/editprofile" component={EditProfile}>
+            {/* <EditProfile setProfile={setProfile}/> */}
+          </Route>
           <Route path="/" component={Landing}/>
 
           </Switch>
@@ -83,17 +82,6 @@ function App() {
     </header>
 
       
-      {/* <footer>
-        <p>2021 Team 011_6 ERROR404</p>
-        <a
-          className="githubLink"
-          href="https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Code in github
-        </a>
-      </footer> */}
 
       <footer>
         <Footer />

@@ -1,3 +1,7 @@
+.padding {
+    background-color: #282c34;
+    height: 20vh
+}
 h2 {
     font-size: large;
     display: block;
@@ -16,6 +20,7 @@ h2 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 40vh;
 }
 
 

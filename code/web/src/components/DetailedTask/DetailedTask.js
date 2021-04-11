@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 import axios from 'axios';
 import Button from "@material-ui/core/Button";
 import CardActions from "@material-ui/core/CardActions";
@@ -8,13 +11,23 @@ import { Card, CardActionArea, CardMedia } from "@material-ui/core";
 import Modal from 'react-modal';
 import Typography from "@material-ui/core/Typography";
 
+import Rating from '@material-ui/lab/Rating';
+import Box from "@material-ui/core/Box";
+
 
 import DoneIcon from '@material-ui/icons/Done';
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import CloseIcon from '@material-ui/icons/Close';
+import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneOutlined';
+import PaymentIcon from '@material-ui/icons/Payment';
+
+import "./style.css";
+
 
 import EnlargeTask from './EnlargeTask';
+import Payment from '../Payment/Payment';
 import "../App/App.css";
-import {TYPEID, Types} from '../../constants/tasks';
+import { Types } from '../../constants/tasks';
 
 
 
@@ -39,10 +52,26 @@ const customStyles = {
 };
 
 
-const DetailedTask = ({taskID, status, typeID, name, price, description, address, deadline, email, phone, taskMode="finished"}) => {
+const DetailedTask = ({workerID, taskID, status, typeID, name, price, description, address, deadline, email, phone, taskMode="finished"}) => {
   const [modalIsOpen,setModalIsOpen] = useState(false);
   const [finishTask, setFinishTask] = useState(false);
   const [deleteTask, setDeleteTask] = useState(false);
+  const [confirmCompletedTask, setConfirmCompletedTask] = useState(false);
+  const [dropTask, setDropTask] = useState(false);
+  const [review, setReview] = useState({
+      rating: 0,
+      description: '',
+      taskID: taskID
+  });
+  const [pendingPayment, setPendingPayment] = useState(false);
+  const [notify, setNotify] = useState(false);
+  const [notifyMsg, setNotifyMsg] = useState({
+    severity: "success",
+    message: ""
+  });
+
+  const handleClick = () => { setNotify(true); };
+  const handleClose = () => { setNotify(false); };
 
   const [showTask, setShowTask] = useState(true);
 
@@ -55,6 +84,13 @@ const DetailedTask = ({taskID, status, typeID, name, price, description, address
     const setConfirmDelete_Hide = () =>{ setDeleteTask(false); }
     const setConfirmDelete_Show = () =>{ setDeleteTask(true); }
 
+    const setConfirmCompletedTask_Hide = () =>{ setConfirmCompletedTask(false); }
+    const setConfirmCompletedTask_Show = () =>{ setConfirmCompletedTask(true); }
+
+    const setDropTask_Hide = () => { setDropTask(false); }
+    const setDropTask_Show = () => { setDropTask(true); }
+    const api = process.env.REACT_APP_DATA_API;
+
     const finishedTask_put = () => {
       setConfirmFinished_Hide();
       setShowTask(false);
@@ -62,23 +98,84 @@ const DetailedTask = ({taskID, status, typeID, name, price, description, address
       var today = new Date();
       var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
-      axios.patch(`http://localhost:3200/task/${taskID}`, {
+      axios.patch(`${api}/task/${taskID}`, {
         data: { dateCompleted: date, statusID: 3}
       })
-      .then( console.log("Successfully changed statusID") )
+      .then(response => {
+        window.scrollTo(0, 0);
+        setNotify(true);
+        setNotifyMsg({severity:"success", message:"You've completed a task!"});
+      } );
+
+      // window.location.reload();
     };
 
-    const DeleteTask_delete = () => {
-      setConfirmDelete_Hide();
+    const confirmedTask_patch = () => {
+      setConfirmCompletedTask_Hide();
       setShowTask(false);
 
-      axios.delete(`http://localhost:3200/task/${taskID}`)
-          .then( console.log("Successfully removed task") );
+      // Update task status
+      axios.patch(`${api}/task/${taskID}`, {
+        data: { statusID: 4}
+      })
+      .then( console.log("Successfully changed statusID(3 -> 4)") )
+
+      // Add review to task
+      axios.post(`${process.env.REACT_APP_DATA_API}/review/${workerID}`, { review })
+        .then((response) => { 
+            // console.log(response.data);
+            console.log("Added review to task");
+        }, (err) => {
+            console.log(err);
+        });
+    window.scrollTo(0, 0);
+    setNotify(true);
+    setNotifyMsg({severity:"success", message:"Confirmation Complete"});
+    }
+
+    // Delete task
+    const DeleteTask_delete = () => {
+      setConfirmDelete_Hide();
+      setNotify(true);
+      window.scrollTo(0, 0);
+      if (status == "Pending" || status == "Accepted") {
+        axios.delete(`${api}/task/${taskID}`)
+          .then(response => {
+            console.log("Successfully removed task");
+            setNotifyMsg({severity:"success", message:"Successfully deleted a task"});
+            // await sleep(5000);
+            // window.location.reload();
+          })
+          .catch(err => {
+            setShowTask(true);
+            setNotifyMsg({severity:"error", message:"You cannot delete a task that has already been accepted."});
+          });
+      } else if (status == "Complete") {
+        axios.delete(`${api}/task/deleteComplete/${taskID}`)
+          .then(response => {
+            console.log("Successfully removed task");
+            setNotifyMsg({severity:"success", message:"Successfully deleted a task"});
+            // await sleep(5000);
+            // window.location.reload();
+          })
+      }
     };
 
-  console.log(typeID);
-  console.log(Types);
-  //const img = "http://localhost:3200/img/static/taskitthumbnail.png";
+    // Drop Task
+    const DropTask_patch = () => {
+      setDropTask_Hide();
+      setShowTask(false);
+      window.scrollTo(0, 0);
+      // Update task status
+      axios.patch(`http://localhost:3200/task/drop/${taskID}`)
+      .then( response => {
+        console.log("Successfully changed statusID(2 -> 1) and workerID -> null");
+        setNotify(true);
+        setNotifyMsg({severity:"success", message:"Successfully dropped task"});
+        // window.location.reload();
+      });
+    };
+
   const img = Types[typeID - 1].img;
   
   return (
@@ -90,28 +187,76 @@ const DetailedTask = ({taskID, status, typeID, name, price, description, address
       </Modal>
 
       <Modal isOpen={finishTask} style={customStyles} ariaHideApp={false} onRequestClose={()=> setFinishTask(false)}>
-          Are you finished with your task?
+          Are you finished with this task?
           <br/>
           <Button variant="contained" color="secondary" style={{float:"right"}}onClick={setConfirmFinished_Hide}>Cancel</Button>{' '}
           <Button style={{float:"right"}} onClick={finishedTask_put}>Confirm</Button>
       </Modal>
 
       <Modal isOpen={deleteTask} style={customStyles} ariaHideApp={false} onRequestClose={()=> setDeleteTask(false)}>
-        Are you sure you want to delete your task?
+        Are you sure you want to delete this task?
           <br/>
           <Button variant="contained" color="secondary" style={{float:"right"}} onClick={setConfirmDelete_Hide}>Cancel</Button>{' '}
           <Button style={{float:"right"}} onClick={DeleteTask_delete}>Confirm</Button>
       </Modal>
 
+      <Modal isOpen={dropTask} style={customStyles} ariaHideApp={false} onRequestClose={()=> setDropTask(false)}>
+        Are you sure you want to drop this task?
+          <br/>
+          <Button variant="contained" color="secondary" style={{float:"right"}} onClick={setDropTask_Hide}>Cancel</Button>{' '}
+          <Button style={{float:"right"}} onClick={DropTask_patch}>Confirm</Button>
+      </Modal>
+
+
+      <Modal isOpen={confirmCompletedTask} style={customStyles} ariaHideApp={false} onRequestClose={()=> setConfirmCompletedTask(false)}>
+        <center>
+        Confirm completed tasks?
+            <h5>Create a Review</h5>
+        </center>
+        <div>
+            <form>
+                <label>
+                    Rating:
+                    <br/>
+                    <Box component="fieldset" mb={1} borderColor="transparent">
+                        <Rating defaultValue={0} precision={0.5} 
+                        name="rating" value={review.rating}
+                        onChange={e => setReview({ ...review, rating: parseInt(e.target.value) })}/>
+                    </Box>
+                </label>
+                <label>
+                    Description:
+                    <br/>
+                    <textarea maxLength="1200" style={{width:"600px", height:"150px"}}
+                    name="description" value={review.description}
+                    onChange={e => setReview({ ...review, description: e.target.value })}/>
+                </label>
+                <br/>
+                {/* <Button variant="contained" color="secondary" style={{float:"right", background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'}}>Submit</Button>{' '} */}
+                <Button variant="contained" color="secondary" style={{float:"right"}} onClick={setConfirmCompletedTask_Hide}>Cancel</Button>{' '}
+                <a href="/payment"><Button style={{float:"right"}} onClick={confirmedTask_patch}>Confirm</Button></a>
+            </form>
+        </div>
+    </Modal>
+
+    <Snackbar open={notify} autoHideDuration={5000} onClose={handleClose} >
+        <Alert elevation={6} variant="filled" severity={notifyMsg.severity}> 
+        {notifyMsg.message}
+        </Alert>
+    </Snackbar>
+
 
       {/* Display Task in minimized version */}
       {showTask &&
-      <div className="col" style={{ marginBottom:'1%' }}>
+      <div className="col" style={{ marginTop:'1%' }}>
         <Card style={{ width: 300 }}>
           <label style={{color:"black", float:"left", marginTop:"1vh", marginLeft:"1vw"}}>{status}</label>
 
           {taskMode == "finished" && <Button size="small" style={{float:"right"}} onClick={setConfirmFinished_Show}><DoneIcon/></Button>}
+          {taskMode == "finished" && <Button size="small" style={{float:"right"}} onClick={setDropTask_Show}><RemoveCircleIcon style={{color:"red"}}/></Button>}
           {taskMode == "delete" && <Button size="small" style={{float:"right"}} onClick={setConfirmDelete_Show}><CloseIcon/></Button>}
+          {taskMode == "confirm" && <Button size="small" style={{float:"right"}} onClick={setConfirmCompletedTask_Show}><NotificationsNoneOutlinedIcon style={{color:"red"}} className="flicker" /></Button>}
+          {taskMode == "pay" && <Button size="small" style={{float:"right"}} href="/payment"><PaymentIcon style={{color:"red"}} className="flicker" /></Button>}
           
           <CardActionArea onClick={setModalIsOpenToTrue}>
             <CardMedia

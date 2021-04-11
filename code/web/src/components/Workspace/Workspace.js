@@ -1,15 +1,20 @@
 import { Button } from '@material-ui/core';
 import React, { useState } from 'react'
+import { Redirect } from 'react-router-dom';
 
 import MyTasks from './MyTasks';
 import AcceptedTasks from './AcceptedTasks';
+import ConfirmCompletedTask from './ConfirmCompletedTask';
+import PendingPayment from './PendingPayment';
 import CompanyProfile from '../CompanyProfile/CompanyProfile';
 import CreateTask from '../CreateTask/CreateTask';
 
 const Workspace = () => {
     // Display Company Profile
     const [page, setPage] = useState("displayWorkspace");
+    const userData = JSON.parse(localStorage.getItem('user'));
     
+  if (userData) {
     return (
         <div className=''>
             <div className="row" style={{marginTop:"0"}}>
@@ -28,10 +33,16 @@ const Workspace = () => {
                     {page === "displayWorkspace" && <CreateTask/>}
                 </div>
             </div>
+            
+            {page === 'displayWorkspace' && <PendingPayment />}
+            {page === 'displayWorkspace' && <ConfirmCompletedTask />}
             {page === 'displayWorkspace' && <MyTasks />}
             {page === 'displayWorkspace' && <AcceptedTasks />}
-            {page === "companyprofile" && <CompanyProfile />}
+            {page === 'companyprofile' && <CompanyProfile />}
         </div>
     )
+  } else {
+    return (<Redirect to="/login" />);
+  }
 }
 export default Workspace

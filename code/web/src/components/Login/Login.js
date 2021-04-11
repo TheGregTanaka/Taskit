@@ -59,16 +59,11 @@ export default function Login() {
   const userData = JSON.parse(localStorage.getItem('user'));
   const handleSubmit = async e => {
     e.preventDefault();
-    console.log('aaa');
     const user = await loginUser({email, password});
-    console.log(user);
     if (user.data) {
-      console.log('success');
       localStorage.setItem('user', JSON.stringify(user.data));
       history.push("/feed");
     } else {
-      console.log('fail');
-      console.log(user.error);
       setError(user.error);
     }
   }

@@ -1,6 +1,6 @@
 import React from 'react';
-import DetailedTask from '../DetailedTask/DetailedTask'
-import { useEffect, useState } from 'react';
+import DetailedTask from '../DetailedTask/DetailedTask';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 
 import Accordion from '@material-ui/core/Accordion';
@@ -9,20 +9,23 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from "@material-ui/core/Typography";
 
+import NotificationImportantIcon from '@material-ui/icons/NotificationImportant';
+import './style.css';
 
-const MyTasks = () => {
+const PendingPayment = () => {
     const [tasks, setTasks] = useState([]);
     const [err, setErr] = useState(false);
     const [expanded, setExpanded] = useState(false);
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
+    const mountedRef = useRef(true);
 
     const user = JSON.parse(localStorage.getItem('user'));
     const id = user ? user.id : 'null';
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_DATA_API}/task/tasker/${id}`)
+        axios.get(`${process.env.REACT_APP_DATA_API}/task/tasker/pendingPayment/${id}`)
             .then((response) => {
                 setTasks(response.data);
                 setErr(false);
@@ -31,6 +34,9 @@ const MyTasks = () => {
                 setErr(true);
                 console.log(err);
             });
+        return () => {
+            mountedRef.current = false
+        }
     }, []);
 
     return (
@@ -47,11 +53,13 @@ const MyTasks = () => {
                 id="panel1bh-header"
                 style={{backgroundColor:"white"}}
                 >
-                <Typography>My Created Tasks</Typography>
+                <Typography>Payment Required</Typography>
+                <NotificationImportantIcon className="flicker" style={{color:"red"}}/>
                 </AccordionSummary>
-                <AccordionDetails style={{clear: "both"}}>
+                <AccordionDetails>
                     <div className="row">
                         {!err && tasks.slice(0).reverse().map((task) => (<DetailedTask key={task.id}
+                                                                workerID={task.workerID}
                                                                 taskID={task.id}
                                                                 status={task.status}
                                                                 typeID={task.typeID}
@@ -65,7 +73,7 @@ const MyTasks = () => {
                                                                 img={task.img}
                                                                 status={task.status}
                                                                 address={task.address}
-                                                                taskMode="delete"
+                                                                taskMode="pay"
                                                             />))}
                     </div>
                 </AccordionDetails>
@@ -74,4 +82,4 @@ const MyTasks = () => {
     )
 }
 
-export default MyTasks
+export default PendingPayment
