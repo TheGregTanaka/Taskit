@@ -36,7 +36,6 @@ Task.create = (newTask, result) => {
   //newTask = newTask.task
   kStr = vStr = "(";
   for (const key in newTask) {
-    console.log(`k ${key} v ${newTask[key]}\n`);
     kStr += key + ",";
     vStr += `"${newTask[key]}",`;
   }
@@ -45,7 +44,6 @@ Task.create = (newTask, result) => {
   vStr = vStr.substring(0, vStr.length - 1) + ")";
 
   const insertStr = `INSERT INTO task ${kStr} VALUES ${vStr};`;
-  console.log(insertStr);
 
   sql.executeQuery(insertStr, (err, res) => {
     if (err) {
@@ -55,7 +53,6 @@ Task.create = (newTask, result) => {
       return;
     }
 
-    console.log("created task: ", { id: res.rows.insertId, ...newTask });
     result(null, { id: res.rows.insertId, ...newTask });
   });
 };
@@ -108,7 +105,6 @@ Task.getOne = (taskID, result) => {
       return;
     }
     if (res) {
-      console.log("found: ", JSON.stringify(res));
       result(null, res["rows"]);
       return;
     } else {
