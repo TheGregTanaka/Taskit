@@ -252,7 +252,8 @@ Task.delete = (id, result) => {
       return;
     }
 
-    if (res.affectedRows === 0) {
+    
+    if (res.rows.affectedRows == 0) {
       result({ kind: "not_found or workerID is not null" }, null);
       return;
     }
@@ -261,6 +262,17 @@ Task.delete = (id, result) => {
     result(null, res);
   }
   );
+};
+
+Task.drop = (id, task, result) => {
+  var query = `UPDATE task 
+                SET statusID = 1, workerID = NULL
+                WHERE id = ${id};`
+  sql.executeQuery(query, (err, res) => {
+    if (err) { console.log(err); result(err, null); }
+    if (res) { result(null, res['rows']); }
+    return;
+  });
 };
 
 module.exports = Task;

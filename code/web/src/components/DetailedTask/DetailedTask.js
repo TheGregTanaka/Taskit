@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 import axios from 'axios';
 import Button from "@material-ui/core/Button";
 import CardActions from "@material-ui/core/CardActions";
@@ -13,10 +15,12 @@ import Box from "@material-ui/core/Box";
 
 
 import DoneIcon from '@material-ui/icons/Done';
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import CloseIcon from '@material-ui/icons/Close';
 import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneOutlined';
 
 import "./style.css";
+
 
 import EnlargeTask from './EnlargeTask';
 import "../App/App.css";
@@ -50,11 +54,20 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
   const [finishTask, setFinishTask] = useState(false);
   const [deleteTask, setDeleteTask] = useState(false);
   const [confirmCompletedTask, setConfirmCompletedTask] = useState(false);
+  const [dropTask, setDropTask] = useState(false);
   const [review, setReview] = useState({
       rating: 0,
       description: '',
       taskID: taskID
   });
+  const [notify, setNotify] = useState(false);
+  const [notifyMsg, setNotifyMsg] = useState({
+    severity: "success",
+    message: ""
+  });
+
+  const handleClick = () => { setNotify(true); };
+  const handleClose = () => { setNotify(false); };
 
   const [showTask, setShowTask] = useState(true);
 
@@ -70,6 +83,8 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
     const setConfirmCompletedTask_Hide = () =>{ setConfirmCompletedTask(false); }
     const setConfirmCompletedTask_Show = () =>{ setConfirmCompletedTask(true); }
 
+    const setDropTask_Hide = () => { setDropTask(false); }
+    const setDropTask_Show = () => { setDropTask(true); }
     const api = process.env.REACT_APP_DATA_API;
 
     const finishedTask_put = () => {
@@ -102,30 +117,54 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
         .then((response) => { 
             // console.log(response.data);
             console.log("Added review to task");
-        }, (error) => {
-            console.log(error);
+        }, (err) => {
+            console.log(err);
         });
 
+    setNotify(true);
+    setNotifyMsg({severity:"success", message:"Confirmation Complete"});
     window.location.reload();
     }
 
     // Delete task
     const DeleteTask_delete = () => {
       setConfirmDelete_Hide();
+      
+
+      axios.delete(`${api}/${taskID}`)
+          .then(response => {
+            console.log("Successfully removed task");
+            setNotify(true);
+            setShowTask(false);
+            setNotifyMsg({severity:"success", message:"Successfully deleted task"});
+            window.location.reload();
+          })
+          .catch(err => {
+            setNotify(true);
+            setShowTask(true);
+            setNotifyMsg({severity:"error", message:"You cannot delete a task that has already been accepted."});
+          });
+    };
+
+    // Drop Task
+    const DropTask_patch = () => {
+      setDropTask_Hide();
       setShowTask(false);
 
-      axios.delete(`${api}/task/${taskID}`)
-          .then( console.log("Successfully removed task") )
-          .catch( console.log("Cannnot delete task") )
-
-      window.location.reload();
+      // Update task status
+      axios.patch(`http://localhost:3200/task/drop/${taskID}`)
+      .then( response => {
+        console.log("Successfully changed statusID(2 -> 1) and workerID -> null");
+        setNotify(true);
+        setNotifyMsg({severity:"success", message:"Successfully dropped task"});
+        window.location.reload();
+      });
     };
 
   const img = Types[typeID - 1].img;
   
   return (
     <>
-    
       {/* Display task on modal as bigger version */}
       <Modal isOpen={modalIsOpen} style={customStyles} ariaHideApp={false} onRequestClose={()=> setModalIsOpen(false)}>
         <Button size="large" color="primary" style={{float:"right", border:"0", backgroundColor:"white", fontSize:"20px"}} onClick={setModalIsOpenToFalse}><CloseIcon/></Button>
@@ -133,17 +172,24 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
       </Modal>
 
       <Modal isOpen={finishTask} style={customStyles} ariaHideApp={false} onRequestClose={()=> setFinishTask(false)}>
-          Are you finished with your task?
+          Are you finished with this task?
           <br/>
           <Button variant="contained" color="secondary" style={{float:"right"}}onClick={setConfirmFinished_Hide}>Cancel</Button>{' '}
           <Button style={{float:"right"}} onClick={finishedTask_put}>Confirm</Button>
       </Modal>
 
       <Modal isOpen={deleteTask} style={customStyles} ariaHideApp={false} onRequestClose={()=> setDeleteTask(false)}>
-        Are you sure you want to delete your task?
+        Are you sure you want to delete this task?
           <br/>
           <Button variant="contained" color="secondary" style={{float:"right"}} onClick={setConfirmDelete_Hide}>Cancel</Button>{' '}
           <Button style={{float:"right"}} onClick={DeleteTask_delete}>Confirm</Button>
+      </Modal>
+
+      <Modal isOpen={dropTask} style={customStyles} ariaHideApp={false} onRequestClose={()=> setDropTask(false)}>
+        Are you sure you want to drop this task?
+          <br/>
+          <Button variant="contained" color="secondary" style={{float:"right"}} onClick={setDropTask_Hide}>Cancel</Button>{' '}
+          <Button style={{float:"right"}} onClick={DropTask_patch}>Confirm</Button>
       </Modal>
 
 
@@ -178,6 +224,11 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
         </div>
     </Modal>
 
+    <Snackbar open={notify} autoHideDuration={5000} onClose={handleClose} >
+        <Alert elevation={6} variant="filled" severity={notifyMsg.severity}> 
+        {notifyMsg.message}
+        </Alert>
+    </Snackbar>
 
 
       {/* Display Task in minimized version */}
@@ -187,6 +238,7 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
           <label style={{color:"black", float:"left", marginTop:"1vh", marginLeft:"1vw"}}>{status}</label>
 
           {taskMode == "finished" && <Button size="small" style={{float:"right"}} onClick={setConfirmFinished_Show}><DoneIcon/></Button>}
+          {taskMode == "finished" && <Button size="small" style={{float:"right"}} onClick={setDropTask_Show}><RemoveCircleIcon style={{color:"red"}}/></Button>}
           {taskMode == "delete" && <Button size="small" style={{float:"right"}} onClick={setConfirmDelete_Show}><CloseIcon/></Button>}
           {taskMode == "confirm" && <Button size="small" style={{float:"right"}} onClick={setConfirmCompletedTask_Show}><NotificationsNoneOutlinedIcon style={{color:"red"}} className="flicker" /></Button>}
           
