@@ -20,9 +20,9 @@ const id = user ? user.id : 'null';
 
 
 const api = process.env.REACT_APP_DATA_API;
-const profile_ENDPOINT = `${api}/user/${id}`;
-const avgRating_ENDPOINT = `${api}/review/getAvgRating/${id}`;
-const companyInfo_ENDPOINT = `${api}/companyProfile/${id}`;
+const profile_ENDPOINT = `${api}/user/${id}`; // User name, bio
+const avgRating_ENDPOINT = `${api}/review/getAvgRating/${id}`; // Avg rating
+const companyInfo_ENDPOINT = `${api}/companyProfile/${id}`; // Tasks and reviews
 
 
 const CompanyProfile = () => {
