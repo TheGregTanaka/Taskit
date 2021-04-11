@@ -62,9 +62,7 @@ function routes(Task) {
     })
     .delete((req, res) => {
       Task.delete(req.params.taskID, (err, r) => {
-        if (err) {
-          return res.send(err);
-        }
+        if (err) { return res.status(401).send(err); }
         return res.sendStatus(204);
       });
     });
@@ -127,6 +125,17 @@ function routes(Task) {
       Task.getRequiredConfirmation(req, (err, tasks) => {
         if (err) { return res.send(err).status(400); }
         if (tasks) { return res.json(tasks).status(200); }
+      });
+    });
+
+  router.route('/drop/:id')
+    .patch((req, res) => {
+      Task.drop(req.params.id, req.body, (err, r) => {
+        if (err) {
+          console.log(err);
+          return res.send(err);
+        }
+        return res.sendStatus(204);
       });
     });
     
