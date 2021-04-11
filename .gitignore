@@ -8,10 +8,10 @@ code/api/node_modules
 .pnp.js
 
 # testing
-/coverage
+coverage/
 
 # production
-/build
+build/
 
 # env files
 .env*
