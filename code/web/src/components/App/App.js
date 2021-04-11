@@ -16,6 +16,7 @@ import Workspace from '../Workspace/Workspace'
 import ViewProfile from '../ViewProfile/ViewProfile'
 import EditProfile from '../ViewProfile/EditProfile'
 import useUserData from './userData'
+import Payment from '../Payment/Payment';
 
 import './App.css';
 
@@ -60,6 +61,7 @@ function App() {
         <BrowserRouter>
           <Switch>
           
+          <Route path="/payment" component={Payment}/>
           <Route path="/chat" component={Chat}/>
           <Route path="/create_task" component={CreateTask}/>
           <Route path="/login" component={Login}/>
