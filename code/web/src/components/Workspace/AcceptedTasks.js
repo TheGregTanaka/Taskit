@@ -31,7 +31,6 @@ const AcceptedTasks = () => {
             {tasks.length != 0 &&
             <div className="" style={{marginLeft:'7%', marginRight:'7%'}}>
                 <div className='row'>
-                    <hr/>
                     <div className="row">
                         <div className="col" style={{float:"left"}}>
                             <h6>My TODOs</h6>
@@ -54,7 +53,6 @@ const AcceptedTasks = () => {
                                                                 taskMode="finished"
                                                             />))}
                     </div>
-                    <hr/>
                 </div>
             </div>}
         </div>
