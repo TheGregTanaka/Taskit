@@ -32,7 +32,7 @@ const paymentIntent_confirm = (paymentIntentID) => {
   );
 }
 
-router.post('/donate', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const email = req.body.card.email; 
     const feeRate = 0.0213;
