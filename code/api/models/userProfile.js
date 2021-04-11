@@ -87,7 +87,7 @@ UserProfile.getOne = (userID, result) => {
 };
 
 UserProfile.update = (id, user, result) => {
-  console.log(id);
+  console.log(user);
   var updateStr = `UPDATE userProfile SET`;
   for (const key in user) {
     updateStr += ` ${key} = "${user[key]}",`;

@@ -17,8 +17,8 @@
     "react-modal": "^3.12.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
-    "socket.io": "^4.0.0",
     "react-stripe-elements": "^6.1.2",
+    "socket.io": "^4.0.0",
     "socket.io-client": "^4.0.0",
     "web-vitals": "^1.1.0"
   },
@@ -48,6 +48,3 @@
     ]
   }
 }
-
-
-

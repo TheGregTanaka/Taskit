@@ -6,16 +6,18 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import { Button } from '@material-ui/core'; 
+import { useHistory } from 'react-router';
 
 async function EditInfoCall(field) {
     const api = process.env.REACT_APP_DATA_API;
     const profile_imag = `${process.env.REACT_APP_DATA_API}/img/static/img_profile.png`;
+    const user = JSON.parse(localStorage.getItem('user'));
     // Where to do if statements for null/blank input?
 
-    const response = await axios.post(api + '/editProfile', {
-        name: field.Name,
-        location: field.Location,
-        bio: field.Bio
+    const response = await axios.post(api + '/editProfile/' + user.id, {
+        name: field.name,
+        phone: field.phone,
+        bio: field.bio
     })
     .then(function (res) {
       return res;
@@ -31,16 +33,21 @@ async function EditInfoCall(field) {
 const EditProfile = ({}) => {
     const [error, setError] = useState();
     const [name, setName] = useState();
-    const [location,setLocation] = useState();
+    const [phone,setPhone] = useState();
     const [bio,setBio] = useState();
+    const history = useHistory();
     const data1 = async e => {
         e.preventDefault();
-        const message = await EditInfoCall({ name, location, bio });
-        console.log(message);
+        const message = await EditInfoCall({ name, phone, bio });
+      if (message.error) {
+        setError(message.error);
+      }
+      history.push('/ViewProfile');
     }
     return (
             <div class="container">
                 <div class="row">
+      <form onSubmit={data1}>
                     <div class="col-10">&nbsp;</div>
                     <div class="col-10">
                         <div class="table">
@@ -56,11 +63,11 @@ const EditProfile = ({}) => {
                             </tr>
                             <tr>
                                 <th>
-                                    Location:
+                                    Phone:
                                 </th>
                                 <td>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="location" placeholder="Location" onChange={e => setLocation(e.target.value)}></input>
+                                        <input type="text" class="form-control" name="phone" placeholder="Phone" onChange={e => setPhone(e.target.value)}></input>
                                     </div>
                                 </td>
                             </tr>
@@ -77,8 +84,9 @@ const EditProfile = ({}) => {
                         </div>
                     </div>
                     <div class="col-8" style={{float:"middle"}}>                    
-                        <Button variant="contained" color="inherit">Submit</Button>
+                        <Button variant="contained" color="inherit" type="submit">Submit</Button>
                     </div>
+      </form>
                 </div>
             </div>
     )

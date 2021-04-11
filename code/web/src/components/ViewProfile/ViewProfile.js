@@ -16,13 +16,14 @@ const ViewProfile = ({login}) => {
 
     const api = process.env.REACT_APP_DATA_API;
     const profile_imag = `${process.env.REACT_APP_DATA_API}/img/static/img_profile.png`;
+    const user = JSON.parse(localStorage.getItem('user'));
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_DATA_API}/task`) //url from node js server (get & post request)
+        axios.get(`${process.env.REACT_APP_DATA_API}/user/${user.id}`) //url from node js server (get & post request)
             .then((response) => {
-                setProfile(response.data); //response.data is data from request
+                setProfile(response.data[0]); //response.data is data from request
                 setErr(false);
-                console.log("Tasks Res: ", response.data);
+                //console.log("Res: ", response.data);
             })
             .catch(err => {
                 setErr(true);

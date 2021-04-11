@@ -2,17 +2,18 @@ const express = require('express');
 
 function routes(UserProfile) {
     const router = express.Router();
-    router.route('/')
+    router.route('/:id')
 
         .post((req, res) => {
-            UserProfile.update(req.body.id, req.body, (err, token, body) => {
+          console.log(req.body);
+            UserProfile.update(req.params.id, req.body, (err, body) => {
                 if (err) {
                     console.log(err);
                     return res.sendStatus(401);         
                 }
                 console.log(req.body.id);
                 console.log(req.body);
-                res.cookie("jwt", token, {secure: false, httpOnly: false});
+                //res.cookie("jwt", token, {secure: false, httpOnly: false});
                 return res.send(body);
             });
         });
