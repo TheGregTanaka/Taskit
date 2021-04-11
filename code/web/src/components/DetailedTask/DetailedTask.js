@@ -85,6 +85,7 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
 
     const setDropTask_Hide = () => { setDropTask(false); }
     const setDropTask_Show = () => { setDropTask(true); }
+    const api = process.env.REACT_APP_DATA_API;
 
     const finishedTask_put = () => {
       setConfirmFinished_Hide();
@@ -93,7 +94,7 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
       var today = new Date();
       var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
-      axios.patch(`http://localhost:3200/task/${taskID}`, {
+      axios.patch(`${api}/task/${taskID}`, {
         data: { dateCompleted: date, statusID: 3}
       })
       .then( console.log("Successfully changed statusID(2 -> 3)") );
@@ -106,7 +107,7 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
       setShowTask(false);
 
       // Update task status
-      axios.patch(`http://localhost:3200/task/${taskID}`, {
+      axios.patch(`${api}/task/${taskID}`, {
         data: { statusID: 4}
       })
       .then( console.log("Successfully changed statusID(3 -> 4)") )
@@ -130,7 +131,7 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
       setConfirmDelete_Hide();
       
 
-      axios.delete(`http://localhost:3200/task/${taskID}`)
+      axios.delete(`${api}/${taskID}`)
           .then(response => {
             console.log("Successfully removed task");
             setNotify(true);

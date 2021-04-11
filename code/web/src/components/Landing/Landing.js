@@ -5,7 +5,7 @@ import {Types} from '../../constants/tasks';
 import './style.css';
 
 
-const landing_img = "http://localhost:3200/img/static/landing_img.svg"
+const landing_img = `${process.env.REACT_APP_DATA_API}/img/static/landing_img.svg`
 
 const Landing = () => {
     return (

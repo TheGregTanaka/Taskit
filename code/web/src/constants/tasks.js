@@ -7,13 +7,15 @@ export const TypeID = {
   Msc: 6
 }
 
+const api = process.env.REACT_APP_DATA_API;
+
 export const Types = [
-    {id: TypeID.Yrd, abbr: "Yrd", name: "Yard Work", img: "http://localhost:3200/img/static/yard.jpeg"},
-    {id: TypeID.Cln, abbr: "Cln", name: "Cleaning", img: "http://localhost:3200/img/static/cleaning.png"},
-    {id: TypeID.Rpr, abbr: "Rpr", name: "Repair", img: "http://localhost:3200/img/static/repair.jpeg"},
-    {id: TypeID.Ato, abbr: "Ato", name: "Auto", img: "http://localhost:3200/img/static/auto.jpeg"},
-    {id: TypeID.Tch, abbr: "Tch", name: "Tech", img: "http://localhost:3200/img/static/tech.jpeg"},
-    {id: TypeID.Msc, abbr: "Msc", name: "Misc", img: "http://localhost:3200/img/static/taskitthumbnail.png"},
+    {id: TypeID.Yrd, abbr: "Yrd", name: "Yard Work", img: `${api}/img/static/yard.jpeg`},
+    {id: TypeID.Cln, abbr: "Cln", name: "Cleaning", img: `${api}/img/static/cleaning.png`},
+    {id: TypeID.Rpr, abbr: "Rpr", name: "Repair", img: `${api}/img/static/repair.jpeg`},
+    {id: TypeID.Ato, abbr: "Ato", name: "Auto", img: `${api}/img/static/auto.jpeg`},
+    {id: TypeID.Tch, abbr: "Tch", name: "Tech", img: `${api}/img/static/tech.jpeg`},
+    {id: TypeID.Msc, abbr: "Msc", name: "Misc", img: `${api}/img/static/taskitthumbnail.png`},
 ];
 
 export const GetType = (id) => {

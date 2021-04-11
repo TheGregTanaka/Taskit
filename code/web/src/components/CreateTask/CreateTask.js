@@ -62,7 +62,7 @@ function CreateTask (){
         e.preventDefault();
         setModalIsOpenToFalse();
         
-        axios.post('http://localhost:3200/task', task)
+        axios.post(`${process.env.REACT_APP_DATA_API}/task`, task)
           .then((response) => { 
               console.log(response.data);
           }, (error) => {
