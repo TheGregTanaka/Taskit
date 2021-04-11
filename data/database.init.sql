@@ -27,7 +27,6 @@ CREATE TABLE IF NOT EXISTS userProfile
     email VARCHAR(128) NOT NULL,
     password VARCHAR(128) NOT NULL,
     name VARCHAR(128) NOT NULL,
-    profilePicture VARCHAR(128),
     phone VARCHAR(20),
     bio LONGTEXT,
     token VARCHAR(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL
@@ -47,7 +46,6 @@ CREATE TABLE IF NOT EXISTS task
     workerID INT,
     datePosted DATE,
     dateCompleted DATE,
-    img VARCHAR(128),
     address VARCHAR(128),
     lat FLOAT(10,6),
     lng FLOAT(10,6),
@@ -88,28 +86,30 @@ INSERT INTO statusTask
 VALUES
 ("Pending"),
 ("Accepted"),
+("Confirmation Required"),
+("Pending Payment"),
 ("Complete");
 
 
 # seed data
 INSERT INTO `userProfile` 
-(`email`, `password`, `name`, `profilePicture`, `phone`, `bio`)
+(`email`, `password`, `name`, `phone`, `bio`)
 VALUES
-("testTasker@ineedhelp.com", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Theo Tasker", "http://localhost:3200/img/static/img_profile.png", "xxx-xxx-xxxx", "Hello I'm Theo. I'm glad you're taking an interest in me."),
-("mario@plumber.com", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Mario Pipes", "http://localhost:3200/img/static/img_profile.png", "111-222-3333", "Hello I'm mario. I'm glad you're taking an interest in me."),
-("greenthumb@yourgardener.net", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Forrest Green", "http://localhost:3200/img/static/img_profile.png", "444-555-6666", "Hello I'm green. I'm glad you're taking an interest in me."),
-("gregory.tanaka@colorado.edu", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Gregory Tanaka", "http://localhost:3200/img/static/img_profile.png", "777-888-9999", "Hello I'm Greg. I'm glad you're taking an interest in me.");
+("testTasker@ineedhelp.com", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Theo Tasker", "xxx-xxx-xxxx", "Hello I'm Theo. I'm glad you're taking an interest in me."),
+("mario@plumber.com", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Mario Pipes", "111-222-3333", "Hello I'm mario. I'm glad you're taking an interest in me."),
+("greenthumb@yourgardener.net", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Forrest Green", "444-555-6666", "Hello I'm green. I'm glad you're taking an interest in me."),
+("gregory.tanaka@colorado.edu", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Gregory Tanaka", "777-888-9999", "Hello I'm Greg. I'm glad you're taking an interest in me.");
 
 
 INSERT INTO task
-(`title`, `typeID`, `statusID`, `description`, `price`, `taskerID`, `workerID`, `datePosted`, `dateCompleted`, `img`, `address`)
+(`title`, `typeID`, `statusID`, `description`, `price`, `taskerID`, `workerID`, `datePosted`, `dateCompleted`, `address`)
 VALUES
-("Rake my leaves", 1, 1, "I need someone to rake the leaves in my yard", 20, 2, 1, '2021-02-08', NULL, "http://localhost:3200/img/static/car_wash.jpeg", "University of Colorado Boulder, Boulder, CO"),
-("Hook up my speakers", 5, 2, "I need help setting up my new audio system.", 20, 3, 1, '2021-02-09', NULL, "http://localhost:3200/img/static/car_wash.jpeg", "1669 Euclid Ave, Boulder, CO 80309"),
-("Wash my car", 4, 3, "My car is dirty! Help!", 20, 4, 1, '2021-03-29', '2021-04-01', "http://localhost:3200/img/static/car_wash.jpeg", "409 4th Ave, Longmont, CO 80501"),
-("Mow My Lawn", 1, 3, "Grass is getting too long", 15, 2, 1, '2021-03-01', '2021-03-03', "http://localhost:3200/img/static/car_wash.jpeg", "1265 Boston Ave, Longmont, CO 80501"),
-("Need Party Clown", 6, 3, "Looking for entertainment for my kid's birthday", 70, 3, 4, '2021-03-15', '2021-03-20', "http://localhost:3200/img/static/car_wash.jpeg", "2922 Baseline Rd, Boulder, CO 80303"),
-("Need Clown", 6, 3, "Looking for entertainment Assigned by GREG(4) ACCEPTED by mario(2)", 70, 4, 2, '2021-03-15', '2021-03-20', "http://localhost:3200/img/static/car_wash.jpeg", "500 Linden St, Fort Collins, CO 80524");
+("Rake my leaves", 1, 1, "I need someone to rake the leaves in my yard", 20, 2, 1, '2021-02-08', NULL, "University of Colorado Boulder, Boulder, CO"),
+("Hook up my speakers", 5, 2, "I need help setting up my new audio system.", 20, 3, 1, '2021-02-09', NULL, "1669 Euclid Ave, Boulder, CO 80309"),
+("Wash my car", 4, 3, "My car is dirty! Help!", 20, 4, 1, '2021-03-29', '2021-04-01', "409 4th Ave, Longmont, CO 80501"),
+("Mow My Lawn", 1, 4, "Grass is getting too long", 15, 4, 1, '2021-03-01', '2021-03-03', "1265 Boston Ave, Longmont, CO 80501"),
+("Need Party Clown", 6, 3, "Looking for entertainment for my kid's birthday", 70, 3, 4, '2021-03-15', '2021-03-20', "2922 Baseline Rd, Boulder, CO 80303"),
+("Need Clown", 6, 3, "Looking for entertainment Assigned by GREG(4) ACCEPTED by mario(2)", 70, 4, 2, '2021-03-15', '2021-03-20', "500 Linden St, Fort Collins, CO 80524");
 
 
 INSERT INTO review

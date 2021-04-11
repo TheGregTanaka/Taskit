@@ -8,7 +8,6 @@ import Landing from '../Landing/Landing'
 import Login from '../Login/Login';
 import Logout from '../Login/Logout';
 import NavbarV2 from '../Navbar/NavbarV2';
-import CreateReview from '../CreateReview/CreateReview'
 import Registration from '../Registration/Registration'
 import Transaction from '../Transaction/Transaction'
 import Feed from '../Feed/Feed';
@@ -17,6 +16,7 @@ import Workspace from '../Workspace/Workspace'
 import ViewProfile from '../ViewProfile/ViewProfile'
 import EditProfile from '../ViewProfile/EditProfile'
 import useUserData from './userData'
+import Payment from '../Payment/Payment';
 
 import './App.css';
 
@@ -60,19 +60,19 @@ function App() {
       
         <BrowserRouter>
           <Switch>
-
+          
           <Route path="/chat" component={Chat}/>
           <Route path="/create_task" component={CreateTask}/>
           <Route path="/login" component={Login}/>
           <Route path="/logout" component={Logout}/>
-          <Route path="/create_review" component={CreateReview}/>
+          <Route path="/payment" component={Payment}/>
           <Route path="/registeration" component={Registration}/>
           <Route path="/transaction" component={Transaction}/>
           <Route path="/feed" component={Feed}/>
           <Route path="/workspace" component={Workspace}/>
           <Route path="/viewprofile" component={ViewProfile}/>
           <Route path="/editprofile" component={EditProfile}>
-            <EditProfile setProfile={setProfile}/>
+            {/* <EditProfile setProfile={setProfile}/> */}
           </Route>
           <Route path="/" component={Landing}/>
 

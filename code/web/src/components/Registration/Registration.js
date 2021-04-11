@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState} from 'react';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { render } from "react-dom";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -13,8 +14,10 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';*/
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
+import Alert from '@material-ui/lab/Alert';
+import { useHistory } from 'react-router';
 import axios from 'axios';
+import AlertTitle from '@material-ui/lab/AlertTitle';
 import { Redirect } from "react-router-dom"; 
 
 const useStyles = makeStyles((theme) => ({
@@ -39,42 +42,52 @@ const useStyles = makeStyles((theme) => ({
 
 async function registerUser(field) {
   const api = process.env.REACT_APP_DATA_API;
-  axios.post(api + '/registration', {
+  const repsonse = await axios.post(api + '/registration', {
     name: field.name,
     email: field.email,
     password: field.password
   })
   .then(function (res) {
-    console.log(res);
+    return {data:res.data, err:null};
   })
   .catch(function (err) {
-    console.log(err);
-  });
+    return {data: null, err:err.response};
+  })
+  
+  return repsonse; 
+
 }
 
 
-export default function Registration({ setToken, registered }) {
+export default function Registration() {
   const classes = useStyles();
-  const name = useStyles();
-  const email = useStyles();
-  const password = useStyles();
-  const data = async e => {
-    e.preventDefault();
-    const token = await registerUser({ name, email, password });
-    setToken(token);
-  }
+  const [name, setName] = useState();
+  const [email,setEmail] = useState();
+  const [password,setPassword] = useState();
+  const [error, setError] = useState();
+  const history = useHistory();
 
-  if (registered) {
-    return (<Redirect to="/login" />);
-  } 
-  else {
-    return (
+  
+  const data1 = async e => {
+    e.preventDefault();
+    const message = await registerUser({ name, email, password });
+    console.log(message);
+    if(message){
+      history.push("/login");
+    } else if (message.err.status == 403) {
+      setError(message.err.data);
+    } else {
+      setError('something else!');
+    }
+   }
+     return (
     <Container component="main" maxWidth="xs" style={{backgroundColor: "white", marginCenter:'3%'}} >
       <CssBaseline />
       <div className={classes.paper}>
+       { error && <Alert severity="error" > { error } </Alert> }
       <Typography variant="h5" color="textPrimary"> Join the Commuinty for Free</Typography>
       {/*<Avatar alt="TaskIT" src="/Users/ManojYeddanapudy/sign_up/Taskit.jpg" className={classes.large} />*/}
-        <form className={classes.form} noValidate >
+        <form className={classes.form} noValidate onSubmit={data1}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -86,6 +99,8 @@ export default function Registration({ setToken, registered }) {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                value={name}
+                onChange={e => setName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -120,6 +135,8 @@ export default function Registration({ setToken, registered }) {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -132,6 +149,8 @@ export default function Registration({ setToken, registered }) {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -159,5 +178,6 @@ export default function Registration({ setToken, registered }) {
       </Box>
     </Container>
   );
-  }
 }
+
+

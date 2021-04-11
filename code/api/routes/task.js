@@ -62,9 +62,7 @@ function routes(Task) {
     })
     .delete((req, res) => {
       Task.delete(req.params.taskID, (err, r) => {
-        if (err) {
-          return res.send(err);
-        }
+        if (err) { return res.status(401).send(err); }
         return res.sendStatus(204);
       });
     });
@@ -100,7 +98,7 @@ function routes(Task) {
 
   router.route('/worker/pending/:id')
     .get((req, res) => {
-      Task.getPending(req, "Pending", (err, tasks) => {
+      Task.filterTaskStatus_worker(req, "Pending", (err, tasks) => {
         if (err) { return res.send(err).status(400); }
         if (tasks) { return res.json(tasks).status(200); }
       });
@@ -108,7 +106,7 @@ function routes(Task) {
 
   router.route('/worker/accepted/:id')
     .get((req, res) => {
-      Task.getPending(req, "Accepted", (err, tasks) => {
+      Task.filterTaskStatus_worker(req, "Accepted", (err, tasks) => {
         if (err) { return res.send(err).status(400); }
         if (tasks) { return res.json(tasks).status(200); }
       });
@@ -116,12 +114,46 @@ function routes(Task) {
 
   router.route('/worker/complete/:id')
     .get((req, res) => {
-      Task.getPending(req, "Complete", (err, tasks) => {
+      Task.filterTaskStatus_worker(req, "Complete", (err, tasks) => {
         if (err) { return res.send(err).status(400); }
         if (tasks) { return res.json(tasks).status(200); }
       });
     });
-    
+
+  router.route('/tasker/pendingPayment/:id')
+    .get((req, res) => {
+      Task.getPendingPayment(req, (err, tasks) => {
+        if (err) { return res.send(err).status(400); }
+        if (tasks) { return res.json(tasks).status(200); }
+      });
+    });
+
+  router.route('/tasker/confirm/:id')
+    .get((req, res) => {
+      Task.getRequiredConfirmation(req, (err, tasks) => {
+        if (err) { return res.send(err).status(400); }
+        if (tasks) { return res.json(tasks).status(200); }
+      });
+    });
+
+  router.route('/drop/:id')
+    .patch((req, res) => {
+      Task.drop(req.params.id, req.body, (err, r) => {
+        if (err) {
+          console.log(err);
+          return res.send(err);
+        }
+        return res.sendStatus(204);
+      });
+    });
+
+    router.route('/deleteComplete/:taskID')
+      .delete((req, res) => {
+        Task.deleteComplete(req.params.taskID, (err, r) => {
+          if (err) { return res.status(401).send(err); }
+          return res.sendStatus(204);
+        });
+      });
 
   return router;
 }

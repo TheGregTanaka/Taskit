@@ -47,8 +47,7 @@ Review.create = (newReview, result) => {
     var taskID = newReview.body.review.taskID;
 
     if (taskID == null) { 
-        // result('[ABORT REVIEW] taskID is NULL', null); // UNCOMMENT ONCE TASKID IS IMPLEMENTED
-        taskID = 1;
+        result('[ABORT REVIEW] taskID is NULL', null); // UNCOMMENT ONCE TASKID IS IMPLEMENTED
     }
     var query_insert_review = "INSERT INTO review(`rating`, `description`, `taskID`)" +
                             ` VALUES(${rating}, "${description}", ${taskID});`;

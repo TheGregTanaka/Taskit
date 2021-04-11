@@ -16,7 +16,6 @@ const queryStr = `SELECT
     statusTask.status,
     task.description, 
     task.taskerID,
-    task.img,
     tasker.name as tasker,
     task.workerID, 
     worker.name as worker,
@@ -37,7 +36,6 @@ Task.create = (newTask, result) => {
   //newTask = newTask.task
   kStr = vStr = "(";
   for (const key in newTask) {
-    console.log(`k ${key} v ${newTask[key]}\n`);
     kStr += key + ",";
     vStr += `"${newTask[key]}",`;
   }
@@ -46,7 +44,6 @@ Task.create = (newTask, result) => {
   vStr = vStr.substring(0, vStr.length - 1) + ")";
 
   const insertStr = `INSERT INTO task ${kStr} VALUES ${vStr};`;
-  console.log(insertStr);
 
   sql.executeQuery(insertStr, (err, res) => {
     if (err) {
@@ -56,7 +53,6 @@ Task.create = (newTask, result) => {
       return;
     }
 
-    console.log("created task: ", { id: res.rows.insertId, ...newTask });
     result(null, { id: res.rows.insertId, ...newTask });
   });
 };
@@ -109,7 +105,6 @@ Task.getOne = (taskID, result) => {
       return;
     }
     if (res) {
-      console.log("found: ", JSON.stringify(res));
       result(null, res["rows"]);
       return;
     } else {
@@ -122,7 +117,6 @@ Task.getOne = (taskID, result) => {
 
 
 Task.getFeed = (req, result) => {
-  const pending = "Pending";
   var q = queryStr + ` WHERE task.statusID = 1`;
 
   if (req.query.type) {
@@ -194,10 +188,35 @@ Task.byUser = (type, req, result) => {
   });
 };
 
-Task.getPending = (req, status, result) => {
+Task.filterTaskStatus_worker = (req, status, result) => {
   var id = req.params.id;
 
   var query = queryStr + `WHERE workerID = ${id} AND statusTask.status = "${status}";`;
+
+  sql.executeQuery(query, (err, res) => {
+    if (err) { console.log(err); result(err, null); }
+    if (res) { result(null, res['rows']); }
+    return;
+  });
+  return;
+};
+
+Task.getPendingPayment = (req, result) => {
+  var id = req.params.id;
+  var query = queryStr + ` WHERE taskerID = ${id} AND statusID=4;`;
+
+  sql.executeQuery(query, (err, res) => {
+    if (err) { console.log(err); result(err, null); }
+    if (res) { result(null, res['rows']); }
+    return;
+  });
+  return;
+};
+
+Task.getRequiredConfirmation = (req, result) => {
+  var id = req.params.id;
+
+  var query = queryStr + ` WHERE taskerID = ${id} AND statusID=3;`;
 
   sql.executeQuery(query, (err, res) => {
     if (err) { console.log(err); result(err, null); }
@@ -210,6 +229,8 @@ Task.getPending = (req, status, result) => {
 Task.update = (id, task, result) => {
   console.log(id);
   console.log(task);
+  if(task.hasOwnProperty('data')) { task = task.data; }
+  
   var updateStr = `UPDATE task SET`;
   for (const key in task) {
     updateStr += ` ${key} = "${task[key]}",`;
@@ -236,15 +257,15 @@ Task.update = (id, task, result) => {
 };
 
 Task.delete = (id, result) => {
-  sql.executeQuery(`DELETE FROM task WHERE id = ${id}`, (err, res) => {
+  sql.executeQuery(`DELETE FROM task WHERE id = ${id} AND workerID is NULL;`, (err, res) => {
     if (err) {
       console.log("ERROR! : ", err);
       result(err, null);
       return;
     }
 
-    if (res.affectedRows === 0) {
-      result({ kind: "not_found" }, null);
+    if (res.rows.affectedRows == 0) {
+      result({ kind: "not_found or workerID is not null" }, null);
       return;
     }
 
@@ -252,6 +273,26 @@ Task.delete = (id, result) => {
     result(null, res);
   }
   );
+};
+
+Task.drop = (id, task, result) => {
+  var query = `UPDATE task 
+                SET statusID = 1, workerID = NULL
+                WHERE id = ${id};`
+  sql.executeQuery(query, (err, res) => {
+    if (err) { console.log(err); result(err, null); }
+    if (res) { result(null, res['rows']); }
+    return;
+  });
+};
+
+Task.deleteComplete = (id, result) => {
+  var query = `DELETE FROM task WHERE id = ${id} AND statusID=5;`
+  sql.executeQuery(query, (err, res) => {
+    if (err) { console.log(err); result(err, null); }
+    if (res) { result(null, res['rows']); }
+    return;
+  });
 };
 
 module.exports = Task;

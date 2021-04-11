@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import './ViewProfile.css';
-import profile_imag from '../../image/img_profile.png';
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -14,6 +13,9 @@ import EditProfile from './EditProfile';
 const ViewProfile = ({login}) => {
     const [profile, setProfile] = useState([]);
     const [err, setErr] = useState(false);
+
+    const api = process.env.REACT_APP_DATA_API;
+    const profile_imag = `${process.env.REACT_APP_DATA_API}/img/static/img_profile.png`;
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_DATA_API}/task`) //url from node js server (get & post request)

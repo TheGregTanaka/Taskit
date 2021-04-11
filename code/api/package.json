@@ -6,6 +6,7 @@
   "scripts": {
     "lint": "eslint .",
     "start": "nodemon app.js",
+    "publishHeroku": "cd ../.. && git subtree push --prefix code/api htaskit-backend master",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -20,7 +21,8 @@
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.7",
-    "socket.io": "^4.0.0"
+    "socket.io": "^4.0.0",
+    "stripe": "^8.142.0"
   },
   "devDependencies": {
     "eslint": "^7.21.0"
