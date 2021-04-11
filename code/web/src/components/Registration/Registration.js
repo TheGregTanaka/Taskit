@@ -14,8 +14,10 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';*/
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
+import Alert from '@material-ui/lab/Alert';
+import { useHistory } from 'react-router';
 import axios from 'axios';
+import AlertTitle from '@material-ui/lab/AlertTitle';
 import { Redirect } from "react-router-dom"; 
 
 const useStyles = makeStyles((theme) => ({
@@ -46,43 +48,46 @@ async function registerUser(field) {
     password: field.password
   })
   .then(function (res) {
-    return res;
+    return {data:res.data, err:null};
   })
   .catch(function (err) {
-    console.log(err);
-    return {data:null};
-  });
+    return {data: null, err:err.response};
+  })
   
-  return repsonse.data; 
+  return repsonse; 
 
 }
 
 
-export default function Registration({ setRegister, registered }) {
+export default function Registration() {
   const classes = useStyles();
   const [name, setName] = useState();
   const [email,setEmail] = useState();
   const [password,setPassword] = useState();
+  const [error, setError] = useState();
+  const history = useHistory();
 
   
-  const data = async e => {
+  const data1 = async e => {
     e.preventDefault();
     const message = await registerUser({ name, email, password });
-    setRegister(message);
-  }
-  if(registered) {
-    
-  } 
-
-  else{
-
-    return (
+    console.log(message);
+    if(message){
+      history.push("/login");
+    } else if (message.err.status == 403) {
+      setError(message.err.data);
+    } else {
+      setError('something else!');
+    }
+   }
+     return (
     <Container component="main" maxWidth="xs" style={{backgroundColor: "white", marginCenter:'3%'}} >
       <CssBaseline />
       <div className={classes.paper}>
+       { error && <Alert severity="error" > { error } </Alert> }
       <Typography variant="h5" color="textPrimary"> Join the Commuinty for Free</Typography>
       {/*<Avatar alt="TaskIT" src="/Users/ManojYeddanapudy/sign_up/Taskit.jpg" className={classes.large} />*/}
-        <form className={classes.form} noValidate onSubmit={data}>
+        <form className={classes.form} noValidate onSubmit={data1}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -96,7 +101,6 @@ export default function Registration({ setRegister, registered }) {
                 autoFocus
                 value={name}
                 onChange={e => setName(e.target.value)}
-                
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -174,6 +178,6 @@ export default function Registration({ setRegister, registered }) {
       </Box>
     </Container>
   );
-  }
 }
+
 
