@@ -19,6 +19,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import CloseIcon from '@material-ui/icons/Close';
 import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneOutlined';
+import PaymentIcon from '@material-ui/icons/Payment';
 
 import "./style.css";
 
@@ -62,6 +63,7 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
       description: '',
       taskID: taskID
   });
+  const [pendingPayment, setPendingPayment] = useState(false);
   const [notify, setNotify] = useState(false);
   const [notifyMsg, setNotifyMsg] = useState({
     severity: "success",
@@ -99,9 +101,13 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
       axios.patch(`${api}/task/${taskID}`, {
         data: { dateCompleted: date, statusID: 3}
       })
-      .then( console.log("Successfully changed statusID(2 -> 3)") );
+      .then(response => {
+        window.scrollTo(0, 0);
+        setNotify(true);
+        setNotifyMsg({severity:"success", message:"You've completed a task!"});
+      } );
 
-      window.location.reload();
+      // window.location.reload();
     };
 
     const confirmedTask_patch = () => {
@@ -122,7 +128,7 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
         }, (err) => {
             console.log(err);
         });
-
+    window.scrollTo(0, 0);
     setNotify(true);
     setNotifyMsg({severity:"success", message:"Confirmation Complete"});
     }
@@ -131,12 +137,14 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
     const DeleteTask_delete = () => {
       setConfirmDelete_Hide();
       setNotify(true);
+      window.scrollTo(0, 0);
       if (status == "Pending" || status == "Accepted") {
         axios.delete(`${api}/task/${taskID}`)
           .then(response => {
             console.log("Successfully removed task");
             setNotifyMsg({severity:"success", message:"Successfully deleted a task"});
-            window.location.reload();
+            // await sleep(5000);
+            // window.location.reload();
           })
           .catch(err => {
             setShowTask(true);
@@ -147,7 +155,8 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
           .then(response => {
             console.log("Successfully removed task");
             setNotifyMsg({severity:"success", message:"Successfully deleted a task"});
-            window.location.reload();
+            // await sleep(5000);
+            // window.location.reload();
           })
       }
     };
@@ -156,14 +165,14 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
     const DropTask_patch = () => {
       setDropTask_Hide();
       setShowTask(false);
-
+      window.scrollTo(0, 0);
       // Update task status
       axios.patch(`http://localhost:3200/task/drop/${taskID}`)
       .then( response => {
         console.log("Successfully changed statusID(2 -> 1) and workerID -> null");
         setNotify(true);
         setNotifyMsg({severity:"success", message:"Successfully dropped task"});
-        window.location.reload();
+        // window.location.reload();
       });
     };
 
@@ -239,7 +248,7 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
 
       {/* Display Task in minimized version */}
       {showTask &&
-      <div className="col" style={{ marginBottom:'1%' }}>
+      <div className="col" style={{ marginTop:'1%' }}>
         <Card style={{ width: 300 }}>
           <label style={{color:"black", float:"left", marginTop:"1vh", marginLeft:"1vw"}}>{status}</label>
 
@@ -247,6 +256,7 @@ const DetailedTask = ({workerID, taskID, status, typeID, name, price, descriptio
           {taskMode == "finished" && <Button size="small" style={{float:"right"}} onClick={setDropTask_Show}><RemoveCircleIcon style={{color:"red"}}/></Button>}
           {taskMode == "delete" && <Button size="small" style={{float:"right"}} onClick={setConfirmDelete_Show}><CloseIcon/></Button>}
           {taskMode == "confirm" && <Button size="small" style={{float:"right"}} onClick={setConfirmCompletedTask_Show}><NotificationsNoneOutlinedIcon style={{color:"red"}} className="flicker" /></Button>}
+          {taskMode == "pay" && <Button size="small" style={{float:"right"}} href="/payment"><PaymentIcon style={{color:"red"}} className="flicker" /></Button>}
           
           <CardActionArea onClick={setModalIsOpenToTrue}>
             <CardMedia
