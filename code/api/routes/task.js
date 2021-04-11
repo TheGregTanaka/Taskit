@@ -120,6 +120,14 @@ function routes(Task) {
       });
     });
 
+  router.route('/tasker/pendingPayment/:id')
+    .get((req, res) => {
+      Task.getPendingPayment(req, (err, tasks) => {
+        if (err) { return res.send(err).status(400); }
+        if (tasks) { return res.json(tasks).status(200); }
+      });
+    });
+
   router.route('/tasker/confirm/:id')
     .get((req, res) => {
       Task.getRequiredConfirmation(req, (err, tasks) => {
@@ -146,8 +154,6 @@ function routes(Task) {
           return res.sendStatus(204);
         });
       });
-  
-    
 
   return router;
 }

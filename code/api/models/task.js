@@ -201,6 +201,18 @@ Task.filterTaskStatus_worker = (req, status, result) => {
   return;
 };
 
+Task.getPendingPayment = (req, result) => {
+  var id = req.params.id;
+  var query = queryStr + ` WHERE taskerID = ${id} AND statusID=4;`;
+
+  sql.executeQuery(query, (err, res) => {
+    if (err) { console.log(err); result(err, null); }
+    if (res) { result(null, res['rows']); }
+    return;
+  });
+  return;
+};
+
 Task.getRequiredConfirmation = (req, result) => {
   var id = req.params.id;
 
@@ -245,7 +257,6 @@ Task.update = (id, task, result) => {
 };
 
 Task.delete = (id, result) => {
-  console.log("id", id)
   sql.executeQuery(`DELETE FROM task WHERE id = ${id} AND workerID is NULL;`, (err, res) => {
     if (err) {
       console.log("ERROR! : ", err);
@@ -276,7 +287,7 @@ Task.drop = (id, task, result) => {
 };
 
 Task.deleteComplete = (id, result) => {
-  var query = `DELETE FROM task WHERE id = ${id} AND statusID=4;`
+  var query = `DELETE FROM task WHERE id = ${id} AND statusID=5;`
   sql.executeQuery(query, (err, res) => {
     if (err) { console.log(err); result(err, null); }
     if (res) { result(null, res['rows']); }
