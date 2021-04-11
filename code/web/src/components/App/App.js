@@ -8,6 +8,7 @@ import Landing from '../Landing/Landing'
 import Login from '../Login/Login';
 import Logout from '../Login/Logout';
 import NavbarV2 from '../Navbar/NavbarV2';
+import Notification from '../Notification/Notification';
 import Registration from '../Registration/Registration'
 import Transaction from '../Transaction/Transaction'
 import Feed from '../Feed/Feed';
@@ -59,7 +60,8 @@ function App() {
       
         <BrowserRouter>
           <Switch>
-
+          
+          <Route path="/notification" component={Notification}/>
           <Route path="/chat" component={Chat}/>
           <Route path="/create_task" component={CreateTask}/>
           <Route path="/login" component={Login}/>
