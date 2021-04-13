@@ -2,6 +2,8 @@ import React from 'react';
 import './styles.css';
 import { useState } from 'react';
 
+import { Button } from '@material-ui/core';
+
 const NavbarV2 = () => {
     const [toggle, setToggle] = useState(false);
     const toggle_menu = () => {
@@ -48,12 +50,12 @@ const NavbarV2 = () => {
                         </li>
                         <li className="navbar__btn">
                             <a href={b1Act} className="button">
-      {b1}
+                                {b1}
                             </a>
                         </li>
                         <li className="navbar__btn">
                             <a href={action} className="button">
-                            {log}
+                                {log}
                             </a>
                         </li>
                     </ul>
