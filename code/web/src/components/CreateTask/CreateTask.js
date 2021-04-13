@@ -6,6 +6,9 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { Types } from '../../constants/tasks';
 
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
+
 const customStyles = {
     overlay: {
         position: 'fixed',
@@ -37,18 +40,26 @@ function CreateTask (){
     const em  = user ? user.email : 'null';
 
     const [task, setTask] = useState({
-        title: null,
+        title: "",
         typeID: 6, // Default is typeID 6(Misc)
-        description: null,
-        price: null,
+        description: "",
+        price: "",
         taskerID: userID,
         datePosted: date,
-        address: null,
-        city: null,
-        state: null,
-        zip: null,
-        country: null,
+        address: "",
+        city: "",
+        state: "",
+        zip: "",
+        country: "",
     });
+    const [notify, setNotify] = useState(false);
+    const [notifyMsg, setNotifyMsg] = useState({
+        severity: "success",
+        message: ""
+    });
+
+    const handleClick = () => { setNotify(true); };
+    const handleClose = () => { setNotify(false); };
     
      // Create Task Modal
      const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -59,18 +70,26 @@ function CreateTask (){
     const handleSubmit = e => { 
         e.preventDefault();
         setModalIsOpenToFalse();
+        setNotify(true);
         
         axios.post(`${process.env.REACT_APP_DATA_API}/task`, task)
           .then((response) => { 
-              console.log(response.data);
+            //   console.log(response.data);
+              setNotifyMsg({severity:"success", message:"Task Created!"});
+              window.location.reload();
           }, (error) => {
-              console.log(error);
+            //   console.log(error);
+              setNotifyMsg({severity:"Error", message:"Uh-oh"});
           });
-        window.location.reload();
     }
 
     return(
         <>
+            <Snackbar open={notify} autoHideDuration={5000} onClose={handleClose} >
+                <Alert elevation={6} variant="filled" severity={notifyMsg.severity}> 
+                {notifyMsg.message}
+                </Alert>
+            </Snackbar>
             <Button variant="contained" color="inherit" onClick={setModalIsOpenToTrue}>Create Task</Button>
             <Modal isOpen={modalIsOpen} style={customStyles} ariaHideApp={false} onRequestClose={()=> setModalIsOpenToFalse} scrollable={true}>
                 <center>
