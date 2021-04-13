@@ -42,11 +42,14 @@ const customStyles = {
 };
 
 
-const CheckoutCard = ({workerID, taskID, status, typeID, name, price, description, address, deadline, email, phone, taskMode="finished"}) => {
+const CheckoutCard = ({workerID, taskID, typeID, 
+                        name, price, description, 
+                        status, email, phone,
+                        address, city, state, zip, country}) => {
   const [modalIsOpen,setModalIsOpen] = useState(false);
 
-    const setModalIsOpenToTrue = () => { setModalIsOpen(true) };
-    const setModalIsOpenToFalse = () => { setModalIsOpen(false); }
+  const setModalIsOpenToTrue = () => { setModalIsOpen(true); }
+  const setModalIsOpenToFalse = () => { setModalIsOpen(false); }
 
 
   const img = Types[typeID - 1].img;
@@ -56,7 +59,8 @@ const CheckoutCard = ({workerID, taskID, status, typeID, name, price, descriptio
       {/* Display task on modal as bigger version */}
       <Modal isOpen={modalIsOpen} style={customStyles} ariaHideApp={false} onRequestClose={()=> setModalIsOpen(false)}>
         <Button size="large" color="primary" style={{float:"right", border:"0", backgroundColor:"white", fontSize:"20px"}} onClick={setModalIsOpenToFalse}><CloseIcon/></Button>
-        <EnlargeTask name={name} price={price} description={description} address={address} deadline={deadline} email={email} phone={phone} />
+        <EnlargeTask name={name} price={price} description={description} email={email} phone={phone} 
+                      address={address} city={city} state={state} zip={zip} country={country} />
       </Modal>
 
       {/* Display Task in minimized version */}
@@ -65,37 +69,32 @@ const CheckoutCard = ({workerID, taskID, status, typeID, name, price, descriptio
           <label style={{color:"black", float:"left", marginTop:"1vh", marginLeft:"1vw"}}>{status}</label>
 
           <CardActionArea onClick={setModalIsOpenToTrue}>
-            <CardMedia onClick=""
-                      component="img"
-                      height="140"
-                      image={img}
-                      title="Contemplative Reptile"
-                    />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="h2" align="left" noWrap>
-                {name.toUpperCase()}
-                <br/>
-                ${price}
-              </Typography>
-              <Typography gutterBottom variant="h6" component="h2" align="left" noWrap>
-                {address}
-              </Typography>
-              <Typography
-                variant="body2"
-                color="textSecondary"
-                component="p"
-                align="left"
-                noWrap
-              >
-                {description}
-              </Typography>
-            </CardContent>
+            <CardMedia
+              component="img"
+              height="140"
+              image={img}
+              title="Contemplative Reptile"
+            />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2" align="left" noWrap>
+                  {name.toUpperCase()}
+                  <br/>
+                  ${price}
+                </Typography>
+                <Typography gutterBottom variant="h6" component="h2" align="left" noWrap>
+                  {address}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="textSecondary"
+                  component="p"
+                  align="left"
+                  noWrap
+                >
+                  {description}
+                </Typography>
+              </CardContent>
           </CardActionArea>
-          <CardActions>
-            <Button onClick={setModalIsOpenToTrue} size="small" color="primary">
-                <Typography style={{color:"#ffab40"}}>Learn More</Typography>
-            </Button>
-          </CardActions>
         </Card>
       </div>
     </>
