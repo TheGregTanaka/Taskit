@@ -23,6 +23,10 @@ const queryStr = `SELECT
     task.dateCompleted,
     task.price,
     task.address,
+    task.city,
+    task.state,
+    task.zip,
+    task.country,
     tasker.phone,
     tasker.email
   FROM task 
