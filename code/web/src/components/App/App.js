@@ -2,20 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
-import Chat from '../Chat/Chat'
-import CreateTask from '../CreateTask/CreateTask';
-import Landing from '../Landing/Landing'
+import Chat from '../Chat/Chat';
+import Landing from '../Landing/Landing';
 import Login from '../Login/Login';
 import Logout from '../Login/Logout';
 import NavbarV2 from '../Navbar/NavbarV2';
-import Registration from '../Registration/Registration'
-import Transaction from '../Transaction/Transaction'
+import Registration from '../Registration/Registration';
 import Feed from '../Feed/Feed';
 import Footer from '../Footer/Footer';
-import Workspace from '../Workspace/Workspace'
-import ViewProfile from '../ViewProfile/ViewProfile'
-import EditProfile from '../ViewProfile/EditProfile'
-import useUserData from './userData'
+import Workspace from '../Workspace/Workspace';
+import ViewProfile from '../ViewProfile/ViewProfile';
+import EditProfile from '../ViewProfile/EditProfile';
+import useUserData from './userData';
 import Payment from '../Payment/Payment';
 
 import './App.css';
@@ -62,18 +60,14 @@ function App() {
           <Switch>
           
           <Route path="/chat" component={Chat}/>
-          <Route path="/create_task" component={CreateTask}/>
           <Route path="/login" component={Login}/>
           <Route path="/logout" component={Logout}/>
           <Route path="/payment" component={Payment}/>
           <Route path="/registeration" component={Registration}/>
-          <Route path="/transaction" component={Transaction}/>
           <Route path="/feed" component={Feed}/>
           <Route path="/workspace" component={Workspace}/>
           <Route path="/viewprofile" component={ViewProfile}/>
-          <Route path="/editprofile" component={EditProfile}>
-            {/* <EditProfile setProfile={setProfile}/> */}
-          </Route>
+          <Route path="/editprofile" component={EditProfile}/>
           <Route path="/" component={Landing}/>
 
           </Switch>
