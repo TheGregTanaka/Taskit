@@ -12,7 +12,6 @@ import './style.css';
 const Footer = () => {
     return (
         <div>
-            <div className="padding"></div>
             <div className="footer__container">
                 <div className="footer__links">
                     <div className="footer__link--wrapper">

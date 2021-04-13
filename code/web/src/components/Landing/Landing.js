@@ -33,7 +33,7 @@ const Landing = () => {
                     </div>
                 </div>
                 <div className="" style={{  marginBottom:"20vh", width:"100vw"}}>
-                    <div className="row" style={{alignContent:"center", alignItems:"center", justifyContent:"center"}}>
+                    <div className="row" style={{alignContent:"center", alignItems:"center", justifyContent:"center", marginLeft:"11vw", marginRight:"11vw"}}>
                         {Types.map((type) => (
                             <TypeCard key={type.id} typeID={type.id} />
                         ))}
