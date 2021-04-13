@@ -175,7 +175,7 @@ const DetailedTask = ({workerID, taskID, typeID,
       setShowTask(false);
       window.scrollTo(0, 0);
       // Update task status
-      axios.patch(`http://localhost:3200/task/drop/${taskID}`)
+      axios.patch(`${api}/task/drop/${taskID}`)
       .then( response => {
         console.log("Successfully changed statusID(2 -> 1) and workerID -> null");
         setNotify(true);
