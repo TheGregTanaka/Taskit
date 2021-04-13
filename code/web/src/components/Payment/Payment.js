@@ -9,7 +9,10 @@ import axios from 'axios';
 
 
 
-const Payment = () => {
+const Payment = ({workerID, taskID, typeID, 
+                    name, price, description, 
+                    status, email, phone,
+                    address, city, state, zip, country}) => {
     const [tasks, setTasks] = useState([]);
     const [err, setErr] = useState(false);
     const mountedRef = useRef(true);
@@ -34,29 +37,24 @@ const Payment = () => {
     return (
         <div>
             <div className="row">
-                {!err && tasks.slice(0).reverse().map((task) => (<CheckoutCard key={task.id}
-                                                        workerID={task.workerID}
-                                                        taskID={task.id}
-                                                        status={task.status}
-                                                        typeID={task.typeID}
-                                                        name={task.title}
-                                                        price={task.price}
-                                                        description={task.description}
-                                                        address={task.address}
-                                                        deadline={(task.datePosted)}
-                                                        email={task.email}
-                                                        phone={task.phone}
-                                                        img={task.img}
-                                                        status={task.status}
-                                                        address={task.address}
-                                                        taskMode=""
-                                                    />))}
+                <div className="col" style={{marginTop:"1vh"}}>
+                    <CheckoutCard
+                        workerID={workerID} taskID={taskID} typeID={typeID}
+                        name={name} price={price} description={description}
+                        status={status} email={email} phone={phone}
+                        taskMode=""
+                        address={address} city={city} state={state} zip={zip} country={country}
+                    />
+                </div>
+                <div className="col">
+                    <StripeProvider apiKey="pk_test_51IcvzIJt6QCCB8rY7FDWCLFodiT0HYnNaAOy5ukVwyZO9lKt5b7uMMjEbHZj2E8kR43rhL0QejGF3byQR29hBYRE00omTZyH79">
+                        <Elements>
+                            <Form amount={price} taskID={taskID}/>
+                        </Elements>
+                    </StripeProvider>
+                </div>
             </div>
-            <StripeProvider apiKey="pk_test_51IcvzIJt6QCCB8rY7FDWCLFodiT0HYnNaAOy5ukVwyZO9lKt5b7uMMjEbHZj2E8kR43rhL0QejGF3byQR29hBYRE00omTZyH79">
-                <Elements>
-                    <Form />
-                </Elements>
-            </StripeProvider>
+            
         </div>
     )
 }
