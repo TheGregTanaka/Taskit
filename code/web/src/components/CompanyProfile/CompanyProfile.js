@@ -55,7 +55,7 @@ const CompanyProfile = () => {
 
   if (profile[0]) {
     return (
-        <div style={{margin: "2% 1% 5% 5%"}}>
+        <div style={{margin: "2% 1% 0% 5%"}}>
             <div className="row">
                 <div className="col l2 white accent-3">
                     <div className="card bio">
