@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
@@ -93,6 +92,9 @@ const DetailedTask = ({workerID, taskID, typeID,
 
     const setDropTask_Hide = () => { setDropTask(false); }
     const setDropTask_Show = () => { setDropTask(true); }
+
+    const setPendingPayment_Hide = () => { setPendingPayment(false); }
+    const setPendingPayment_Show = () => { setPendingPayment(true); }
     const api = process.env.REACT_APP_DATA_API;
 
     const finishedTask_put = () => {
@@ -122,13 +124,15 @@ const DetailedTask = ({workerID, taskID, typeID,
       axios.patch(`${api}/task/${taskID}`, {
         data: { statusID: 4}
       })
-      .then( console.log("Successfully changed statusID(3 -> 4)") )
+      .then( 
+        // console.log("Successfully changed statusID(3 -> 4)")
+        )
 
       // Add review to task
       axios.post(`${process.env.REACT_APP_DATA_API}/review/${workerID}`, { review })
         .then((response) => { 
             // console.log(response.data);
-            console.log("Added review to task");
+            // console.log("Added review to task");
         }, (err) => {
             console.log(err);
         });
@@ -145,9 +149,9 @@ const DetailedTask = ({workerID, taskID, typeID,
       if (status == "Pending" || status == "Accepted") {
         axios.delete(`${api}/task/${taskID}`)
           .then(response => {
-            console.log("Successfully removed task");
+            // console.log("Successfully removed task");
             setNotifyMsg({severity:"success", message:"Successfully deleted a task"});
-            // await sleep(5000);
+            setShowTask(false);
             // window.location.reload();
           })
           .catch(err => {
@@ -157,9 +161,9 @@ const DetailedTask = ({workerID, taskID, typeID,
       } else if (status == "Complete") {
         axios.delete(`${api}/task/deleteComplete/${taskID}`)
           .then(response => {
-            console.log("Successfully removed task");
+            // console.log("Successfully removed task");
             setNotifyMsg({severity:"success", message:"Successfully deleted a task"});
-            // await sleep(5000);
+            setShowTask(false);
             // window.location.reload();
           })
       }
@@ -212,6 +216,18 @@ const DetailedTask = ({workerID, taskID, typeID,
           <Button style={{float:"right"}} onClick={DropTask_patch}>Confirm</Button>
       </Modal>
 
+      <Modal isOpen={pendingPayment} style={customStyles} ariaHideApp={false} onRequestClose={()=> setPendingPayment(false)}>
+        <div className="row">
+          <CloseIcon style={{float:"right"}} onClick={setPendingPayment_Hide} />
+        </div>
+        <div className="row">
+          <Payment workerID={workerID} taskID={taskID} typeID={typeID}
+                      name={name} price={price} description={description}
+                      status={status} email={email} phone={phone}
+                      address={address} city={city} state={state} zip={zip} country={country}/>
+        </div>
+      </Modal>
+
 
       <Modal isOpen={confirmCompletedTask} style={customStyles} ariaHideApp={false} onRequestClose={()=> setConfirmCompletedTask(false)}>
         <center>
@@ -239,7 +255,7 @@ const DetailedTask = ({workerID, taskID, typeID,
                 <br/>
                 {/* <Button variant="contained" color="secondary" style={{float:"right", background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'}}>Submit</Button>{' '} */}
                 <Button variant="contained" color="secondary" style={{float:"right"}} onClick={setConfirmCompletedTask_Hide}>Cancel</Button>{' '}
-                <a href="/payment"><Button style={{float:"right"}} onClick={confirmedTask_patch}>Confirm</Button></a>
+                <Button style={{float:"right"}} onClick={confirmedTask_patch}>Confirm</Button>
             </form>
         </div>
     </Modal>
@@ -261,7 +277,7 @@ const DetailedTask = ({workerID, taskID, typeID,
           {taskMode == "finished" && <Button size="small" style={{float:"right"}} onClick={setDropTask_Show}><RemoveCircleIcon style={{color:"red"}}/></Button>}
           {taskMode == "delete" && <Button size="small" style={{float:"right"}} onClick={setConfirmDelete_Show}><CloseIcon/></Button>}
           {taskMode == "confirm" && <Button size="small" style={{float:"right"}} onClick={setConfirmCompletedTask_Show}><NotificationsNoneOutlinedIcon style={{color:"red"}} className="flicker" /></Button>}
-          {taskMode == "pay" && <Button size="small" style={{float:"right"}} href="/payment"><PaymentIcon style={{color:"red"}} className="flicker" /></Button>}
+          {taskMode == "pay" && <Button size="small" style={{float:"right"}} onClick={setPendingPayment_Show}><PaymentIcon style={{color:"red"}} className="flicker" /></Button>}
           
           <CardActionArea onClick={setModalIsOpenToTrue}>
             <CardMedia
