@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import React, { useState } from 'react';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import {TypeID, Types } from '../../constants/tasks';
+import { Types } from '../../constants/tasks';
 
 const customStyles = {
     overlay: {
@@ -24,9 +24,6 @@ const customStyles = {
       marginTop: '2%',
       transform: 'translate(-50%, -50%)',
       backgroundColor: 'white',
-    //   height: "80vh",
-    //   width: "auto"
-
     }
 };
 
@@ -39,17 +36,18 @@ function CreateTask (){
     const userID = user ? user.id : 'null';
     const em  = user ? user.email : 'null';
 
-
     const [task, setTask] = useState({
-        title: "",
-        typeID: "",
-        description: "",
+        title: null,
+        typeID: 6, // Default is typeID 6(Misc)
+        description: null,
         price: null,
         taskerID: userID,
         datePosted: date,
-        address: "",
-        lat: 0,
-        lng: 0,
+        address: null,
+        city: null,
+        state: null,
+        zip: null,
+        country: null,
     });
     
      // Create Task Modal
@@ -68,7 +66,6 @@ function CreateTask (){
           }, (error) => {
               console.log(error);
           });
-
         window.location.reload();
     }
 
@@ -86,35 +83,60 @@ function CreateTask (){
                             <input type="text" name="task_name" value={task.title} onChange={e => setTask({ ...task, title: e.target.value })} required/>
                         </label>
                         <br/>
+                        <div className="row">
+                            <div className="col">
+                                <label>
+                                    Price:
+                                    <input type="number" name="task_price" placeholder="USD" value={task.price} onChange={e => setTask({ ...task, price: e.target.value })} required/>
+                                </label>
+                            </div>
+                            <div className="col" style={{marginTop:"1.5vh"}}>
+                                <label>
+                                    Type: <br/>
+                                        <Select labelID="typeSelector" 
+                                                id="typeSelect" 
+                                                defaultValue="none"
+                                                onChange={e => setTask({...task, typeID: e.target.value})} 
+                                                required>
+                                            <MenuItem value="none" disabled>Select a Type</MenuItem>
+                                            {Types.map((type) => (
+                                                <MenuItem key={type.id} value={type.id}>{type.name}</MenuItem>))}
+                                        </Select>
+                                </label>
+                            </div>
+                        </div>
                         <label>
-                            Price:
-                            <br/>
-                            <input type="number" name="task_price" placeholder="USD" value={task.price} onChange={e => setTask({ ...task, price: e.target.value })} required/>
-                        </label>
-                        <label>
-                            Type:
-                              <br/>
-                                <Select labelID="typeSelector" 
-                                        id="typeSelect" 
-                                        defaultValue="none"
-                                        onChange={e => setTask({...task, typeID: e.target.value})} 
-                                        required>
-                                  <MenuItem value="none" disabled>Select a Type</MenuItem>
-                                  {Types.map((type) => (
-                                    <MenuItem key={type.id} value={type.id}>{type.name}</MenuItem>))}
-                                    </Select>
-                        </label>
-                        <br/>
-                        <label>
-                            Address: 
-      <br/>
+                            Address:
                             <input type="text" name="task_addr" value={task.address} onChange={e => setTask({ ...task, address: e.target.value })} required/>
                         </label>
-      <br/>
+                        <label>
+                            City: 
+                            <input type="text" name="task_addr" value={task.city} onChange={e => setTask({ ...task, city: e.target.value })} required/>
+                        </label>
+                        <div className="row">
+                            <div className="col">
+                                <label>
+                                    State:
+                                    <input type="text" name="task_addr" value={task.state} onChange={e => setTask({ ...task, state: e.target.value })} required/>
+                                </label>
+                            </div>
+                            <div className="col">
+                                <label>
+                                    Zip:
+                                    <input type="text" name="task_addr" value={task.zip} onChange={e => setTask({ ...task, zip: e.target.value })} required/>
+                                </label>
+                            </div>
+                            <div className="col">
+                                <label>
+                                    Country:
+                                    <input type="text" name="task_addr" value={task.country} onChange={e => setTask({ ...task, country: e.target.value })} required/>
+                                </label>
+                            </div>
+                        </div>
                         <label>
                             Description: 
                             <br/>
-                            <textarea id="task_desc" maxLength="1200" style={{width:"100%", height:"150px"}} placeholder={"I will"}
+                            <textarea id="task_desc" maxLength="1200" style={{width:"100%", height:"150px", padding:"10px"}} placeholder={"I will"}
                                 value={task.description} onChange={e => setTask({ ...task, description: e.target.value })} required/>
                         </label>
                         <label>

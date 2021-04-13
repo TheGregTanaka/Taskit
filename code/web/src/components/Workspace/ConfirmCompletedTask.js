@@ -38,7 +38,6 @@ const ConfirmCompletedTask = () => {
             mountedRef.current = false
         }
     }, []);
-
     return (
         <div style={{marginBottom:"1vh", marginLeft:'6%', marginRight:'6%'}}>
             {tasks.length != 0 &&
@@ -59,21 +58,11 @@ const ConfirmCompletedTask = () => {
                 <AccordionDetails>
                     <div className="row">
                         {!err && tasks.slice(0).reverse().map((task) => (<DetailedTask key={task.id}
-                                                                workerID={task.workerID}
-                                                                taskID={task.id}
-                                                                status={task.status}
-                                                                typeID={task.typeID}
-                                                                name={task.title}
-                                                                price={task.price}
-                                                                description={task.description}
-                                                                address={task.address}
-                                                                deadline={(task.datePosted)}
-                                                                email={task.email}
-                                                                phone={task.phone}
-                                                                img={task.img}
-                                                                status={task.status}
-                                                                address={task.address}
+                                                                workerID={task.workerID} taskID={task.id} typeID={task.typeID}
+                                                                name={task.title} price={task.price} description={task.description}
+                                                                status={task.status} email={task.email} phone={task.phone}
                                                                 taskMode="confirm"
+                                                                address={task.address} city={task.city} state={task.state} zip={task.zip} country={task.country}
                                                             />))}
                     </div>
                 </AccordionDetails>

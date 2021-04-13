@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-
+import Avatar from '@material-ui/core/Avatar';
 import { Redirect } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
@@ -59,6 +59,7 @@ const CompanyProfile = () => {
             <div className="row">
                 <div className="col l2 white accent-3">
                     <div className="card bio">
+                        {/* <Avatar src="/static/images/avatar/1.jpg" /> */}
                         {/* <img className="circle img-profile-responsive" src={img_profile} alt="Profile Image"/> */}
                         <div className="card-content">
                             <center>
@@ -77,7 +78,7 @@ const CompanyProfile = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col l10 fit-in-container" style={{backgroundColor: 'white'}}>
+                {completedTask.length != 0 && <div className="col l10 fit-in-container" style={{backgroundColor: 'white'}}>
                     <div className="row" style={{color:"black", marginTop:'1%'}}>
                         <Typography gutterBottom variant="h5" component="h2" align="left">
                             Completed Tasks
@@ -97,7 +98,7 @@ const CompanyProfile = () => {
                     <div className="row">
                         {!err && completedTask.slice(0).reverse().map((review) => (<Review key={review.reviewId} username={review.reviewerName} description={review.reviewDesc} ratingVal={review.reviewRating} img={review.reviewerPic}/>))}
                     </div>
-                </div>
+                </div>}
             </div>
         </div>
     )

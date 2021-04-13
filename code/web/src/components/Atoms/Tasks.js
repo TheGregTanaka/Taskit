@@ -11,7 +11,7 @@ import { Card, CardActionArea } from "@material-ui/core";
 import axios from "axios";
 import { useHistory } from 'react-router';
 import Map from '../Map/Map';
-import {TypeID, Types} from '../../constants/tasks';
+import { Types} from '../../constants/tasks';
   
   
   const useStyles = makeStyles((theme) => ({
@@ -72,6 +72,9 @@ import {TypeID, Types} from '../../constants/tasks';
           <CardActionArea>
             
             <CardContent>
+              <Typography gutterBottom variant="h6" component="h2" align="right">
+                Posted Date: {(props.posted.split('T'))[0]} 
+              </Typography>
               <Typography gutterBottom variant="h4" component="h2" align="left">
                 {props.name} - <b>${props.price}</b>
               </Typography>
@@ -88,7 +91,7 @@ import {TypeID, Types} from '../../constants/tasks';
                 Phone Number: {props.phone}
                 <br/>
               </Typography>
-              <div><Map address={props.location} /></div>
+              <div><Map address={props.address + ", " + props.city + ", " + props.state + ", " + props.zip + ", " + props.country} /></div>
             </CardContent>
           </CardActionArea>
           <CardActions>

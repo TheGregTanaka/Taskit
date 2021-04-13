@@ -52,20 +52,11 @@ const MyTasks = () => {
                 <AccordionDetails style={{clear: "both"}}>
                     <div className="row">
                         {!err && tasks.slice(0).reverse().map((task) => (<DetailedTask key={task.id}
-                                                                taskID={task.id}
-                                                                status={task.status}
-                                                                typeID={task.typeID}
-                                                                name={task.title}
-                                                                price={task.price}
-                                                                description={task.description}
-                                                                address={task.address}
-                                                                deadline={(task.datePosted)}
-                                                                email={task.email}
-                                                                phone={task.phone}
-                                                                img={task.img}
-                                                                status={task.status}
-                                                                address={task.address}
-                                                                taskMode="delete"
+                                                                            workerID={task.workerID} taskID={task.id} typeID={task.typeID}
+                                                                            name={task.title} price={task.price} description={task.description}
+                                                                            status={task.status} email={task.email} phone={task.phone}
+                                                                            taskMode="delete"
+                                                                            address={task.address} city={task.city} state={task.state} zip={task.zip} country={task.country}
                                                             />))}
                     </div>
                 </AccordionDetails>
@@ -75,3 +66,5 @@ const MyTasks = () => {
 }
 
 export default MyTasks
+
+                                                                

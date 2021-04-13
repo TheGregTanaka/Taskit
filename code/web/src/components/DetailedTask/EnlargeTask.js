@@ -1,6 +1,7 @@
 import React from 'react';
 import Map from '../Map/Map.js';
-const EnlargeTask = ({name, price, description, address, deadline, email, phone}) => {
+const EnlargeTask = ({name, price, description, email, phone,
+                    address, city, state, zip, country}) => {
     return (
         <div>
             
@@ -10,25 +11,20 @@ const EnlargeTask = ({name, price, description, address, deadline, email, phone}
                     <b>Price: </b> ${price}
                 </div>
                 <div>
-                    <b>Deadline: </b> {deadline}
-                </div>
-                <div>
-                    <b>Address: </b> {address}
+                    <b>Address: </b> {address + ", " + city + ", " + state + ", " + zip + ", " + country}
                 </div>
                 <div>
                     <b>Description: </b>{description}
                 </div>
-                <br/>
                 <div>
-                <hr/>
+                <br />
                     <b>Contact Info</b> <br/>
                     &nbsp;&nbsp;&nbsp;<b>Email: </b>{email} <br/>
                     &nbsp;&nbsp;&nbsp;<b>Phone: </b>{phone}
                 </div>
-                <hr/>
-                <div>
+                <div style={{display:"flex", flexDirection:"row", flexWrap:"wrap", justifyContent:"center", alignItems:"center"}}>
                     <Map 
-                      address={address}
+                      address={address + ", " + city + ", " + state + ", " + zip + ", " + country}
                     />
                 </div>
             </div>

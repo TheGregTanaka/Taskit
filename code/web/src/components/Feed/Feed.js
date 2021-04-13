@@ -2,12 +2,11 @@ import React from 'react';
 import { useEffect, useState } from "react";
 import "../App/App.css";
 import Task from "../Atoms/Tasks.js";
-import DetailedTask from "../DetailedTask/DetailedTask.js";
 import axios from "axios";
 import { makeStyles, Typography, Button }from "@material-ui/core";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
-import {TypeID, Types, GetType } from '../../constants/tasks';
+import {TypeID, Types } from '../../constants/tasks';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,24 +66,15 @@ const Feed = () => {
         Reset Filter
         </Button>
     </div>
-      <div
-        className=""
-        style={{ marginLeft: "5%", marginRight: "5%", alignContent: "center" }}
-      >
-
+      <div style={{ marginLeft: "5%", marginRight: "5%", alignContent: "center" }}>
         <div className="row">
           {tasks.map((task) => (
             <Task
-              key={task.id}
-              name={task.title}
-              typeID={task.typeID}
-              price={task.price}
-              description={task.description}
-              location={task.address}
-              deadline={task.datePosted}
-              email={task.email}
-              phone={task.phone}
-              id={task.id}
+              key={task.id} id={task.id} typeID={task.typeID}
+              name={task.title} price={task.price} description={task.description}
+              email={task.email} phone={task.phone}
+              posted={task.datePosted}
+              address={task.address} city={task.city} state={task.state} zip={task.zip} country={task.country}
             />
           ))}
         </div>
