@@ -51,8 +51,6 @@ CREATE TABLE IF NOT EXISTS task
     state VARCHAR(128),
     zip VARCHAR(20),
     country VARCHAR(128),
-    lat FLOAT(10,6),
-    lng FLOAT(10,6),
     CONSTRAINT task_type_fk FOREIGN KEY (typeID) REFERENCES typeTask (id),
     CONSTRAINT task_status_fk FOREIGN KEY (statusID) REFERENCES statusTask (id),
     CONSTRAINT task_tasker_fk FOREIGN KEY (taskerID) REFERENCES userProfile (id)
@@ -100,20 +98,18 @@ INSERT INTO `userProfile`
 (`email`, `password`, `name`, `phone`, `bio`)
 VALUES
 ("testTasker@ineedhelp.com", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Theo Tasker", "xxx-xxx-xxxx", "Hello I'm Theo. I'm glad you're taking an interest in me."),
-("mario@plumber.com", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Mario Pipes", "111-222-3333", "Hello I'm mario. I'm glad you're taking an interest in me."),
-("greenthumb@yourgardener.net", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Forrest Green", "444-555-6666", "Hello I'm green. I'm glad you're taking an interest in me."),
 ("gregory.tanaka@colorado.edu", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Gregory Tanaka", "777-888-9999", "Hello I'm Greg. I'm glad you're taking an interest in me.");
 
 
 INSERT INTO task
 (`title`, `typeID`, `statusID`, `description`, `price`, `taskerID`, `workerID`, `datePosted`, `dateCompleted`, `address`)
 VALUES
-("Rake my leaves", 1, 1, "I need someone to rake the leaves in my yard", 20, 2, 1, '2021-02-08', NULL, "University of Colorado Boulder, Boulder, CO"),
-("Hook up my speakers", 5, 2, "I need help setting up my new audio system.", 20, 3, 1, '2021-02-09', NULL, "1669 Euclid Ave, Boulder, CO 80309"),
-("Wash my car", 4, 3, "My car is dirty! Help!", 20, 4, 1, '2021-03-29', '2021-04-01', "409 4th Ave, Longmont, CO 80501"),
-("Mow My Lawn", 1, 4, "Grass is getting too long", 15, 4, 1, '2021-03-01', '2021-03-03', "1265 Boston Ave, Longmont, CO 80501"),
-("Need Party Clown", 6, 3, "Looking for entertainment for my kid's birthday", 70, 3, 4, '2021-03-15', '2021-03-20', "2922 Baseline Rd, Boulder, CO 80303"),
-("Need Clown", 6, 3, "Looking for entertainment Assigned by GREG(4) ACCEPTED by mario(2)", 70, 4, 2, '2021-03-15', '2021-03-20', "500 Linden St, Fort Collins, CO 80524");
+("Rake my leaves", 1, 1, "I need someone to rake the leaves in my yard", 20, 2, 2, '2021-02-08', NULL, "University of Colorado Boulder, Boulder, CO"),
+("Hook up my speakers", 5, 2, "I need help setting up my new audio system.", 20, 2, 2, '2021-02-09', NULL, "1669 Euclid Ave, Boulder, CO 80309"),
+("Wash my car", 4, 3, "My car is dirty! Help!", 20, 2, 2, '2021-03-29', '2021-04-01', "409 4th Ave, Longmont, CO 80501"),
+("Mow My Lawn", 1, 4, "Grass is getting too long", 15, 2, 2, '2021-03-01', '2021-03-03', "1265 Boston Ave, Longmont, CO 80501"),
+("Need Party Clown", 6, 3, "Looking for entertainment for my kid's birthday", 70, 2, 2, '2021-03-15', '2021-03-20', "2922 Baseline Rd, Boulder, CO 80303"),
+("Need Clown", 6, 3, "Looking for entertainment Assigned by GREG(4) ACCEPTED by mario(2)", 70, 2, 2, '2021-03-15', '2021-03-20', "500 Linden St, Fort Collins, CO 80524");
 
 
 INSERT INTO review
