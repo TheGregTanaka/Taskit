@@ -57,7 +57,7 @@ const EditProfile = ({}) => {
                                 </th>
                                 <td>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="name" placeholder="Name" onChange={e => setName(e.target.value)}></input>
+                                        <input style={{color:"white"}} type="text" class="form-control" name="name" placeholder="Name" onChange={e => setName(e.target.value)}></input>
                                     </div>
                                 </td>
                             </tr>
@@ -67,7 +67,7 @@ const EditProfile = ({}) => {
                                 </th>
                                 <td>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="phone" placeholder="Phone" onChange={e => setPhone(e.target.value)}></input>
+                                        <input style={{color:"white"}} type="text" class="form-control" name="phone" placeholder="Phone" onChange={e => setPhone(e.target.value)}></input>
                                     </div>
                                 </td>
                             </tr>
@@ -77,7 +77,7 @@ const EditProfile = ({}) => {
                                 </th>
                                 <td>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="bio" placeholder="Bio" onChange={e => setBio(e.target.value)}></input>
+                                        <input style={{color:"white"}} type="text" class="form-control" name="bio" placeholder="Bio" onChange={e => setBio(e.target.value)}></input>
                                     </div>
                                 </td>
                             </tr>
