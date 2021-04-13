@@ -8,6 +8,7 @@ import { Button } from '@material-ui/core';
 
 const Form = (props) => {
     const [card, setCard] = useState({
+        name: "",
         email: "",
         amount: "",
     });
@@ -15,8 +16,8 @@ const Form = (props) => {
     const handleSubmit = async(e) => {
         e.preventDefault();
         try {
-            let token = await props.stripe.createToken({ name: card.name });
-            // console.log(token);
+            let token = await props.stripe.createToken({ name: card.mail });
+            console.log(token);
 
             axios.post(`${process.env.REACT_APP_DATA_API}/payment`, {token, card})
                 .then((response) => {
@@ -24,6 +25,7 @@ const Form = (props) => {
                 }, (error) => {
                     console.log(error);
                 });
+
         } catch(e) {
             throw e;
         }
@@ -34,6 +36,14 @@ const Form = (props) => {
             <Paper>
                 <main className="container" style={{marginTop:"10%"}}>
                     <form onSubmit={handleSubmit}>
+                        <label>Name</label>
+                        <input 
+                            type="text"
+                            value={card.name}
+                            onChange={e => setCard({...card, name: e.target.value})}
+                            placeholder="Name"
+                            required
+                        />
                         <label>Email</label>
                         <input 
                             type="email"
