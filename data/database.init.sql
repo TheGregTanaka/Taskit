@@ -97,27 +97,31 @@ VALUES
 INSERT INTO `userProfile` 
 (`email`, `password`, `name`, `phone`, `bio`)
 VALUES
-("testTasker@ineedhelp.com", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Theo Tasker", "xxx-xxx-xxxx", "Hello I'm Theo. I'm glad you're taking an interest in me."),
-("gregory.tanaka@colorado.edu", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Gregory Tanaka", "777-888-9999", "Hello I'm Greg. I'm glad you're taking an interest in me.");
+("testTasker@ineedhelp.com", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Theo Tasker", "123-456-7890", "Hello I'm Theo. I'm glad you're taking an interest in me."),
+("gregory.tanaka@colorado.edu", "$2b$10$yXOiW/cgWb8rC3zOtFzRveYAYKiWC5npqjO/zCuOwusRttR.t5Fxm", "Gregory Tanaka", "777-888-9999", "Hi I'm Greg. I'm glad you're taking an interest in me.");
 
 
 INSERT INTO task
-(`title`, `typeID`, `statusID`, `description`, `price`, `taskerID`, `workerID`, `datePosted`, `dateCompleted`, `address`)
+(`typeID`, `statusID`, `price`, `taskerID`, `workerID`, `datePosted`, `dateCompleted`, `title`,  `description`, `address`, `city`, `state`, `zip`, `country`)
 VALUES
-("Rake my leaves", 1, 1, "I need someone to rake the leaves in my yard", 20, 2, 2, '2021-02-08', NULL, "University of Colorado Boulder, Boulder, CO"),
-("Hook up my speakers", 5, 2, "I need help setting up my new audio system.", 20, 2, 2, '2021-02-09', NULL, "1669 Euclid Ave, Boulder, CO 80309"),
-("Wash my car", 4, 3, "My car is dirty! Help!", 20, 2, 2, '2021-03-29', '2021-04-01', "409 4th Ave, Longmont, CO 80501"),
-("Mow My Lawn", 1, 4, "Grass is getting too long", 15, 2, 2, '2021-03-01', '2021-03-03', "1265 Boston Ave, Longmont, CO 80501"),
-("Need Party Clown", 6, 3, "Looking for entertainment for my kid's birthday", 70, 2, 2, '2021-03-15', '2021-03-20', "2922 Baseline Rd, Boulder, CO 80303"),
-("Need Clown", 6, 3, "Looking for entertainment Assigned by GREG(4) ACCEPTED by mario(2)", 70, 2, 2, '2021-03-15', '2021-03-20', "500 Linden St, Fort Collins, CO 80524");
-
+(5, 5, 20, 1, 2,    '2021-02-09', '2021-03-09', "Hook up my speakers", "I need help setting up my new audio system.", "1669 Euclid Ave", "Boulder", "CO", "80309", "USA"),
+(4, 5, 10, 1, 2,    '2021-03-29', '2021-04-01', "Wash my car", "My car is dirty! Help!", "409 4th Ave", "Longmont", "CO", "80501", "USA"),
+(1, 5, 15, 1, 2,    '2021-03-01', '2021-03-03', "Mow My Lawn", "Grass is getting too long", "1265 Boston Ave", "Longmont", "CO", "80501", "USA"),
+(6, 5, 70, 1, 2,    '2021-03-15', '2021-03-20', "Need Party Clown", "Looking for entertainment for my kid\'s birthday", "2922 Baseline Rd", "Boulder", "CO", "80303", "USA"),
+(1, 1, 20, 2, NULL, '2021-02-08', NULL, "Rake my leaves", "I need someone to rake the leaves in my yard", "University of Colorado Boulder", "Boulder", "CO", "", ""),
+(2, 1, 40, 1, NULL, '2021-03-21', NULL, "Looking for window washer", "I need help washing my windows.", "2811 Walnut St Unit 150", "Denver", "CO", "80205", "USA"),
+(3, 1, 70, 1, NULL, '2021-03-15', NULL, "Fix deck railing", "Railing on my deck needs to be fixed", "500 Linden St", "Fort Collins", "CO", "80524", "USA"),
+(4, 1, 40, 1, NULL, '2021-03-21', NULL, "Oil Change", "Car needs fresh oil", "800 E Lincoln Ave", "Fort Collins", "CO", "80524", "USA"),
+(5, 1, 40, 1, NULL, '2021-03-21', NULL, "Help configure my Access Point", "Help me set up my wifi.", "2801 Tower Rd", "Aurora", "CO", "80011", "USA"),
+(6, 1, 40, 1, NULL, '2021-03-21', NULL, "Walk my dog", "Fido needs some exercise.", "2811 Walnut St Unit 150", "Denver", "CO", "80205", "USA"),
+(5, 2, 80, 1, 2,    '2021-04-01', NULL, "Deploy my web app", "Help me put my web application online", "1265 Boston Ave", "Longmont", "CO", "80501", "USA"),
+(3, 3, 50, 2, 1,    '2021-04-02', '2021-04-03', "Fence Repair", "The fence in my yard is falling appart. I need someone to fix it up.", "409 4th Ave", "Longmont", "CO", "80501", "USA"),
+(2, 4, 35, 2, 1,    '2021-04-01', '2021-04-03', "Shampoo Carpets", "My rugs need washing", "2922 Baseline Rd", "Boulder", "CO", "80303", "USA");
 
 INSERT INTO review
 (`rating`, `description`, `taskID`)
 VALUES
-(3.5, "Pretty good, but lines could be straighter", 1),
-(1.0, "I can't hear anything!", 2),
-(5.0, "My car has never been cleaner", 3),
-(3.5, "Pretty good, but lines could be curvy", 4),
-(1.0, "Greg's a real clown, just not the kind I was looking for...", 5),
-(1.0, "Test Case Review Assigned to ", 6);
+(1.0, "I can't hear anything!", 1),
+(5.0, "My car has never been cleaner", 2),
+(3.5, "Pretty good, but lines could be straighter", 3),
+(1.0, "Greg's a real clown, just not the kind I was looking for...", 4);
