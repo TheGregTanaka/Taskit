@@ -13,11 +13,12 @@ const UserProfile = function(user) {
 };
 
 
+
 UserProfile.create = (newUser, result) => {
   console.log(newUser);
   //TODO validate email field exists? Should be required field by form
   //check if existing user
-  sql.executeQuery(`SELECT email FROM userProfile WHERE email = "${newUser['email']}";`, 
+  sql.executeQuery(`SELECT email FROM userProfile WHERE email = "${newUser['email']}";`,
     (err, res) => {
       if (err) {console.log(err);}
       if (res['rows'].length > 0) {
@@ -26,33 +27,36 @@ UserProfile.create = (newUser, result) => {
         console.log(msg);
         result(null, msg);
         return;
-      } else {
-        let kStr, vStr;
-        kStr = vStr = "(";
-        for (const key in newUser) {
-          console.log(`k ${key} v ${newUser[key]}\n`);
-          kStr += key + ",";
-          vStr += `"${newUser[key]}",`;
-        }
-        //remove final commas
-        kStr = kStr.substring(0, kStr.length - 1) + ")";
-        vStr = vStr.substring(0, vStr.length - 1) + ")";
-
-        const insertStr = `INSERT INTO userProfile ${kStr} VALUES ${vStr};`;
+      } 
+      else {
+        bcrypt.hash(newUser['password'], saltRounds, function(err, hash) {
+        if(hash){
+        const insertStr = `INSERT INTO userProfile (email,name,password) VALUES ('${newUser['email']}', '${newUser['name']}', '${hash}');`;
         sql.executeQuery(insertStr, (err, res) => {
           if (err) {
             //TODO better error handling
             console.log("ERROR! : ", err);
             result(err, null);
             return;
-          }
-
-          //console.log("created user: ", { id: res.rows.insertId, ...newUser });
-          result(null, JSON.stringify({ id: res.rows.insertId, ...newUser }));
+          };
+        
+          UserProfile.createCookie(newUser['email'],res.rows.insertId,(err, token) =>{
+            if(err){
+            console.log("ERROR! : ", err);
+            result(err, null);
+            return;
+            };
+            result(null,{id: res.rows.insertId, email:newUser['email']},token);
+          });
+          console.log("created user: ", { id: res.rows.insertId, ...newUser });
         });
-      }
+        return;
+      };
+        });
+      };
     });
-};
+  };
+
 
 UserProfile.getOne = (userID, result) => {
   console.log(`up.getOne ${userID}`);
@@ -83,7 +87,7 @@ UserProfile.getOne = (userID, result) => {
 };
 
 UserProfile.update = (id, user, result) => {
-  console.log(id);
+  console.log(user);
   var updateStr = `UPDATE userProfile SET`;
   for (const key in user) {
     updateStr += ` ${key} = "${user[key]}",`;
