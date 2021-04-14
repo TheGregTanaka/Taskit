@@ -49,11 +49,6 @@ const NavbarV2 = () => {
                             Workspace
                             </a>
                         </li>
-                        <li className="navbar__item">
-                            <a href="/viewprofile" className="navbar__links">
-                            Profile
-                            </a>
-                        </li>
                         <li className="navbar__btn">
                             <a href={b1Act} className="button">
                                 {b1}

@@ -13,7 +13,6 @@ function routes(UserProfile) {
 
   router.route('/:id')
     .get((req, res) => {
-      console.log(req.params.id);
       UserProfile.getOne(req.params.id, (err, userProfile) => {
         if(err) {
           return res.send(err);

@@ -15,8 +15,6 @@ const UserProfile = function(user) {
 
 
 UserProfile.create = (newUser, result) => {
-  console.log(newUser);
-  //TODO validate email field exists? Should be required field by form
   //check if existing user
   sql.executeQuery(`SELECT email FROM userProfile WHERE email = "${newUser['email']}";`,
     (err, res) => {
@@ -59,7 +57,6 @@ UserProfile.create = (newUser, result) => {
 
 
 UserProfile.getOne = (userID, result) => {
-  console.log(`up.getOne ${userID}`);
   sql.executeQuery(
     `SELECT 
        email, 
@@ -86,7 +83,6 @@ UserProfile.getOne = (userID, result) => {
 };
 
 UserProfile.update = (id, user, result) => {
-  console.log(user);
   var updateStr = `UPDATE userProfile SET`;
   for (const key in user) {
     updateStr += ` ${key} = "${user[key]}",`;
