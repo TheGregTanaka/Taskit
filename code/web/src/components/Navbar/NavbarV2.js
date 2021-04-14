@@ -10,12 +10,13 @@ const NavbarV2 = () => {
         if(toggle) { setToggle(false); } else { setToggle(true); }
     }
 
-  const userData = JSON.parse(localStorage.getItem('user'));
+    const userData = JSON.parse(localStorage.getItem('user'));
+    const [loggedIn, setLoggedIn] = useState(!!userData);
     let log = "Login";
     let action = "/login";
     let b1 = "SignUp";
     let b1Act = "/registeration";
-    if (userData) {
+    if (loggedIn) {
       b1 = "Profile";
       b1Act = "/viewprofile";
       log = "Logout";
@@ -46,11 +47,6 @@ const NavbarV2 = () => {
                         <li className="navbar__item">
                             <a href="/workspace" className="navbar__links">
                             Workspace
-                            </a>
-                        </li>
-                        <li className="navbar__item">
-                            <a href="/viewprofile" className="navbar__links">
-                            Profile
                             </a>
                         </li>
                         <li className="navbar__btn">

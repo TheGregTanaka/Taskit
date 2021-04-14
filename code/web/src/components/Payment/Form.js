@@ -1,23 +1,16 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
+import Paper from '@material-ui/core/Paper';
+import { Button } from '@material-ui/core';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 
-import { CardElement, injectStripe  } from 'react-stripe-elements';
-import Paper from '@material-ui/core/Paper';
-import { Button } from '@material-ui/core';
-import Typography from "@material-ui/core/Typography";
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+
 
 const Form = (props) => {
+    // ------------------------------------- Get User Info -------------------------------------
     const api = process.env.REACT_APP_DATA_API;
-    const [error, setError] = useState(false);
-    const [notify, setNotify] = useState(false);
-    const [notifyMsg, setNotifyMsg] = useState({
-        severity: "success",
-        message: ""
-    });
-    const handleClose = () => { setNotify(false); };
-
     const userInfo = JSON.parse(localStorage.getItem('user'));
     const id = userInfo ? userInfo.id : 'null';
     const [user, setUser] = useState([]);
@@ -35,46 +28,69 @@ const Form = (props) => {
         }
     }, []);
 
-
-    const [card, setCard] = useState({
-        name: "Firstname Lastname",
-        email: user.email,
-        amount: props.amount,
+    // ------------------------------------- Set notification bar -------------------------------------
+    const [notify, setNotify] = useState(false);
+    const [notifyMsg, setNotifyMsg] = useState({
+        severity: "success",
+        message: ""
     });
+
+    const handleClick = () => { setNotify(true); };
+    const handleClose = () => { setNotify(false); };
+
+    // ------------------------------------- Stripe Process -------------------------------------
+    const [isProcessing, setProcessingTo] = useState(false);
+    const [error, setError] = useState(true);
+    
+    const elements = useElements();
+    const stripe = useStripe();
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        
-        try {
-            let token = await props.stripe.createToken({ name: card.email });
 
-            axios.post(`${api}/payment`, {token, card})
-                .then((response) => {
-                    // console.log(response.data[0]);
-                    setError(false);
-                })
-                .catch(err => {
-                    setError(true);
-                })
-                setNotifyMsg({severity:"success", message:"Payment Confirmed!"});
-                window.location.reload();
-        } catch(e) {
-            setNotifyMsg({severity:"error", message:"Payment not Confirmed!"});
-            setError(true);
-            throw e;
-        }
+        const billingDetails = {
+            name: user.name,
+            email: user.email,
+            address: {
+              city: e.target.city.value,
+              line1: e.target.address.value,
+              state: e.target.state.value,
+              postal_code: e.target.zip.value
+            }
+        };
+        setProcessingTo(true);
+
+        const { data: clientSecret } = await axios.post(`${process.env.REACT_APP_DATA_API}/payment`, {
+            amount: props.amount * 100,
+            worker: props.worker[0]
+        });
+
+        const cardElement = elements.getElement(CardElement);
+
+        const paymentMethodReq = await stripe.createPaymentMethod({
+            type: 'card',
+            card: cardElement,
+            billing_details: billingDetails,
+        });
+
+        const confirmCardPayment = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: paymentMethodReq.paymentMethod.id,
+        });
+        setError(false)
+        console.log(confirmCardPayment);
+        setNotifyMsg({severity:"success", message:"Payment Confirmed!"});
         setNotify(true);
-        
-        if(!error) {
-            axios.patch(`${api}/task/${props.taskID}`, {
-                data: { statusID: 5}
-              })
-              .then( 
-                    console.log("Successfully changed statusID(4 -> 5)")
-                )
-        }
-        console.log(props.taskID)
+
+        axios.patch(`${api}/task/${props.taskID}`, { data: { statusID: 5} })
+            .then( 
+                console.log("Successfully changed statusID(4 -> 5)")
+            )
+        window.location.reload();
     };
+
+    const cardElementOptions = {
+        hidePostalCode: true,
+    }
 
     return (
         <div className="">
@@ -83,24 +99,43 @@ const Form = (props) => {
                 {notifyMsg.message}
                 </Alert>
             </Snackbar>
-            <Paper style={{width:"35vw"}}>
+            <Paper style={{padding:"10px"}}>
                 <main className="" style={{marginTop:"1%", padding:"10px"}}>
                     <form onSubmit={handleSubmit}>
                         <label style={{fontSize:"20px"}}>Hello, {user.name}</label><br/><hr/><br/>
-                        <label style={{fontSize:"15px"}}>Email: {user.email}</label><br/><br/>
+                        <label style={{fontSize:"14px"}}>Email: <br/> {user.email}</label><br/><br/>
+                        <label htmlFor="address">Address</label>
+                        <input name="address" type="text" required />
+
+                        <div className="row">
+                            <div className="col">
+                                <label htmlFor="city">City</label>
+                                <input name="city" type="text" required />
+                            </div>
+                            <div className="col">
+                                <label htmlFor="state">State</label>
+                                <input name="state" type="text" required />
+                            </div>
+                            <div className="col">
+                                <label htmlFor="zip">Zip</label>
+                                <input name="zip" type="text" required />
+                            </div>
+                        </div>
+
                         <label>CC Number -- Exp. Date -- CVC</label>
                         <div style={{padding:"10px", border:"1px solid #000", borderRadius:"25px"}}>
-                            <CardElement />
+                            <CardElement options={cardElementOptions} />
                         </div>
                         <br/>
-                        <Button variant="contained" color="inherit" type="submit">Pay ${props.amount}</Button>
+
+                        <Button disabled={isProcessing || !stripe} variant="contained" color="inherit" type="submit">
+                            {isProcessing ? "Processing..." : `Pay $${props.amount}`}
+                        </Button>
                     </form>
                 </main>
             </Paper>
-
-            
         </div>
     )
 }
 
-export default injectStripe(Form);
+export default Form;

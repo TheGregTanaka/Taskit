@@ -38,8 +38,8 @@ app.use((req, res, next) => {
   next();
 });
 app.use(cors());
-
 app.use(express.static('public'));
+app.use(cookieParser());
 
 app.use('/companyProfile', companyProfileRouter);
 app.use('/login', login);
@@ -48,24 +48,19 @@ app.use('/review', reviewRouter);
 app.use('/task', taskRouter);
 app.use('/type', typeRouter);
 app.use('/user', userRouter);
-app.use('/registration',registrantion);
-
+app.use('/registration', registrantion);
 app.use('/editProfile', profileRouter);
 
 
 app.get('/', (req, res) => {
   var s = 'Welcome to the Taskit API. ' +
     '<a href="https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/blob/main/code/api/README.md">' +
-    'Click here to read the documentation.</a>';
+    'Click here to read the documentation.</a><br>' + 
+    '<a href="https://taskit-frontend.herokuapp.com/">Click here to visit the app</a>';
   res.send(s);
 });
 
 app.listen(port, () => {
   console.log(`Running on port ${port}`);
 });
-
-
-
-
-
 

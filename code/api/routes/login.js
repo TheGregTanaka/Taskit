@@ -1,5 +1,5 @@
 const express = require('express');
-const errorType = require('../enums.js');
+const errorType = require('../config/enums.js');
 
 
 function routes(UserProfile) {
@@ -23,7 +23,6 @@ function routes(UserProfile) {
           return res.json("Server error");
         }
 
-        //TODO https?
         res.cookie("jwt", token, {secure: false, httpOnly: false});
         return res.send(body);
       });

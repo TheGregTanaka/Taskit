@@ -2,7 +2,7 @@ require('dotenv').config();
 const sql = require("../db.js");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const errorType = require('../enums.js');
+const errorType = require('../config/enums.js');
 const saltRounds = 10;
 
 const UserProfile = function(user) {
@@ -15,8 +15,6 @@ const UserProfile = function(user) {
 
 
 UserProfile.create = (newUser, result) => {
-  console.log(newUser);
-  //TODO validate email field exists? Should be required field by form
   //check if existing user
   sql.executeQuery(`SELECT email FROM userProfile WHERE email = "${newUser['email']}";`,
     (err, res) => {
@@ -59,7 +57,6 @@ UserProfile.create = (newUser, result) => {
 
 
 UserProfile.getOne = (userID, result) => {
-  console.log(`up.getOne ${userID}`);
   sql.executeQuery(
     `SELECT 
        email, 
@@ -76,7 +73,6 @@ UserProfile.getOne = (userID, result) => {
        }
        if (res) {
          //console.log("found: ", res['row']);
-         console.log("found: ", JSON.stringify(res));
          result(null, res['rows']);
          return;
        } else {
@@ -87,7 +83,6 @@ UserProfile.getOne = (userID, result) => {
 };
 
 UserProfile.update = (id, user, result) => {
-  console.log(user);
   var updateStr = `UPDATE userProfile SET`;
   for (const key in user) {
     updateStr += ` ${key} = "${user[key]}",`;
@@ -185,11 +180,11 @@ UserProfile.createCookie = (id, email, res) => {
   const payload = {email: email}
   accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
     algorithm: "HS256",
-    expiresIn: process.env.ACCESS_TOKEN_LIFE
+    expiresIn: `${process.env.ACCESS_TOKEN_LIFE}s`
   });
   refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
     algorithm: "HS256",
-    expiresIn: process.env.REFRESH_TOKEN_LIFE
+    expiresIn: `${process.env.REFRESH_TOKEN_LIFE}s`
   });
 
   //store refresh token in DB
@@ -199,12 +194,13 @@ UserProfile.createCookie = (id, email, res) => {
         res(e, null);
         return;
       }
-      console.log("token saved");
     }
   );
+
   res(null, accessToken);
   return;
 }
+
 
 //utilities - maybe create controllers class?
 UserProfile.calcRating = (userID) => {

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import Avatar from '@material-ui/core/Avatar';
 import { Redirect } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
