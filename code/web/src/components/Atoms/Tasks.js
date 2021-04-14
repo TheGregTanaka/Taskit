@@ -109,7 +109,7 @@ import { Types} from '../../constants/tasks';
       
                 <div>
         <Card style={{ width: 900 }}>
-          <CardActionArea>
+          <CardActionArea  onClick={handleOpen}>
             <CardMedia
               component="img"
               height="400"
