@@ -181,7 +181,6 @@ Task.byUser = (type, req, result) => {
       return;
     }
     if (res) {
-      console.log("found: ", JSON.stringify(res));
       result(null, res['rows']);
       return;
     } else {

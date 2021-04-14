@@ -10,12 +10,13 @@ const NavbarV2 = () => {
         if(toggle) { setToggle(false); } else { setToggle(true); }
     }
 
-  const userData = JSON.parse(localStorage.getItem('user'));
+    const userData = JSON.parse(localStorage.getItem('user'));
+    const [loggedIn, setLoggedIn] = useState(!!userData);
     let log = "Login";
     let action = "/login";
     let b1 = "SignUp";
     let b1Act = "/registeration";
-    if (userData) {
+    if (loggedIn) {
       b1 = "Profile";
       b1Act = "/viewprofile";
       log = "Logout";

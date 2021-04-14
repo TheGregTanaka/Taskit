@@ -6,7 +6,7 @@ var datapool = mysql.createPool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.SCHEMA,
-  debug: process.env.DB_DEBUG
+  debug: false
 });
 datapool.on('connection', function(connection) {
   console.log('DB Connected');
