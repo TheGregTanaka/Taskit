@@ -67,10 +67,7 @@ export default function Login() {
       setError(user.error);
     }
   }
-  if (userData) {
-    return (<Redirect to="/feed" />);
-  } else {
-    return (
+  return (
 <Container component="main" maxWidth="xs" style={{backgroundColor: "white", marginCenter:'3%'}} >
 <CssBaseline />
 <div className={classes.paper}>
@@ -126,6 +123,5 @@ export default function Login() {
 </Box>
 </Container>
 );  
-  }
 }
 

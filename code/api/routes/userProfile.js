@@ -1,4 +1,5 @@
 const express = require('express');
+const {authenticate} = require('../middleware');
 
 function routes(UserProfile) {
   const router = express.Router();
@@ -10,10 +11,10 @@ function routes(UserProfile) {
       });
     });
 
-  router.route('/:userProfileID')
+  router.route('/:id')
     .get((req, res) => {
-      console.log(req.params.userProfileID);
-      UserProfile.getOne(req.params.userProfileID, (err, userProfile) => {
+      console.log(req.params.id);
+      UserProfile.getOne(req.params.id, (err, userProfile) => {
         if(err) {
           return res.send(err);
         }
@@ -23,20 +24,18 @@ function routes(UserProfile) {
         return res.sendStatus(404);
       });
     })
-  //.put(UserProfile.update)
-    .patch((req, res) => {
-      UserProfile.update(req.params.userProfileID, req.body, (err, r) => {
+    .patch(authenticate, (req, res) => {
+      UserProfile.update(req.params.id, req.body, (err, r) => {
         if (err) {
           console.log(err);
           return res.send(err);
         }
         //todo proper response
         return res.sendStatus(204);
-
       })
     })
-    .delete((req, res) => {
-      UserProfile.delete(req.params.userProfileID, (err, r) => {
+    .delete(authenticate, (req, res) => {
+      UserProfile.delete(req.params.id, (err, r) => {
         if (err) {
           return res.send(err);
         }
