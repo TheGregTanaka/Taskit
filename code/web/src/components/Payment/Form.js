@@ -62,7 +62,7 @@ const Form = (props) => {
         setProcessingTo(true);
 
         const { data: clientSecret } = await axios.post(`${process.env.REACT_APP_DATA_API}/payment`, {
-            amount: props.amount * 100,
+            amount: props.amount * 100
         });
 
         const cardElement = elements.getElement(CardElement);
@@ -81,7 +81,6 @@ const Form = (props) => {
 
         setNotifyMsg({severity:"success", message:"Payment Confirmed!"});
         setNotify(true);
-        window.location.reload();
     };
 
     const cardElementOptions = {
