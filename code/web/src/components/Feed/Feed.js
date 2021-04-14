@@ -45,6 +45,8 @@ const Feed = () => {
       return () => { mountedRef.current = false; }
   }, []);
 
+  console.log(tasks)
+
   return (
     <div className="container">
     <div className={useStyles.root} 
@@ -52,7 +54,7 @@ const Feed = () => {
         {Types.map((type) => (
           <Button 
             variant="contained"
-            // color={type.id == typeID ? "secondary" : "primary"}
+            color={type.id == typeID ? "secondary" : ""}
             key={type.id} 
             style={{marginLeft:"0.1vw", marginRight:"0.1vw", marginTop:"2%"}}
             href={'/feed?t=' + type.abbr}>
@@ -77,6 +79,7 @@ const Feed = () => {
               email={task.email} phone={task.phone}
               posted={task.datePosted}
               address={task.address} city={task.city} state={task.state} zip={task.zip} country={task.country}
+              taskerID={task.taskerID}
             />
           ))}
         </div>

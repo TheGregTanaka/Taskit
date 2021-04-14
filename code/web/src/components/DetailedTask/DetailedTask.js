@@ -166,6 +166,9 @@ const DetailedTask = ({workerID, taskID, typeID,
             setShowTask(false);
             // window.location.reload();
           })
+        }else if (status == "Pending Payment" || status == "Confirmation Required") {
+          setShowTask(true);
+          setNotifyMsg({severity:"error", message:"You cannot delete a task that has already been accepted."});
       }
     };
 
@@ -191,7 +194,7 @@ const DetailedTask = ({workerID, taskID, typeID,
       {/* Display task on modal as bigger version */}
       <Modal isOpen={modalIsOpen} style={customStyles} ariaHideApp={false} onRequestClose={()=> setModalIsOpen(false)}>
         <Button size="large" color="primary" style={{float:"right", border:"0", backgroundColor:"white", fontSize:"20px"}} onClick={setModalIsOpenToFalse}><CloseIcon/></Button>
-        <EnlargeTask name={name} price={price} description={description} email={email} phone={phone} 
+        <EnlargeTask name={name} price={price} description={description} workerID={workerID} email={email} phone={phone} 
                       address={address} city={city} state={state} zip={zip} country={country} />
       </Modal>
 

@@ -66,7 +66,8 @@ import { Types} from '../../constants/tasks';
     };
   
     const body = (
-      <div className={classes.paper} style={{top:'15%', left:'19%'}}> 
+      
+        <div className={classes.paper} style={{top:'15%', left:'19%'}}>
           <center>
         <Card style={{ width: 900 , height:500, }}>
           <CardActionArea>
@@ -102,6 +103,7 @@ import { Types} from '../../constants/tasks';
         </Card>
         </center>
       </div>
+      
     );
   
     return (
