@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
-import { Button, Card } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 
@@ -9,6 +9,7 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
 
 const Form = (props) => {
+    // ------------------------------------- Get User Info -------------------------------------
     const api = process.env.REACT_APP_DATA_API;
     const userInfo = JSON.parse(localStorage.getItem('user'));
     const id = userInfo ? userInfo.id : 'null';
@@ -27,8 +28,7 @@ const Form = (props) => {
         }
     }, []);
 
-
-    // Set notification bar
+    // ------------------------------------- Set notification bar -------------------------------------
     const [notify, setNotify] = useState(false);
     const [notifyMsg, setNotifyMsg] = useState({
         severity: "success",
@@ -38,10 +38,9 @@ const Form = (props) => {
     const handleClick = () => { setNotify(true); };
     const handleClose = () => { setNotify(false); };
 
-    
-
-    // Stripe Process
+    // ------------------------------------- Stripe Process -------------------------------------
     const [isProcessing, setProcessingTo] = useState(false);
+    const [error, setError] = useState(true);
     
     const elements = useElements();
     const stripe = useStripe();
@@ -62,7 +61,8 @@ const Form = (props) => {
         setProcessingTo(true);
 
         const { data: clientSecret } = await axios.post(`${process.env.REACT_APP_DATA_API}/payment`, {
-            amount: props.amount * 100
+            amount: props.amount * 100,
+            worker: props.worker[0]
         });
 
         const cardElement = elements.getElement(CardElement);
@@ -76,11 +76,16 @@ const Form = (props) => {
         const confirmCardPayment = await stripe.confirmCardPayment(clientSecret, {
             payment_method: paymentMethodReq.paymentMethod.id,
         });
-
+        setError(false)
         console.log(confirmCardPayment);
-
         setNotifyMsg({severity:"success", message:"Payment Confirmed!"});
         setNotify(true);
+
+        axios.patch(`${api}/task/${props.taskID}`, { data: { statusID: 5} })
+            .then( 
+                console.log("Successfully changed statusID(4 -> 5)")
+            )
+        window.location.reload();
     };
 
     const cardElementOptions = {
@@ -94,12 +99,11 @@ const Form = (props) => {
                 {notifyMsg.message}
                 </Alert>
             </Snackbar>
-            <Paper style={{width:"35vw"}}>
+            <Paper style={{padding:"10px"}}>
                 <main className="" style={{marginTop:"1%", padding:"10px"}}>
                     <form onSubmit={handleSubmit}>
                         <label style={{fontSize:"20px"}}>Hello, {user.name}</label><br/><hr/><br/>
-                        <label style={{fontSize:"15px"}}>Email: {user.email}</label><br/><br/>
-
+                        <label style={{fontSize:"14px"}}>Email: <br/> {user.email}</label><br/><br/>
                         <label htmlFor="address">Address</label>
                         <input name="address" type="text" required />
 
