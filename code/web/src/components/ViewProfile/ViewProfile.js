@@ -5,13 +5,15 @@ import './ViewProfile.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import { Button } from '@material-ui/core'; 
+import { Button, Card } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
 
 import EditProfile from './EditProfile';
 
 
 const ViewProfile = ({login}) => {
     const [profile, setProfile] = useState([]);
+    const [avgRating, setAvgRating] = useState([]);
     const [err, setErr] = useState(false);
 
     const api = process.env.REACT_APP_DATA_API;
@@ -19,12 +21,15 @@ const ViewProfile = ({login}) => {
     const user = JSON.parse(localStorage.getItem('user'));
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_DATA_API}/user/${user.id}`) //url from node js server (get & post request)
-            .then((response) => {
-                setProfile(response.data[0]); //response.data is data from request
+        axios.all([
+            axios.get(`${process.env.REACT_APP_DATA_API}/user/${user.id}`),
+            axios.get(`${process.env.REACT_APP_DATA_API}/review/getAvgRating/${user.id}`)
+        ]) //url from node js server (get & post request)
+            .then(axios.spread((userRes, avgRatingRes) => {
+                setProfile(userRes.data[0]);
+                setAvgRating(avgRatingRes.data[0]);
                 setErr(false);
-                //console.log("Res: ", response.data);
-            })
+            }))
             .catch(err => {
                 setErr(true);
                 console.log(err);
@@ -32,18 +37,18 @@ const ViewProfile = ({login}) => {
     }, []);
     return (
             <div class="container">
+                
                 <div class="row">
                     <div class="col-10">&nbsp;</div>
                         <div class="col-2" style={{float:"right"}}>
-                            <a href="./EditProfile">
-                                <button varient="contained" color="inherit">Edit Profile</button>
-                            </a> 
+                                <Button variant="contained" color="" href="./EditProfile">Edit Profile</Button>
                         </div>
                     </div> 
                 <div class="row">
+                <Paper>
                     <div class="col-4">
                         <div class="card">
-                            <img class="card-img-top" src={profile_imag} width="150"></img>
+                            {/* <img class="card-img-top" src={profile_imag} width="150"></img> */}
                         </div>
                     </div>
                     <div class="col-8">
@@ -59,8 +64,7 @@ const ViewProfile = ({login}) => {
                                     Rating:
                                 </th>
                                 <td>
-                                    5/5 
-                                    {/* Import Star Rating System */}   
+                                    {avgRating.avgRating} / 5
                                 </td>
                             </tr>
                             <tr>
@@ -81,7 +85,9 @@ const ViewProfile = ({login}) => {
                             </tr>
                         </div>
                     </div>
+                    </Paper>
                 </div>
+                
             </div>
     )
 }

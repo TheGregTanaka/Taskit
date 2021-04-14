@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "../App/App.css";
 import Task from "../Atoms/Tasks.js";
 import axios from "axios";
@@ -25,6 +25,7 @@ const Feed = () => {
   const { search } = useLocation();
   const type = queryString.parse(search);
   const typeID = TypeID[type.t];
+  const mountedRef = useRef(true)
 
 
   useEffect(() => {
@@ -41,27 +42,28 @@ const Feed = () => {
         setErr(true);
         console.log(err);
       });
+      return () => { mountedRef.current = false; }
   }, []);
 
   return (
     <div className="container">
-        <Typography gutterBottom variant="h2" component="h1" align="center">
-          Feed:
-        </Typography>
     <div className={useStyles.root} 
         style={{ marginLeft: "5%", marginRight: "5%", alignContent: "center", width: "100%"}}>
         {Types.map((type) => (
           <Button 
-            variant="contained" 
-            color={type.id == typeID ? "secondary" : "primary"}
+            variant="contained"
+            // color={type.id == typeID ? "secondary" : "primary"}
             key={type.id} 
+            style={{marginLeft:"0.1vw", marginRight:"0.1vw", marginTop:"2%"}}
             href={'/feed?t=' + type.abbr}>
           {type.name}
           </Button>
         ))}
         <Button
           variant="contained"
+          color="secondary"
           key="none"
+          style={{marginTop:"2%"}}
           href={'/feed'}>
         Reset Filter
         </Button>
