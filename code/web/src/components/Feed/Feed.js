@@ -51,7 +51,7 @@ const Feed = () => {
         style={{ marginLeft: "5%", marginRight: "5%", alignContent: "center", width: "100%"}}>
         {Types.map((type) => (
           <Button 
-            variant="contained",
+            variant="contained"
             color={type.id == typeID ? "secondary" : "primary"}
             key={type.id} 
             style={{marginLeft:"0.1vw", marginRight:"0.1vw", marginTop:"2%"}}
