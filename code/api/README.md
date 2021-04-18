@@ -34,9 +34,9 @@ On success, returns:
 - Signed JWT Cookie
 - JSON body `{ id:userID, email:"user@email.com"}`. The react app will save this in session.
 
-### `\payment`
+### `/payment`
 
-### `\review/:workerID`
+### `/review/:workerID`
 Body must include:
 - review
   - rating
