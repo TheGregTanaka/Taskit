@@ -18,12 +18,11 @@ See the README at the root of the project directory for details on running the d
 * workerID - _(int)_
 * datePosted - _(date)_
 * dateCompleted - _(date)_
-* img - _(varchar128)_
 * address - _(varchar128)_
-* lat - _(float)_
-* lng - _(float)_
-* redirect - _(varchar128)_
-* remotePossible - _(bool) **_
+* city - _(varchar128)_
+* state - _(varchar128)_
+* zip - _(varchar20)_
+* country - _(varchar128)_
 
 ##### \* statusID defaults to 1 ('Pending') on creation, indicating the task is open for workers to accept.
 ##### \** remotePossible defaults to false. We may or may not end up using this, but this could be used to indicate that a location is not needed for the task.
@@ -41,7 +40,6 @@ See the README at the root of the project directory for details on running the d
 * email - _(varchar128) NN, U_
 * password - _(varchar128) NN_
 * name - _(varchar128) NN_
-* profilePicture - _(varchar128)_
 * phone - _(varchar20)_
 * bio - _(longtext)_
 * token - _(varchar128) *_

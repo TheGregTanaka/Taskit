@@ -46,7 +46,6 @@ UserProfile.create = (newUser, result) => {
             };
             result(null,{id: res.rows.insertId, email:newUser['email']},token);
           });
-          console.log("created user: ", { id: res.rows.insertId, ...newUser });
         });
         return;
       };
@@ -72,7 +71,6 @@ UserProfile.getOne = (userID, result) => {
          return;
        }
        if (res) {
-         //console.log("found: ", res['row']);
          result(null, res['rows']);
          return;
        } else {
@@ -102,7 +100,6 @@ UserProfile.update = (id, user, result) => {
       return;
     }
 
-    console.log("updated user: ", { id: id, ...user });
     result(null, { id: id, ...user });
   }
   );
@@ -122,7 +119,6 @@ UserProfile.delete = (id, result) => {
       return;
     }
 
-    console.log("deleted user: ", { id: id });
     result(null, res);
   }
   );

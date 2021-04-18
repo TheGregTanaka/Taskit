@@ -37,7 +37,6 @@ const queryStr = `SELECT
 
 Task.create = (newTask, result) => {
   let kStr, vStr;
-  //newTask = newTask.task
   kStr = vStr = "(";
   for (const key in newTask) {
     kStr += key + ",";
@@ -230,8 +229,6 @@ Task.getRequiredConfirmation = (req, result) => {
 };
 	
 Task.update = (id, task, result) => {
-  console.log(id);
-  console.log(task);
   if(task.hasOwnProperty('data')) { task = task.data; }
   
   var updateStr = `UPDATE task SET`;
@@ -253,7 +250,6 @@ Task.update = (id, task, result) => {
       return;
     }
 
-    console.log("updated task: ", { id: id, ...task});
     result(null, { id: id, ...task });
   }
   );
@@ -272,7 +268,6 @@ Task.delete = (id, result) => {
       return;
     }
 
-    console.log("deleted task: ", { id: id });
     result(null, res);
   }
   );

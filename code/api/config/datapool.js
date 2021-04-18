@@ -9,7 +9,6 @@ var datapool = mysql.createPool({
   debug: false
 });
 datapool.on('connection', function(connection) {
-  console.log('DB Connected');
    connection.on('error', function(err) {
      console.error(new Date(), 'MySQL error', err.code);
    });

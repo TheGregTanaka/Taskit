@@ -35,7 +35,6 @@ function refreshSession(req, res, next) {
     console.log(e);
     return res.sendStatus(403);
   }
-  console.log('a');
   let data = sql.executeQuery(`SELECT email, token FROM userProfile WHERE id = ${req.params.id};`,
     (e, r) => {
       if (e) {

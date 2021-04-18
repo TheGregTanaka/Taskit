@@ -11,10 +11,7 @@ const Review = function(user) {
     Review.get will retrieve reviews and userprofile infomation based on workerID
 */
 Review.get = (req, result) => {
-    console.log("[Review.js] - Get Request");
-
     var workerID = req.params.workerID;
-
     var query = `SELECT review.id, review.rating, review.description, userProfile.email, userProfile.name, userProfile.profilePicture
                     FROM review
                     JOIN task ON review.taskID = task.id
@@ -40,7 +37,6 @@ Review.get = (req, result) => {
     }
 */
 Review.create = (newReview, result) => {
-    console.log("[Review.js] - Post Request");
 
     var rating = newReview.body.review.rating;
     var description = newReview.body.review.description;
@@ -58,7 +54,6 @@ Review.create = (newReview, result) => {
     });
     
     var insertReview = { rating: rating, description: description, taskID: taskID };
-    console.log('Review has successfully been create', insertReview);
 
     result(null, insertReview);
     return;
