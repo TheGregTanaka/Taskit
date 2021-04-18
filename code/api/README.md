@@ -11,7 +11,7 @@ Method | Route | Action | Body | Query String Parameters
 [`GET`]() | [`/review/:workerID`]() | Gets reviews for the specified user | none | 
 [`GET`]() | [`/review/getAvgRating/:workerID`]() | Gets the average rating for the specified user | none | 
 [`GET`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#get) | [`/task`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#task-1) | Gets a listing of all tasks | none | `status`, `type`
-[`GET`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#get) | [`/task/getFeed`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#taskgetfeed) | Gets all tasks in a givin status | none | `type`
+[`GET`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#get) | [`/task/getFeed`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#taskgetfeed) | Gets all tasks in pending status | none | `type`
 [`GET`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#get) | [`/task/:taskID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#tasktaskid) | Gets task by id | none |
 [`GET`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#get) | [`/task/tasker/:taskerID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#tasktaskertaskerid) | Gets all tasks created by a givin tasker | none |
 [`GET`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#get) | [`/task/worker/:workerID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#taskworkerworkerid) | Gets all tasks accepted by a givin worker | none |
