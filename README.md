@@ -73,7 +73,11 @@ npm start
 This will start the application on `localhost:3000`.
 
 
-To push to heroku, from the `code/web` directory run `npm run publishHeroku`
+To push to heroku, from the `code/web` directory run: 
+```
+cp env.dev .env.development
+npm run publishHeroku
+```
 
 
 ---
