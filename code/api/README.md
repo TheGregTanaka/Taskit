@@ -16,11 +16,12 @@ Method | Route | Action | Body | Query String Parameters
 [`GET`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#get) | [`/task/tasker/:taskerID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#tasktaskertaskerid) | Gets all tasks created by a givin tasker | none |
 [`GET`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#get) | [`/task/worker/:workerID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#taskworkerworkerid) | Gets all tasks accepted by a givin worker | none |
 [`GET`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#get) | [`/user/:userID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#useruserid) | Gets specified user by id | none  |
-[`PATCH`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#patch) | [`/user/:userID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#useruserid-1) | Updates specified user | Fields and updated info |
+[`PATCH`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#patch) | [`/user/:userID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#useruserid-1)\* | Updates specified user | Fields and updated info |
 [`PATCH`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#patch) | [`/task/:taskID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#tasktaskid-1) | Updates specified task | Fields and updated info |
 [`DELETE`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#delete) | [`/task/:taskID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#tasktaskid-2) | Removes specified task | none |
 [`DELETE`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#delete) | [`/user/:userID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#useruserid-2) | Removes specified user | none |
 
+\* Requires login
 
 Below is detailed info on using each route. Keys are case sensitive.
 
@@ -274,7 +275,7 @@ Returns the user specified by `userID`
 
 ## PATCH
 ### `/user/:userID`
-Updates the specified user.
+Updates the specified user. Request must include cookie with signed token. This can be generated with the /login route.
 
 Body should include only the fields being updated.
 
