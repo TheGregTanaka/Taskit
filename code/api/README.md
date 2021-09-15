@@ -1,25 +1,4 @@
 # Taskit Rest API Routes
-The below table is a table of contents, click on Methods or Routes to jump to those sections.
-Method | Route | Action | Body | Query String Parameters
----|---|---|---|---
-[`POST`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#post) | [`/login`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#login) | Authenticate user | Body should contain the email and hashed password |
-[`POST`]() | [`/payment`]() | Submit payment | |
-[`POST`]() | [`/review/:workerID`]() | Create review | Body should contain review info including taskID |
-[`POST`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#post) | [`/task`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#task) | Creates new task | New task data |
-[`POST`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#post) | [`/user`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#user) | Creates new user | New user profile data |
-[`GET`]() | [`/companayProfile/:workerID`]() | Gets data for the company profile page, tasks and reviews | none | 
-[`GET`]() | [`/review/:workerID`]() | Gets reviews for the specified user | none | 
-[`GET`]() | [`/review/getAvgRating/:workerID`]() | Gets the average rating for the specified user | none | 
-[`GET`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#get) | [`/task`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#task-1) | Gets a listing of all tasks | none | `status`, `type`
-[`GET`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#get) | [`/task/getFeed`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#taskgetfeed) | Gets all tasks in pending status | none | `type`
-[`GET`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#get) | [`/task/:taskID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#tasktaskid) | Gets task by id | none |
-[`GET`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#get) | [`/task/tasker/:taskerID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#tasktaskertaskerid) | Gets all tasks created by a givin tasker | none |
-[`GET`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#get) | [`/task/worker/:workerID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#taskworkerworkerid) | Gets all tasks accepted by a givin worker | none |
-[`GET`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#get) | [`/user/:userID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#useruserid) | Gets specified user by id | none  |
-[`PATCH`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#patch) | [`/user/:userID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#useruserid-1) | Updates specified user | Fields and updated info |
-[`PATCH`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#patch) | [`/task/:taskID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#tasktaskid-1) | Updates specified task | Fields and updated info |
-[`DELETE`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#delete) | [`/task/:taskID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#tasktaskid-2) | Removes specified task | none |
-[`DELETE`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#delete) | [`/user/:userID`](https://github.com/CSCI-3308-CU-Boulder/3308SP21_011_6/tree/main/code/api#useruserid-2) | Removes specified user | none |
 
 \* Requires login
 
